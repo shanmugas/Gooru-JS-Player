@@ -29,7 +29,7 @@ var scollectionPlay = {
             $('div#gooru-collection-player-base-container').html(collectionInfo).css('height', $(window).height());
             return;
         }
-        var url = GOORU_REST_ENDPOINT + '/collection/' + param.id + '?includeCollectionItem=true&includeMetaInfo=true';
+        var url = GOORU_REST_ENDPOINT + '/v2/collection/' + param.id + '?includeCollectionItem=true&includeMetaInfo=true';
         $.ajax({
             type: 'GET',
             url: url,
@@ -83,7 +83,7 @@ var scollectionPlay = {
         scollectionPlay.collectionPlayDialogBox('#collection-voc-dialog-container', 400, true, 'auto');
         scollectionPlay.collectionPlayDialogBox('#collection-standards-dialog-container', 696, true, 'auto');
         scollectionPlay.showCollectionPlayResourcePreview(data);
-        var pageNum = 0;
+        var pageNum = 1;
 
         scollectionPlay.collectionSummaryPage(pageNum);
         scollectionPlay.collectionPlayEventHandle(data);
@@ -563,7 +563,7 @@ var scollectionPlay = {
 		    HOME_URL: HOME_URL,
 		    TOKEN : USER.sessionToken
                 });
-                $("#gooru-collection-player-base-container").html(featuredCollectionTemplate);
+                $("#gooru-collection-player-resource-summary-container").html(featuredCollectionTemplate);
                 $(".searchCollectionBox").mouseover(function () {
                     $(this).find(".collectionImageOverlay, .collectionImageOverlays, .playIconSmall").stop(true, true).fadeIn(300);
                     $(this).find(".collectionImageOverlay, .collectionImageOverlays").css("display", "block");
@@ -625,6 +625,6 @@ function onYouTubeStateChange(playerStatusId) {
 $(document).ready(function () {
 
     //helper.userSignin({onComplete:scollectionPlay.init});
-    scollectionPlay.collectionSummaryPage(1);
-    //scollectionPlay.init();
+   // scollectionPlay.collectionSummaryPage(1);
+    scollectionPlay.init();
 });
