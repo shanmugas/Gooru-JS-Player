@@ -77,15 +77,15 @@ div#gooru-resource-player-header-container {
   filter: progid;
 }
 
-div.gooru-all-icon { 
+/*div.gooru-all-icon { 
   background: url("${gooru.player.static.file}/images/All-icon-sprit-images.png")
 		repeat scroll 0 0 transparent;
-}
+}*/
 
-div.gooru-all-tool-icon { 
+/*div.gooru-all-tool-icon { 
   background: url("${gooru.player.static.file}/images/all-icon-tool-spirt-image.png")
 		repeat scroll 0 0 transparent;
-}
+}*/
 
 div#gooru-branded-log { 
   width: 115px;
