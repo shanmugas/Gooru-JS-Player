@@ -1,0 +1,33 @@
+<% if (resourceCollection.searchResults.length > 0 ) { %>
+   <div id="learn-more-collection-text-container">
+      <div id="learn-more-collection-text-content">
+	  <p>This resource is also in</p>
+	  <p>the following collections:</p>
+      </div>
+   </div>
+<% } %>
+<% for(var resourceCollectionIndex=0; resourceCollectionIndex< resourceCollection.searchResults.length; resourceCollectionIndex++) { %>
+<div class="learn-more-image-container">  
+  <a href="<%= HOME_URL %>/c?id=<%= resourceCollection.searchResults[resourceCollectionIndex].id %>&session_token=<%=TOKEN%>" target="_self">
+    <div class="learn-more-image"> 
+	<img onerror="this.src='../images/default-collection-image-160x120.png';" src="<% if (typeof(resourceCollection.searchResults[resourceCollectionIndex].thumbnails.url) != 'undefined' && resourceCollection.searchResults[resourceCollectionIndex].thumbnails.url != null) { 
+		var fileExtension = resourceCollection.searchResults[resourceCollectionIndex].thumbnails.url.split('.').pop();
+		var generatedThumbnailName = resourceCollection.searchResults[resourceCollectionIndex].thumbnails.url.split('.'+fileExtension)[0];
+	%> <%= generatedThumbnailName + '-160x120.' + fileExtension %> <% } else { %> none <% } %>">
+    </div>
+    <div class="learn-more-title">
+      <div class="gooru-resource-player-learn-more-title-cont">
+	<div class="gooru-resource-player-learn-more-title">
+	    <%= resourceCollection.searchResults[resourceCollectionIndex].title %>
+	</div>
+      </div>
+    </div>
+    <div class="gooru-resource-player-learn-more-content">
+	<div class="gooru-resource-player-learn-more-study ie-rounded-corner">Study</div>
+	<div class="gooru-resource-player-learn-more-study-arrow gooru-resource-player-all-arrow"></div>
+    </div>
+  </a>
+</div>
+<% }%>
+
+

@@ -1,0 +1,15 @@
+<div id="gooru-collection-player-course-container" class="gooru-collection-player-dialog-container"> 
+  <div id="gooru-collection-player-course-header" class="gooru-collection-player-dialog-header">
+      <div id="gooru-collection-player-course-header-title" class="gooru-collection-player-dialog-header-title">Courses</div>
+  </div>
+  <div id="collection-balloon-meta-course-container">
+    <div id="collection-balloon-meta-course-content">
+	<% for(var courseIndex = 0; courseIndex < course.length; courseIndex++) { %>
+	    <div class="collection-dia-meta-value"><%= course[courseIndex] %></div>
+	<% } %>
+    </div>
+  </div>
+  <div class="gooru-collection-player-course-button-container gooru-collection-player-button-container">
+      <div class="gooru-collection-player-course-button-okay gooru-collection-player-button-okay">OK</div>
+  </div>
+</div>

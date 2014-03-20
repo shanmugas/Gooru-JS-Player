@@ -1,0 +1,45 @@
+<% 
+var vocabularyList = vocabulary != null ? vocabulary.split(',') : [];
+var vocabularyListSize = vocabularyList.length;
+var maxVocabularySize = 4;
+var vocabularyListOne = [];
+var vocabularyListTwo = [];
+var vocabularyCount = 0;
+if (vocabularyListSize > maxVocabularySize) {
+  var firstHalfOfTheListSize =  Math.round(vocabularyListSize / 2);
+  for(var vocabularyIndex = 0;  vocabularyIndex < vocabularyList.length; vocabularyIndex++) {
+      vocabularyCount++;
+  if (vocabularyCount <= firstHalfOfTheListSize) { 
+    vocabularyListOne.push(vocabularyList[vocabularyIndex]);
+  } else { 
+      vocabularyListTwo.push(vocabularyList[vocabularyIndex]);
+  }
+  }
+}
+%>
+<div id="gooru-collection-player-voc-container" class="gooru-collection-player-dialog-container"> 
+  <div id="gooru-collection-player-voc-header" class="gooru-collection-player-dialog-header">
+      <div id="gooru-collection-player-voc-header-title" class="gooru-collection-player-dialog-header-title">Vocabulary</div>
+  </div>
+  <div id="collection-balloon-meta-voc-container">
+    <div class="collection-meta-dia-divider-container">
+      <% if (vocabularyListOne.length > 0) { %>
+	<% for(var vocabularyIndex = 0; vocabularyIndex < vocabularyListOne.length; vocabularyIndex++) { %>
+	      <div class="collection-meta-dia-value"><%= vocabularyListOne[vocabularyIndex]%></div>
+	<% } %>
+      <% } else { %>
+	  <% for(var vocabularyIndex = 0; vocabularyIndex < vocabularyList.length; vocabularyIndex++) { %>
+		<div class="collection-meta-dia-value"><%= vocabularyList[vocabularyIndex]%></div>
+	  <% } %>  
+      <% } %>
+    </div>
+    <div class="collection-meta-dia-divider-container">
+      <% for(var vocabularyIndex = 0; vocabularyIndex < vocabularyListTwo.length; vocabularyIndex++) { %>
+	    <div class="collection-meta-dia-value"><%=vocabularyListTwo[vocabularyIndex] %></div>
+      <% } %>
+    </div>
+  </div>
+  <div class="gooru-collection-player-voc-button-container gooru-collection-player-button-container">
+      <div class="gooru-collection-player-voc-button-okay gooru-collection-player-button-okay">OK</div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<% var resourcePreviewBoxMinHeight = $(window).height() - 50;
+   var resourceSourceName =  "";
+  if (resourceSource != null) { 
+    if (resourceSource.attribution != null && resourceSource.attribution != '') {
+	resourceSourceName =  resourceSource.attribution;
+    } else {
+	resourceSourceName = resourceSource.domainName;
+    }
+  }
+  var signedBaseUrl = GOORU_REST_ENDPOINT + '/resource/signed-url/'+gooruOid;
+  resourcePreviewContainerHeight = $(window).height() - 162;
+%>
+<div class="resourcePreviewBoxPopUpContainer">
+  <div id="resourcePreviewBoxHeaderContainer" ></div>
+<div class="resourcePreviewBoxContentBaseContainer">
+<div class="resourcePreviewBoxContentContainer" style="height:<%= resourcePreviewContainerHeight %>px">
+    <% if (type != "question" && type != "resource/url" && (resourceExtenstion === "png" || resourceExtenstion === "gif" || resourceExtenstion === "jpg" || resourceExtenstion === "jpeg")) { %>
+	  <div style="text-align:center;clear:both">
+	    <div class="source-content">
+		<% 
+		  var imageUrl = "";
+		  if (isWebResource) { 
+		    imageUrl = resourceUrl;
+		  } else { 
+		    imageUrl = signedBaseUrl + "?file="+ resourceUrl;
+		  }
+		%>
+	      <img class="popUpFaceBoxImage" onerror="defaultSlide(this)" src="<%= imageUrl %>" style="min-height:400px; height:auto; width:100%; background: none repeat scroll 0% 0% #FFFFFF;">
+	    </div>
+	    
+	</div>
+    <% } else if (!useScribd && (resourceExtenstion == "pdf" || resourceExtenstion == "pptx" || resourceExtenstion == "ppt"))  { %>    	
+	<div class="resourcePreviewHandlePresentationContainer">
+	    <% 
+		docUrl = resourceUrl;
+		if (isWebResource) {
+		      signedFlag=0; 
+		} else { 
+		      signedFlag=1;
+		} 
+		var startPage = startPPT -1;
+	    %>
+	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
+	    	</div>
+    <% } else if(type == "resource/url") { %>
+	<div id="resourcePreviewWebResourceContainer">
+		    <% if(resourcestatus.statusIsFrameBreaker == 0 || resourcestatus.statusIsFrameBreaker == null) { 
+			if (resourceUrl.indexOf('youtube.com') != -1) {
+				resourceUrl = gooruHelper.formYouTubeVideoUrl(resourceUrl);  
+			}
+		    %>
+			<iframe src="<%=resourceUrl%>"  width=100% height="100%" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;"  hspace=0 vspace=0 frameborder=0 ></iframe>
+		    <% } else {  %>
+			<div class="linkedOutWebResourcePreview gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;">
+			      <div class="linkedOutWebResource">
+				  <div class="linkedOutWebResourceImage">
+				      <div class="linkedOutWebResourceImageContainer">
+					    <div class="linkedOutWebResourceImg">
+						<img width="80px" height="60px"  onerror="../defaultWebsiteThumbnail.png" src="<%= filePath %><%= thumbnail %>"></img>
+						<div class="Website-small overlay-icon"></div>                      
+					    </div>
+					    <div class="linkedOutWebResourceDetails">
+						<div class="linkedOutWebResourceTitle"><%= title %></div>
+						<div class="linkedOutWebResourceSource"><em><%= resourceSourceName %></em></div>
+					    </div>
+				      </div>
+				      <div class="linkedOutWebResourceLink">
+					  <div class="linkedOutWebResourceLinkText">
+					    View this resource by clicking this <a href="<%= resourceUrl %>" target="_blank" style="color:#1076bb;text-decoration:none"> lovely little link</a>
+					  </div>
+				      </div>
+				  </div>
+			      </div>
+			  </div>
+		    <% } %>
+	  </div>
+    <% }else if(type == 'animation/swf'){  
+    	var fileExtension = resourceUrl.split('.').pop(); 
+    	if(fileExtension == "flv"){
+    %>
+		<a href="<%= signedBaseUrl + '?file=' + resourceUrl %>"   class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;display:block;width:100%;"  id="resourcePreviewFlashContainer">	</a> 
+	<% } else {%>
+	<div id="resourcePreviewFlashContainer" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%">	</div>
+	<% } %>	
+    <% } else if(type == "animation/kmz"){%>
+	<div id="resourcePreviewGoogleEarthContainer" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%"></div>
+    <%} else if(type == "video/youtube") { %>
+	      <div id="resourcePlayYoutubeplayer-<%= gooruOid %>"  class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%" class="resourceYoutubeplayerContainer currentlyPlayingYoutubeVideoResource" data-playerid=<%= gooruOid  %>  data-videostop="<%= stopTime %>"></div>
+    <%} else if(type == "textbook/scribd") { %>
+	      <div id="resourcePreviewTextbookScribd" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%" ></div>
+    <%} %>
+  </div>
+</div>
+</div>

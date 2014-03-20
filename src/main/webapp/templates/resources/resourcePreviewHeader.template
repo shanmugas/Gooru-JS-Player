@@ -1,0 +1,24 @@
+<div id="gooru-resource-player-header-container">
+    <div id="gooru-resource-player-header-meta-left">
+	<div class="gooru-resource-type-overlay-icon gooru-resource-type-overlay-icon-<%= resourceFormatType.toLowerCase() %>"></div>
+	<div class="gooru-resource-player-content">
+	  <div class="gooru-resource-player-title"><%= title %></div>
+	  <div class="gooru-resource-player-source"><% if (resourceSource != null && typeof(resourceSource) != 'undefined' &&  resourceSource.attribution != null && typeof(resourceSource.attribution) != 'undefined') { %><%= resourceSource.attribution %> <% } %></div>
+	</div>
+    </div>
+    <div id="gooru-resource-player-header-meta-right">
+	<div id="gooru-resource-player-learn-more" class="gooru-resource-player-menu">
+	  <div id="gooru-resource-player-learn-more-header">Learn More</div>
+	  <span class="resourcePreviewHeaderNavigationArrow resourcePreviewHeaderNavigationArrowLearnMore"></span>
+	</div>
+	<div id="gooru-resource-player-learn-more-grey" >
+	  <div id="gooru-resource-player-learn-more-header-grey">Learn More</div>
+	</div>
+	<div id="gooru-resource-player-about" class="gooru-resource-player-menu">
+	    <div id="gooru-resource-player-about-header" class="gooru-resource-player-menu-about-selected">Info</div>
+	    <span class="resourcePreviewHeaderNavigationArrow resourcePreviewHeaderNavigationArrowAbout"></span>
+        </div>
+    </div>
+</div>
+<div id="gooru-resource-player-meta-container"></div>
+<div id="gooru-resource-player-container"></div>

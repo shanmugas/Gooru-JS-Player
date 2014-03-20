@@ -1,0 +1,26 @@
+<% var collectionPreviewContainerHeight = $(window).height() - 6 %>
+<% var collectionPreviewContainerImageWidth = $(window).width() - 206 %>
+<div id="gooru-collection-player-container" style="height:auto; width:<%= $(window).width() - 6 %>px">
+    <div id="gooru-collection-player-cover-page-container" style="height:<%= collectionPreviewContainerHeight %>px;">
+	<div id="gooru-collection-player-cover-page-image-container" style="height:<%= collectionPreviewContainerHeight %>px;width:<%= collectionPreviewContainerImageWidth %>px">
+	    <div id="gooru-collection-player-cover-page-image" class="unselectable" >
+	       <img style="min-height:<%= collectionPreviewContainerHeight  %>px;width:100%"  onerror="this.src='../images/study-default-image.jpg';"  src="<%= data.thumbnails.url%>"/>
+	    </div>
+	    <div id="gooru-collection-player-cover-page-image-header" style="width:<%= collectionPreviewContainerImageWidth %>px">
+		<div id="gooru-collection-player-cover-page-image-header-content">
+		  <div id="gooru-collection-player-title" class="gooru-collection-player-wrap-dots"><%= data.title %></div>
+		  <div id="gooru-collection-player-learning-objectives" class="gooru-collection-player-wrap-dots"><%= data.goals %></div>
+		</div>
+	    </div>
+	    <div id="gooru-collection-player-cover-page-study-container" style="width:<%= collectionPreviewContainerImageWidth + 2 %>px">
+		<div id="gooru-collection-player-cover-page-content">
+		    <div id="gooru-collection-player-cover-page-study" class="ie-rounded-corner">Study</div>
+		    <div id="gooru-collection-player-cover-page-study-arrow" class="gooru-collection-player-all-arrow"></div>
+		</div>
+	    </div>
+	</div>
+	<div id="gooru-collection-player-cover-page-meta-container"></div>
+    </div>
+    <div id="gooru-collection-player-resource-play-container"></div>
+    <div id="gooru-collection-player-resource-summary-container" style="height:<%= (collectionPreviewContainerHeight - 2) %>px;"></div>
+</div>

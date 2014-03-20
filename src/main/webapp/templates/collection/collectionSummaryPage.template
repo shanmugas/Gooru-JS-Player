@@ -1,0 +1,66 @@
+<div class="summaryContentDiv">
+<div class="replayResource">
+
+      <div class="searchCollectionBox searchCollectionBoxPreview featuredOne">
+    <a href="<%= HOME_URL %>/c?id=<%= gooruOid %>&session_token=<%=TOKEN%>" target="_self"> <div class="replayIcon" style="display:none;"></div></a>
+	<div class="collectionImageDivs">
+	    <img onerror="this.src='../images/default-collection-image-160x120.png';" class="collectionImgs" src="<%=imageUrl%>" width=220 height=140 />
+	  <div class="viewCounts" title="Views"><%=viewCount%></div>
+	      <div class="titleBoxs" title="Collection Title"><span class="collectionTitle"><%=title%></span></div>
+	</div>
+
+	<div class="collectionImageOverlays" style="display:none;">
+	    <div class="didYouKnowBox">
+	      <!-- <span class="didYouKnowText">Description </span> -->
+	      <span class="description"><%= stringTruncate(description, 100)%></span>
+	    </div>
+	    
+	</div> 
+      
+    </div>
+
+
+</div>
+<div class="learnMoreHeader"> Learning Objectives: </div>
+<%
+function stringTruncate(string, limit) {
+    var trimmed = "...";
+    if(string !=null && string.length > limit) {
+      string = string.substring(0, limit) + trimmed;
+    }
+     return string;
+}
+for(var i in data.searchResults) {
+  var thumbnail = data.searchResults[i].thumbnail;
+  var thumbnailName = thumbnail.substring(0, thumbnail.lastIndexOf("."));
+  var viewCount = data.searchResults[i].viewCount;
+  var description = data.searchResults[i].goals;
+  var extension = thumbnail.substring(thumbnail.lastIndexOf(".") + 1, thumbnail.length);
+  var imageUrl = data.searchResults[i].assetURI+data.searchResults[i].folder+thumbnailName+"-120x90."+extension;
+  var gooruOid = data.searchResults[i].id;
+  var title = data.searchResults[i].title; 
+%>
+
+    <div class="searchCollectionBox featuredOne">
+    <a href="<%= HOME_URL %>/c?id=<%= gooruOid %>&session_token=<%=TOKEN%>" target="_self"> <div class="playIconSmall" style="display:none;"><div class="right-triangle"></div></div></a>
+	<div class="collectionImageDiv">
+	    <img onerror="this.src='../images/default-collection-image-160x120.png';" class="collectionImg" src="<%=imageUrl%>" width=220 height=140 />
+	  <div class="viewCounts" title="Views"><%=viewCount%></div>
+	      <div class="titleBoxs" title="Collection Title"><span class="collectionTitle"><%=title%></span></div>
+	</div>
+
+	<div class="collectionImageOverlay" style="display:none;">
+	    <div class="didYouKnowBox">
+	      <!-- <span class="didYouKnowText">Description </span> -->
+	      <span class="description"><%= stringTruncate(description, 100)%></span>
+	    </div>
+	    
+	</div> 
+      
+    </div>
+
+
+<%} %>
+
+</div>
+

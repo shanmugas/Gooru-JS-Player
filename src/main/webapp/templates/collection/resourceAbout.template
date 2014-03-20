@@ -1,0 +1,72 @@
+<% 
+  var resourceLicense = resource.license;
+  var resourceViews = resource.views;
+%>
+<div id="resource-play-info-content">
+   <% var width = $(window).width() - 6;%>
+  <div id="gooru-collection-resource-player-about-container" class="gooru-collection-resource-player-menu-container" style="width:<%= width %>px">
+    <div id="gooru-collection-resource-player-about-container-left">
+      <div id="gooru-collection-resource-player-about-content-left">
+	<div id="gooru-collection-resource-player-type-container">
+	    <div id="gooru-collection-resource-player-type-header">Type: </div>
+	    <div id="gooru-collection-resource-player-type-content"><%= category %></div>
+	</div>
+	<div id="gooru-collection-resource-player-desc-container">
+	    <div id="gooru-collection-resource-player-desc-header">Description: </div>
+	    <div id="gooru-collection-resource-player-desc-content"><%= description %></div>
+	</div>
+	<div id="gooru-collection-resource-player-standards-container" class="gooru-collection-player-clear-fix">
+	    <div id="gooru-collection-resource-player-standards-header">Standards: </div>
+	    <div id="gooru-collection-resource-player-standards-content"> 
+	     <% if(standards.length > 0){%>
+		<% for(var i=0; i< standards.length; i++) { 
+		  var description =  (standards[i].description != null && standards[i].length > 400)? standards[i].description.substr(0, 399) : standards[i].description;
+		%>
+		<span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i].code%>"><%=standards[i].code%></span>
+	      <%}%>
+	    <%} else {%>
+		<div class="noStandardsAvailable">No Standards Available.</div>
+	    <% } %>
+	    </div>
+	</div>
+      </div>
+    </div>
+    <div id="gooru-collection-resource-player-about-container-right">
+      <div id="gooru-collection-resource-player-about-content-right">
+	<div id="gooru-collection-resource-player-source-container">
+	  <div id="gooru-collection-resource-player-source-header">Source: </div>
+	    <% if((type == "video/youtube" || type == "resource/url") && resourceSource != null && typeof(resourceSource) != 'undefined' && resourceSource.attribution != null && typeof(resourceSource.attribution) != 'undefined'){%>
+		      <div class="resourceOriginalSource"><a href="<%=resourceUrl%>" target="_blank"><%= resourceSource.attribution %></a></div>
+	    <%} else {%>
+		<div id="gooru-collection-resource-player-source-content">No source available.</div>
+	    <% } %>
+	</div>
+	<div id="gooru-collection-resource-player-right-container">
+	  <div id="gooru-collection-resource-player-right-header">Rights: </div>
+	  <div id="gooru-collection-resource-player-right-content">
+	      <span class="resourcePreviewTooltipLicense resourcePreviewLicense"  description="<%= resourceLicense.definition %>" licenseCode="<%= resourceLicense.code %>" licenseUrl = "<%= resourceLicense.url %>" licenseName = "<%= resourceLicense.name %> " >
+	      <% if(resourceLicense.icon != null && typeof(resourceLicense.icon) != 'undefined' && resourceLicense.icon != '') {  %>   
+		      <span> <img  src="<%= resource.assetURI +'/'+resourceLicense.icon %>"  /> </span>
+	      <% } else if($.trim(resourceLicense.name) == 'Other' || resourceLicense.name == ''){ %>
+		<span class="rightsLicenseName">Not Available</span>
+	      <%}else{%>
+	      <span class="rightsLicenseName"> <%= resourceLicense.name %> </span>
+		<% } %>
+		      </span>
+	    <% if($.trim(resourceLicense.tag) == 'OER' || (resourceUrl != null && typeof(resourceUrl) != 'undefined' && resourceUrl.indexOf('oercommons.org') >= 0)) { %>
+	    <span class="resourcePreviewTooltipOER resourcePreviewLicenseTagOER resourceBottomPreviewTooltipOER" description="The term Open Educational Resources (OER) refers to educational materials that are freely available and licensed in a way that gives users the legal permission to reuse, revise, remix, and redistribute." oerTitle="Open Education Resources">
+			<span><img class="oerimage"  src="../images/OER_small.png"/>  </span>
+		  </span>
+	    <%} %>
+	  </div>
+      </div>
+      <div id="gooru-collection-resource-player-social-container">
+	  <div id="gooru-collection-resource-player-social-header">Social: </div> 
+	  <div id="gooru-collection-resource-player-social-content">
+		<div id="gooru-collection-resource-player-social-views" data-views="<%= resourceViews %>" data-gooruoid="<%= gooruOid %>"><%= resourceViews %> View<% if(resourceViews > 1){  %>s <% } %></div>
+	  </div>
+      </div>
+    </div>
+   </div>	
+  </div>
+</div>

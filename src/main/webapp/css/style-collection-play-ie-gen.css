@@ -1,0 +1,31 @@
+div.gooru-collection-player-overlay-resource-play-icon {
+  position: static !important;
+  margin-top: -24px !important;
+  margin-left: 45px !important;
+}
+div#gooru-collection-player-acknowledgement-container div.gooru-collection-player-overlay-icon {
+  position: static !important;
+  margin-top: -30px !important;
+  margin-left: 45px !important;
+}
+.ui-widget-overlay {
+  background:transparent !important;
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000) !important; 
+  zoom: 1 !important;
+}
+
+div#gooru-collection-player-cover-page-image-header { 
+  background:transparent !important;
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000) !important; 
+  zoom: 1 !important;
+}
+
+div#gooru-collection-player-nav-menu-arrow, div#gooru-collection-player-narrative-menu-arrow, div#gooru-collection-player-info-menu-arrow { 
+  position: static !important;
+  margin-top: -2px !important;
+  margin-left: 0px !important;
+}
+
+div.gooru-collection-player-info-menu-icon, div.gooru-collection-player-narrative-menu-icon, div.gooru-collection-player-narrative-menu-icon-disabled { 
+  left: 0px !important;
+}

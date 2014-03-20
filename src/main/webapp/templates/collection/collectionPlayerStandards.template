@@ -1,0 +1,23 @@
+<div id="gooru-collection-player-standards-container" class="gooru-collection-player-dialog-container"> 
+  <div id="gooru-collection-player-standards-header" class="gooru-collection-player-dialog-header">
+      <div id="gooru-collection-player-standards-header-title" class="gooru-collection-player-dialog-header-title">Standards</div>
+  </div>
+  <div id="gooru-collection-player-standards-dialog-container" class="gooru-collection-player-dialog-list">
+      <div id="gooru-collection-player-standards-dialog">
+      
+	<% for(var i = 0; i < data.length; i++) { %>
+	
+	    <div class="gooru-collection-player-dialog-standards-content gooru-collection-player-clear-fix">
+	      <% var description =  $.trim(data[i].description) %>
+	      <div class="gooru-collection-player-dialog-standards-code">
+		  <span class="standards-description-dialog"><%=data[i].code%></span>
+	      </div>
+	      <div class="gooru-collection-player-dialog-standards-description"><%= description %></div>
+	   </div>
+	<% } %>
+      </div>
+  </div>
+  <div class="gooru-collection-player-standards-button-container gooru-collection-player-button-container gooru-collection-player-clear-fix">
+	<div class="gooru-collection-player-standards-button-okay gooru-collection-player-button-okay">OK</div>
+   </div>
+</div>

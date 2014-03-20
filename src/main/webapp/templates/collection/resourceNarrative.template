@@ -1,0 +1,7 @@
+<div id="resource-play-narrative-content">
+    <div id="resource-play-narrator-container">
+	<div id="resource-play-narrator-content-text">
+	      <%= narrative %>
+	</div>
+    </div>
+</div>

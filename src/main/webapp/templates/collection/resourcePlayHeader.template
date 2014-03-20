@@ -1,0 +1,119 @@
+<div id="gooru-collection-player-resource-container">
+  <div id="gooru-collection-player-resource-play-header" class="gooru-collection-player-resource-header">
+      <div id="gooru-collection-player-header-content-left">
+	<div id="gooru-collection-player-header-resource-content">
+	  <div id="gooru-collection-player-header-resource-title" class="gooru-collection-player-wrap-dots"></div>
+	</div>
+      </div>
+      <div id="gooru-collection-player-header-content-right">
+       <div id="gooru-collection-player-header-menu-content">
+	<div id="gooru-collection-player-nav-container" class="gooru-collection-player-menu">
+	    <div id="gooru-collection-player-nav-header" class="gooru-collection-player-menu-nav-selected">
+		<div id="gooru-collection-player-nav-menu">
+		  <div class="gooru-collection-player-nav-menu-icon gooru-all-icon gooru-collection-player-nav-menu-icon-selected"></div>
+		  <div id="gooru-collection-player-nav-menu-title">navigation</div>
+		</div>
+		<div id="gooru-collection-player-nav-menu-arrow" class="gooru-collection-player-all-arrow"></div>
+	    </div>
+        </div>
+	<div id="gooru-collection-player-info-container" class="gooru-collection-player-menu">
+	    <div id="gooru-collection-player-info-header">
+		<div id="gooru-collection-player-info-menu">
+		  <div class="gooru-collection-player-info-menu-icon gooru-all-tool-icon"></div>
+		  <div id="gooru-collection-player-info-menu-title">info</div>
+		</div>
+		<div id="gooru-collection-player-info-menu-arrow" class="gooru-collection-player-all-arrow"></div>
+	    </div>
+        </div>
+	<div id="gooru-collection-player-narrative-container" class="gooru-collection-player-menu">
+	    <div id="gooru-collection-player-narrative-header">
+		<div id="gooru-collection-player-narrative-menu" style="margin-top:7px;">
+		  <div class="gooru-collection-player-narrative-menu-icon gooru-all-tool-icon"></div>
+		  <div id="gooru-collection-player-narrative-menu-title" style="margin-top:-3px;">narrative</div>
+		</div>
+		<div id="gooru-collection-player-narrative-menu-arrow" class="gooru-collection-player-all-arrow"></div>
+	    </div>
+        </div>
+	<div id="gooru-collection-player-narrative-container-disabled" class="gooru-collection-player-menu">
+	    <div id="gooru-collection-player-narrative-header">
+		<div id="gooru-collection-player-narrative-menu" style="margin-top:7px;">
+		  <div class="gooru-collection-player-narrative-menu-icon-disabled  gooru-all-tool-icon"></div>
+		  <div id="gooru-collection-player-narrative-menu-arrow-disabled"></div>
+		  <div id="gooru-collection-player-narrative-menu-title" style="margin-top:-3px;">narrative</div>
+		</div>
+	    </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div id="gooru-collection-player-resource-play-menu-container">
+      <div id="gooru-collection-player-resource-play-menu-nav-container" class="collection-resource-play-menu-container">
+	<% var resourceOrder = 0; 
+	   var resourceWidth = $(window).width() - 6;
+	   var resourceSlideWidth = resourceWidth - 90;
+           var collectionResourcePreviewContainerHeight = $(window).height() - 162;
+	%>
+	<div id='resource-play-menu-nav-container' style="width:<%= resourceWidth %>px">
+	  <div class="gooru-collection-player-resource-home-div unselectable">
+		<div class="gooru-collection-player-resource-home-content">
+		    <div class="gooru-collection-player-resource-home-text">Home</div>
+		</div>
+	  </div>
+	  <div class="gooru-collection-player-resource-prev-arrow-div unselectable">
+		    <span  class="gooru-collection-player-all-arrow gooru-collection-player-resource-prev-arrow"></span>
+	  </div>
+	  <div id="collection-segment-base-container" style="width:<%= resourceSlideWidth %>px">
+	      <div id="collection-segment-container">  
+		      <% for(var collectionItemIndex=0;  collectionItemIndex < data.length; collectionItemIndex++) { 
+			    var resoureFolder = data[collectionItemIndex].resource.folder;
+			    var thumbnailName = data[collectionItemIndex].resource.thumbnail;
+			    var resourceImageURL="";
+			    if(data[collectionItemIndex].resource.resourceType.name == 'video/youtube') {
+				  resourceImageURL = helper.youtubeImageLink(data[collectionItemIndex].resource.url);
+			    } else {
+				    resourceImageURL = data[collectionItemIndex].resource.assetURI + resoureFolder + thumbnailName;
+			    }
+		      %>
+		      <div class="collection-player-resource-container collection-segment-content" id="collection-player-resource-<%= data[collectionItemIndex].resourceInstanceId %>" data-resourceinstanceid="<%= data[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder++ %>">
+		       <div class="collection-player-resource-content-val" data-resourceinstanceid="<%= data[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder %>" data-resource-json='<%= escape(JSON.stringify(scollectionPlay.resourceDataFormatter(data[collectionItemIndex]))) %>' data-segment-index= "<%= collectionItemIndex %>">
+			<div class="collection-player-resource-data collection-player-resource-transform">
+			  <div class="collection-player-resource-image-container">
+			      <div class="collection-player-resource-image default-image-div">
+				  <img width="80" height="60" class="resource-thumbnail  resource-img-slide" data-resourcefolder="<%=resoureFolder%>" data-category="<%=data[collectionItemIndex].resource.resourceFormat.value %>" data-asseturi="<%=data[collectionItemIndex].resource.assetURI %>" data-resourceUrl="<%= data[collectionItemIndex].resource.url %>" data-resourceImage="<%= resourceImageURL %>"  src="<%= resourceImageURL %>"  />
+			      </div>
+			      <div class="gooru-collection-player-overlay-icon gooru-collection-player-overlay-resource-play-icon gooru-collection-player-overlay-icon-<%= data[collectionItemIndex].resource.resourceFormat.value.toLowerCase() %>"></div>
+			  </div>
+			 </div>
+			  <div class="gooru-collection-player-resource-content">
+			      <div class="gooru-collection-player-resource-content-title">
+					<%=  data[collectionItemIndex].resource.title %>
+			      </div>
+			  </div>
+		       </div>
+		    </div>
+		  <% } %>
+	  </div>
+	</div> 
+	  <div class="gooru-collection-player-resource-next-arrow-div unselectable">
+		  <span  class="gooru-collection-player-all-arrow gooru-collection-player-resource-next-arrow"></span>
+	  </div>
+	  <div class="gooru-collection-player-resource-review-div unselectable">
+	      <div class="gooru-collection-player-resource-review-content">
+		  <div class="gooru-collection-player-resource-review-text">Review</div>
+	      </div>
+	  </div>
+    </div>
+  </div>
+  <div id="gooru-collection-player-resource-play-menu-info-container" class="collection-resource-play-menu-container"></div>
+  <div id="gooru-collection-player-resource-play-menu-narrative-container" class="collection-resource-play-menu-container"></div>
+</div>
+    <div id="gooru-collection-player-resource-preview-container" class="gooru-collection-player-clear-fix">
+      <div id="gooru-collection-resource-play-prev-arrow" class="unselectable gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px">
+	<span  class="gooru-collection-player-all-arrow gooru-collection-resource-play-prev-arrow-span"></span>
+      </div>
+      <div id="gooru-collection-resource-play-content" style="width:<%= $(window).width() - 110 %>px;display:block;"></div>
+      <div id="gooru-collection-resource-play-next-arrow" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px">
+	<span  class="gooru-collection-player-all-arrow gooru-collection-resource-play-next-arrow-span"></span>
+      </div>
+    </div>
+</div>

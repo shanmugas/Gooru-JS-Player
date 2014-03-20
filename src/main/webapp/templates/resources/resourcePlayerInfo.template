@@ -1,0 +1,4 @@
+<% var resourcePreviewContainerHeight = $(window).height() -reduceSize; %>
+<div id="gooru-resource-player-message-container" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px">
+    <div id="gooru-resource-player-message"><%= message %></div>
+</div>

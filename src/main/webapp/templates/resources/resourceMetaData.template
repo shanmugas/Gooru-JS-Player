@@ -1,0 +1,69 @@
+<div id="gooru-resource-player-about-container" class="gooru-resource-player-menu-container">
+<div id="gooru-resource-player-about-container-left">
+  <div id="gooru-resource-player-about-content-left">
+    <div id="gooru-resource-player-type-container">
+	<div id="gooru-resource-player-type-header">Type: </div>
+	<div id="gooru-resource-player-type-content"><%= category %></div>
+    </div>
+    <div id="gooru-resource-player-desc-container">
+	<div id="gooru-resource-player-desc-header">Description: </div>
+	<div id="gooru-resource-player-desc-content"><%= description %></div>
+    </div>
+    <div id="gooru-resource-player-standards-container">
+	<div id="gooru-resource-player-standards-header">Standards: </div>
+	<div id="gooru-resource-player-standards-content"> 
+	    <% if(standards.length > 0){%>
+		<% for(var i=0; i< standards.length; i++) { 
+		  var description = standardDescriptions[i].length > 400 ? standardDescriptions[i].substr(0, 399) : standardDescriptions[i];
+		%>
+		<span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i]%>"><%=standards[i]%></span>
+	      <%}%>
+	    <%} else {%>
+		<div class="noStandardsAvailable">No Standards Available.</div>
+	    <% } %>
+	</div>
+    </div>
+   </div>
+  </div>
+  <div id="gooru-resource-player-about-container-right">
+     <div id="gooru-resource-player-about-content-right">
+      <div id="gooru-resource-player-source-container">
+
+	<div id="gooru-resource-player-source-header">Source: </div>
+
+	  <% if((type == "video/youtube" || type == "resource/url") && resourceSource != null && typeof(resourceSource) != 'undefined' && resourceSource.attribution != null && typeof(resourceSource.attribution) != 'undefined'){%>
+		    <div class="resourceOriginalSource"><a href="<%=resourceUrl%>" target="_blank"><%= resourceSource.attribution %></a></div>
+	  <%} else {%>
+	      <div id="gooru-resource-player-type-content">No source available.</div>
+	  <% } %>
+
+      </div>
+      <div id="gooru-resource-player-right-container">
+	<div id="gooru-resource-player-right-header">Rights: </div>
+	<div id="gooru-resource-player-right-content">
+	    <span class="resourcePreviewTooltipLicense resourcePreviewLicense"  description="<%= resourceLicense.definition %>" licenseCode="<%= resourceLicense.code %>" licenseUrl = "<%= resourceLicense.url %>" licenseName = "<%= resourceLicense.name %> " >
+	    <% if(resourceLicense.icon != null && typeof(resourceLicense.icon) != 'undefined' && resourceLicense.icon != '') {  %>   
+		    <span> <img  src="<%= assetURI +'/'+resourceLicense.icon %>"  /> </span>
+	    <% } else if($.trim(resourceLicense.name) == 'Other' || resourceLicense.name == ''){ %>
+	      <span class="rightsLicenseName">Not Available</span>
+	    <%}else{%>
+	    <span class="rightsLicenseName"> <%= resourceLicense.name %> </span>
+	      <% } %>
+		    </span>
+	  <% if($.trim(resourceLicense.tag) == 'OER' || (resourceUrl != null && typeof(resourceUrl) != 'undefined' && resourceUrl.indexOf('oercommons.org') >= 0)) { %>
+	  <span class="resourcePreviewTooltipOER resourcePreviewLicenseTagOER resourceBottomPreviewTooltipOER" description="The term Open Educational Resources (OER) refers to educational materials that are freely available and licensed in a way that gives users the legal permission to reuse, revise, remix, and redistribute." oerTitle="Open Education Resources">
+		      <span><img class="oerimage"  src="../images/OER_small.png"/>  </span>
+		</span>
+	  <%} %>
+	</div>
+    </div>
+    <div id="gooru-resource-player-social-container">
+	<div id="gooru-resource-player-social-header">Social: </div> 
+	<div id="gooru-resource-player-social-content">
+	      <div id="gooru-resource-player-social-views"><%= resourceViews %> View<% if(resourceViews > 1){  %>s <% } %></div>
+	</div>
+    </div>
+  </div>
+</div>	
+</div>
+<div id="gooru-resource-player-learn-more-container" class="gooru-resource-player-menu-container"></div>

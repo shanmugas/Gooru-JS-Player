@@ -1,0 +1,20 @@
+<div id="gooru-collection-player-subscriber-container" class="gooru-collection-player-dialog-container"> 
+  <div id="gooru-collection-player-subscriber-header" class="gooru-collection-player-dialog-header">
+      <div id="gooru-collection-player-subscriber-header-title" class="gooru-collection-player-dialog-header-title">Subscribers</div>
+  </div>
+  <div id="gooru-collection-player-subscriber-list" class="gooru-collection-player-dialog-list">
+    <div id="gooru-collection-player-subscriber-user-list-container">
+      <%   for(var subscriptionsListIndex = 0; subscriptionsListIndex < data.length; subscriptionsListIndex++ ) { %>
+	      <div class="gooru-collection-player-subscriber-list-image-container">
+		<div class="gooru-collection-player-subscriber-list-image">
+		    <img class="gooru-collection-player-subscriber-image" onerror="this.src='<%= GOORU_PROFILE_S3_URL %>profile-default-image-48x48.png';this.onerror='';" src="<%= GOORU_PROFILE_S3_URL %><%= data[subscriptionsListIndex].subscribeUserId %>-48x48.png" />
+		</div>
+		<div class="gooru-collection-player-subscriber-username"><%= data[subscriptionsListIndex].contFirstName.toLowerCase() %></div>
+	      </div>
+      <% } %>
+    </div>
+  </div>
+  <div class="gooru-collection-player-subscriber-button-container gooru-collection-player-button-container gooru-collection-player-clear-fix">
+	<div class="gooru-collection-player-subscriber-button-okay gooru-collection-player-button-okay">OK</div>
+   </div>
+</div>

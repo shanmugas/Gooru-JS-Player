@@ -1,0 +1,70 @@
+<% var questionData = data; 
+var resourcePreviewContainerHeight = $(window).height() - 162;
+%>
+<div class = "gooru-question-play-container" style="height:<%= resourcePreviewContainerHeight %>px">
+    <div class = "gooru-question-resource-container" >
+	
+	<span class = "gooru-question-content-container" >
+	
+	  <div class = "gooru-question-header">Question</div>
+	  
+	  <div class = "gooru-question-text"><%= questionData.title %></div>
+	  
+	  <% if(questionData.questionImageURL != null && questionData.questionImageURL.length != 0 && questionData.questionImageURL != '' && typeof questionData.questionImageURL != 'undefined') { %>
+	    <div class = "gooru-question-image">
+	      <img class = "gooru-question-image" src = "<%= questionData.questionImageURL %>" />
+	    </div>
+	  <% } %>
+	 
+	  <div class = "gooru-question-hint-explanation-button-container">
+	    <% if(questionData.questionHints.length > 0) {  %>
+	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
+	    <% } else { %>
+	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
+	    <% } %>
+	    <% if(questionData.questionExplanation.length > 0) { %>
+	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
+	    <% } else { %>
+	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
+	    <% } %>
+	  </div>
+	  
+	  <% if (questionData.questionHints.length > 0) { %>
+	    <% for(var i in questionData.questionHints) { %>  
+	      <div class = "gooru-question-hint-container gooru-question-hint-container-<%= i %>"><%= questionData.questionHints[i].hintText %></div>
+	    <% } %>
+	  <% } %>
+	  <div class = "border-bottom"></div>
+	  <% if (questionData.questionExplanation.length > 0 && questionData.questionExplanation != "") { %>
+	    <div class = "gooru-question-explanation-container" style = "color: #5c8b57;">
+	      <%= questionData.questionExplanation %>
+	    </div>
+	  <% } %>
+	</span>
+	
+	
+	
+	<span class = "gooru-answer-content-container">
+	
+	  <div class = "gooru-answer-header" >Answer</div>
+	  
+	  <div class = "gooru-select-answer" >Please type your answer in the field below, and click the "Save" button to save your response when you're done.</div>
+	  
+	  <div class = "gooru-oe-answer-question-container" >
+	    <div id = "gooru-oe-submited-answer"></div>
+	    <div class = "gooru-oe-answer-question-text">
+	      <textarea id = "gooru-oe-answer-submit"></textarea>
+	    </div>
+	  </div>
+	  
+	  
+	  <div>
+	    <div style="margin-bottom: 5px;">
+	      <input id = "gooru-oe-save-button" data-question-type = "<%= questionData.questionType %>" class = "gooru-answer-container gooru-default-grey-disable-button" type="button" value = "Save" />
+	    </div>
+	  </div>
+	  
+	</span>    
+	
+    </div>
+</div>

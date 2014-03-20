@@ -1,0 +1,4 @@
+<% var collectionPreviewContainerHeight = $(window).height() -reduceSize; %>
+<div id="gooru-collection-player-message-container" class="gooru-collection-player-preview-container" style="height:<%= collectionPreviewContainerHeight %>px">
+    <div id="gooru-collection-player-message"><%= message %></div>
+</div>

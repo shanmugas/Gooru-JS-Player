@@ -1,0 +1,61 @@
+<div id="gooru-collection-player-acknowledgement-container" class="gooru-collection-player-dialog-container"> 
+  <div id="gooru-collection-player-acknowledgement-header" class="gooru-collection-player-dialog-header">
+      <div id="gooru-collection-player-acknowledgement-header-title" class="gooru-collection-player-dialog-header-title">Acknowledgements</div>
+  </div>
+  <div id="gooru-collection-player-acknowledgement-list" class="gooru-collection-player-dialog-list" style="height:<%= $(window).height() - 215 %>px">
+  <% var sequence = 1; 
+    for(var resourceSourceGroupIndex in data) { sequence++;%> 
+      <div class="gooru-collection-player-ack-container gooru-collection-player-clear-fix">
+	<div class="gooru-collection-player-acknowledgement-name-content">
+	  <div class="gooru-collection-player-acknowledgement-content-name"><%= resourceSourceGroupIndex  %></div>
+	</div>
+	<div class="gooru-collection-player-prev-arrow-div unselectable" data-sequence="<%= sequence %>">
+	  <span  class="gooru-collection-player-all-arrow gooru-collection-player-prev-arrow  gooru-collection-player-prev-arrow-<%= sequence %>" data-sequence="<%= sequence %>"></span>
+	</div>
+	<div class="gooru-collection-player-acknowledgement-list-content" data-sequence="<%= sequence %>">
+	  <div class="collection-player-acknowledgement-list-inner-content collection-player-acknowledgement-list-inner-content-<%= sequence %>">
+	  <% for(var resourceSourceGroupIndexing in data[resourceSourceGroupIndex]) { 
+	      if (resourceSourceGroupIndexing == "") { 
+		continue;
+	      }
+	      var resourceName = (data[resourceSourceGroupIndex][resourceSourceGroupIndexing].title != null) ? data[resourceSourceGroupIndex][resourceSourceGroupIndexing].title : ""
+	      var resourceUrl = (data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.url != null) ? data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.url : "";
+	      var resourceType = data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.resourceType.name;
+	      var resourceImageUrl;
+	      if (data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.thumbnail != null && resourceType != "video/youtube") {
+		resourceImageUrl = data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.assetURI + data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.folder + data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.thumbnail;
+		
+	      } else if (resourceType != "video/youtube"){ 
+		resourceImageUrl = resourceUrl;
+	      }
+	      if ( resourceType == "video/youtube" ) { 
+		  resourceImageUrl = helper.youtubeImageLink(resourceUrl);
+	      }
+	%>		
+	<div class="collection-play-ack-resource">
+
+	    <div class="collection-play-ack-resource-img-container">
+	      <div class="collection-play-ack-resource-img default-image-div">
+		  <img class="resource-img-slide" data-asseturi="<%= data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.assetURI %>"  data-resourcefolder="<%=data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.folder%>" data-category="<%=data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.category%>" data-resourceUrl="<%= resourceUrl %>" data-resourceImage="<%= resourceImageUrl %>"  src="<%= resourceImageUrl %>"  width="80" height="60"/>
+	      </div>
+	      <div class="gooru-collection-player-overlay-icon gooru-collection-player-overlay-ack-icon gooru-collection-player-overlay-icon-<%= data[resourceSourceGroupIndex][resourceSourceGroupIndexing].resource.category.toLowerCase() %>"></div>
+	    </div>
+	    <div class="collection-play-ack-resource-title-container">
+		<a href="<%= resourceUrl %>" target="_blank">
+		    <div class="collection-play-ack-resource-title"><%= resourceName %></div>
+		</a>
+	    </div>
+	</div>
+	  <% } %>
+	 </div>
+	</div>
+	<div class="gooru-collection-player-next-arrow-div unselectable" data-sequence="<%= sequence %>">
+	  <span  class="gooru-collection-player-all-arrow gooru-collection-player-next-arrow gooru-collection-player-next-arrow-<%= sequence %>" data-sequence="<%= sequence %>"></span>
+	</div>  
+      </div>
+    <% } %>
+  </div>
+  <div class="gooru-collection-player-ack-button-container gooru-collection-player-button-container">
+      <div class="gooru-collection-player-ack-button-okay gooru-collection-player-button-okay">OK</div>
+  </div>
+</div>

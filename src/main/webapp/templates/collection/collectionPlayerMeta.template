@@ -1,0 +1,120 @@
+<% var collectionPreviewContainerHeight = $(window).height();
+   var collectionPlayLikes = data.metaInfo.rating.count;
+   var collectionViews = data.views;
+%>
+<div id="gooru-collection-player-cover-page-meta" style="max-height:<%= collectionPreviewContainerHeight - 27 %>px;">
+  <div id="gooru-collection-player-cover-page-meta-analytic-content" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
+      <div class="collection-meta-analytic-header collection-meta-analytic-like-header"><%= collectionPlayLikes %> Like<% if(collectionPlayLikes != null && typeof(collectionPlayLikes) != 'undefined' && collectionPlayLikes > 1) { %>s <% } %> </div>
+      <div class="collection-meta-analytic-header collection-meta-analytic-view-header" id="collection-meta-analytic-view" data-views="<%= collectionViews %>"><%= collectionViews %> View<% if(collectionViews != null && typeof(collectionViews) != 'undefined' && collectionViews > 1) { %>s <% } %> </div>
+  </div>
+  <div id="gooru-collection-player-cover-page-meta-general-content" class="gooru-collection-player-all-meta" style="float:left">
+      <div class="collection-meta-general-content gooru-collection-player-clear-fix">
+	  <div class="collection-meta-general-header">Owner: </div>
+	  <div class="collection-meta-general-value">
+	      <%=data.user.usernameDisplay%>
+	  </div>
+      </div>
+      <% if (typeof(data.network) !== 'undefined' && data.network !== null && data.network !== '') { %>
+      <div class="collection-meta-general-content gooru-collection-player-clear-fix">
+	  <div class="collection-meta-general-header">Network: </div>
+	  <div class="collection-meta-general-value">
+	      <%= data.network %>
+	  </div>
+      </div>
+    <% } %>
+  </div>
+  <% if(typeof(data.vocabulary) != 'undefined' && data.vocabulary !== null && data.vocabulary !== '') {
+      var vocabularyList = data.vocabulary.split(','); %>
+      <div id="gooru-collection-player-cover-page-meta-voc-content" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
+	<div class="collection-meta-header">Vocabulary<span class="collection-meta-count collection-voc-seemore"> (<%= vocabularyList.length %>)</span></div>
+	<% 
+	    var maxVocIndex = vocabularyList.length > 3 ? 3 : vocabularyList.length; 
+	    for (var vocabularyIndex = 0; vocabularyIndex < maxVocIndex; vocabularyIndex++) { 
+	%>
+	    <div class="collection-meta-value"><%= vocabularyList[vocabularyIndex]%></div>
+	<% } %>
+	<% if (vocabularyList.length > 3) { %>
+	  <div id="collection-meta-voc-seemore-container" class="collection-meta-seemore-container">
+	    <div id="collection-meta-voc-seemore" class="collection-meta-seemore collection-voc-seemore">(see all)</div>
+	  </div>
+	<% } %>
+      </div>
+  <% } %>
+  <% if(data.metaInfo.course.length > 0) { %>
+    <div id="gooru-collection-player-courses" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
+      <div class="collection-meta-header">Course<% if(data.metaInfo.course.length > 1) {  %>s <% } %> <span class="collection-meta-count collection-course-seemore"> (<%= data.metaInfo.course.length %>)</span></div>
+	  <div class="collection-meta-course-list-container">
+	    <%
+	       var maxCourseIndex = data.metaInfo.course.length > 3 ? 3 : data.metaInfo.course.length; 
+	      for(var courseIndex = 0; courseIndex < maxCourseIndex; courseIndex++) {%>
+		<div class="collection-meta-value"><%= data.metaInfo.course[courseIndex] %></div>
+	    <% } %>
+	    <% if (data.metaInfo.course.length > 3) {  %>
+		<div id="collection-meta-course-seemore-container" class="collection-meta-seemore-container"><div id="collection-meta-course-seemore" class="collection-meta-seemore collection-course-seemore">(see all)</div></div>
+	    <% } %>
+	  </div>
+      </div>
+  <% } %>
+  <%  
+      if (data.metaInfo.standards.length > 0) { 
+  %> 
+    <div id="gooru-collection-player-standards" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
+      <div class="collection-meta-header">Standards<% if (data.metaInfo.standards.length > 1) { %>s<% } %><span class="collection-meta-count collection-standards-seemore"> (<%= data.metaInfo.standards.length %>)</span></div>
+      <div id="gooru-collection-player-standards-list">
+	  <% var description =  data.metaInfo.standards[0].description.length > 400 ? data.metaInfo.standards[0].description.substr(0, 399) + "..." : data.metaInfo.standards[0].description %>
+	  <span class="standardsDescription collection-play-standards-preview" description="<%=description%>" data-code="<%=data.metaInfo.standards[0].code%>"><%=data.metaInfo.standards[0].code%></span>
+      </div>
+      <% if (data.metaInfo.standards.length > 1) {  %>
+		<div id="collection-meta-standards-seemore-container" class="collection-meta-seemore-container">
+		  <div id="collection-meta-standards-seemore" class="collection-meta-seemore collection-standards-seemore">(see all)</div>
+		</div>
+      <% } %>
+    </div>
+  <% } %>
+  <% var resourceSourceList =  data.metaInfo.acknowledgement %>
+  <% if (resourceSourceList.length > 0) { %>
+    <div id="gooru-collection-player-acknowledgments" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
+      <div class="collection-meta-header">Acknowledgment<% if (resourceSourceList.length > 1) { %>s<% } %><span class="collection-meta-count collection-ack-seemore"> (<%= resourceSourceList.length %>)</span></div>
+	  <div class="collection-meta-ack-list-container">
+	    <%
+	      var acknowledgeMaxIndex = resourceSourceList.length > 3 ? 3 : resourceSourceList.length; 
+	      for(var acknowledgeIndex = 0; acknowledgeIndex < acknowledgeMaxIndex; acknowledgeIndex++) {%>
+		<div class="collection-meta-value"><%= resourceSourceList[acknowledgeIndex]%></div>
+	    <% } %>
+	  </div>
+	  <% if (resourceSourceList.length > 3) {  %>
+	      <div id="collection-meta-ack-seemore-container" class="collection-meta-seemore-container">
+		  <div id="collection-meta-ack-seemore" class="collection-meta-seemore collection-ack-seemore">(see all)</div>
+	      </div>
+	  <% } %>
+      </div>
+  <% } %>
+</div>
+<div id="collection-ack-dialog-container">
+  <div class="collection-player-loading-image-Container">
+      <div class="collection-player-loading-image">
+	<img src="../images/loading.gif">
+      </div>
+  </div>
+</div>
+<div id="collection-course-dialog-container">
+  <div class="collection-player-loading-image-Container">
+      <div class="collection-player-loading-image">
+	<img src="../images/loading.gif">
+      </div>
+  </div>
+</div>
+<div id="collection-voc-dialog-container">
+  <div class="collection-player-loading-image-Container">
+      <div class="collection-player-loading-image">
+	<img src="../images/loading.gif">
+      </div>
+  </div>
+</div>
+<div id="collection-standards-dialog-container">
+  <div class="collection-player-loading-image-Container">
+      <div class="collection-player-loading-image">
+	<img src="../images/loading.gif">
+      </div>
+  </div>
+</div>
