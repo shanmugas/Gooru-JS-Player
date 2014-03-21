@@ -263,11 +263,6 @@ showResourceCollections : function(gooruOid) {
 
   handleResourcePreviewEvents: function() { 
     /* handle resource player menu events*/
-  	var param = helper.getRequestParam();
-     if(param.state == "resourceView"){
-         $('div#gooru-resource-player-about-container, span.resourcePreviewHeaderNavigationArrowAbout').hide();     	
-     }
-
     $('div#gooru-resource-player-about').click(function() { 
         $('span.resourcePreviewHeaderNavigationArrowLearnMore, span.resourcePreviewHeaderNavigationArrowShare, div#gooru-resource-player-share-container, div#gooru-resource-player-learn-more-container').hide();
         $('div#gooru-resource-player-header-container').find('.gooru-resource-player-menu-share-selected').removeClass('gooru-resource-player-menu-share-selected');
@@ -286,6 +281,14 @@ showResourceCollections : function(gooruOid) {
 	});
 	$('span.resourcePreviewHeaderNavigationArrowLearnMore').is(':visible') ? $('span.resourcePreviewHeaderNavigationArrowLearnMore').hide() : $('span.resourcePreviewHeaderNavigationArrowLearnMore').css('display', 'block');
     });
+      	var param = helper.getRequestParam();
+     if(param.state == "resourceView"){
+         $('div#gooru-resource-player-about-container, span.resourcePreviewHeaderNavigationArrowAbout').hide();
+         resetResourcePreviewHeight();     	
+     }
+ 	if(param.state == "learnMore"){
+	  $('div#gooru-resource-player-learn-more').trigger('click');  
+	}
     function resetResourcePreviewHeight() {
       var height = $(window).height();
       if($('div.gooru-resource-player-menu-container').is(':visible')) { 
