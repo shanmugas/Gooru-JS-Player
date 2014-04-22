@@ -1,10 +1,8 @@
 <% var collectionPreviewContainerHeight = $(window).height();
-   var collectionPlayLikes = data.metaInfo.rating.count;
    var collectionViews = data.views;
 %>
 <div id="gooru-collection-player-cover-page-meta" style="max-height:<%= collectionPreviewContainerHeight - 27 %>px;">
   <div id="gooru-collection-player-cover-page-meta-analytic-content" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
-      <div class="collection-meta-analytic-header collection-meta-analytic-like-header"><%= collectionPlayLikes %> Like<% if(collectionPlayLikes != null && typeof(collectionPlayLikes) != 'undefined' && collectionPlayLikes > 1) { %>s <% } %> </div>
       <div class="collection-meta-analytic-header collection-meta-analytic-view-header" id="collection-meta-analytic-view" data-views="<%= collectionViews %>"><%= collectionViews %> View<% if(collectionViews != null && typeof(collectionViews) != 'undefined' && collectionViews > 1) { %>s <% } %> </div>
   </div>
   <div id="gooru-collection-player-cover-page-meta-general-content" class="gooru-collection-player-all-meta" style="float:left">
