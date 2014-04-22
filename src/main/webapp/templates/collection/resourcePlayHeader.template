@@ -97,11 +97,7 @@
 	  <div class="gooru-collection-player-resource-next-arrow-div unselectable">
 		  <span  class="gooru-collection-player-all-arrow gooru-collection-player-resource-next-arrow"></span>
 	  </div>
-	  <div class="gooru-collection-player-resource-review-div unselectable">
-	      <div class="gooru-collection-player-resource-review-content">
-		  <div class="gooru-collection-player-resource-review-text">Review</div>
-	      </div>
-	  </div>
+	
     </div>
   </div>
   <div id="gooru-collection-player-resource-play-menu-info-container" class="collection-resource-play-menu-container"></div>

@@ -85,7 +85,7 @@ var scollectionPlay = {
         scollectionPlay.showCollectionPlayResourcePreview(data);
         var pageNum = 1;
 
-        scollectionPlay.collectionSummaryPage(pageNum);
+        //scollectionPlay.collectionSummaryPage(pageNum);
         scollectionPlay.collectionPlayEventHandle(data);
     },
 
