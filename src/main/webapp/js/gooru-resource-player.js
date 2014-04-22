@@ -349,7 +349,6 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
-  //helper.userSignin({onComplete:resourcePreview.init});
-  resourcePreview.init();
+  helper.userSignin({onComplete:resourcePreview.init});
 });
 
