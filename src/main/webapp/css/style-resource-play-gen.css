@@ -65,18 +65,18 @@ div#gooru-resource-player-base-container {
 div#gooru-resource-player-header-container {
   height: 40px;
   width: 100%;
-  background: #525150;
+  background-color: #515151;
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#515151), to(#333));
+  background: -webkit-linear-gradient(top, #515151, #333);
+  background: -moz-linear-gradient(top, #515151, #333);
+  background: -ms-linear-gradient(top, #515151, #333);
+  background: -o-linear-gradient(top, #515151, #333);
+  filter: progid;
 }
 
-div.gooru-all-icon { 
-  background: url("//sheeban.goorulearning.org/p/images/All-icon-sprit-images.png")
-		repeat scroll 0 0 transparent;
-}
-
-div.gooru-all-tool-icon { 
-  background: url("//sheeban.goorulearning.org/p/images/all-icon-tool-spirt-image.png")
-		repeat scroll 0 0 transparent;
-}
 
 div#gooru-branded-log { 
   width: 115px;
@@ -141,6 +141,7 @@ div.gooru-resource-player-content {
   height: 40px;
 }
 div.gooru-resource-player-title {
+  font-family: Arial, sans-serif !important;
   height: 1.1em;
   line-height: 1.1em;
   font-size: 20px;
@@ -315,7 +316,7 @@ div#gooru-resource-player-header-meta-right span.resourcePreviewHeaderNavigation
   height: 20px;
   position: relative;
   display: none;
-  background-position: -9px -163px;
+  background-position: -16px -163px;
   left: 3px;
 }
 div#gooru-resource-player-header-meta-right span.resourcePreviewHeaderNavigationArrowLearnMore { 
@@ -587,7 +588,7 @@ div.gooru-resource-player-all-arrow {
     }
     span.gooru-answer-content-container{
     display: inline-block;
-/*     width: 41%; */
+    width: 45%;
     margin-top: 15px;
     margin-left: 30px;
     }
@@ -668,7 +669,10 @@ div.gooru-resource-player-all-arrow {
     font-size: 14px;
     }
     .multiple-choice-answer-marker, .multiple-choice-answer-radio, .multiple-choice-answer-option {
-    display: inline;
+    
+/*     display: inline; */
+    display: inline-block;
+    
     }
     .multiple-choice-answer-marker{
     width: 24px;
@@ -677,7 +681,7 @@ div.gooru-resource-player-all-arrow {
     top: 7px;
     }
     .multiple-choice-answer-text{
-    width: 65%;
+/*     width: 65%; */
     display: inline-block;
     position: relative;
     top: 10px;
@@ -791,3 +795,9 @@ div.gooru-resource-player-all-arrow {
       overflow-y: auto;
       background : #FFFFFF;
     }
+    ::-webkit-scrollbar { 
+    display: none; 
+  }
+  /*div#gooru-resource-player-about, div#gooru-resource-player-learn-more {
+	   display:none !important; 
+  }*/

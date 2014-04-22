@@ -253,6 +253,10 @@ showResourceCollections : function(gooruOid) {
 	  } else { 
 	    $('div#gooru-resource-player-learn-more-grey').show();
 	    $('div#gooru-resource-player-learn-more').hide();
+	     var param = helper.getRequestParam();
+	     if(param.state == "learnMore"){
+		$('div#gooru-resource-player-about').trigger('click');
+	      }
 	  }
       },
       error : function(jqXhr, textStatus, errorThrown) {
@@ -292,7 +296,7 @@ showResourceCollections : function(gooruOid) {
     function resetResourcePreviewHeight() {
       var height = $(window).height();
       if($('div.gooru-resource-player-menu-container').is(':visible')) { 
-	$('.gooru-resource-player-preview-container, div.resourcePreviewBoxContentContainer, div.gooru-question-play-container').css('height', (height - 165));
+	$('.gooru-resource-player-preview-container, div.resourcePreviewBoxContentContainer, div.gooru-question-play-container').css('height', (height - 162));
       } else { 
 	$('.gooru-resource-player-preview-container, div.resourcePreviewBoxContentContainer, div.gooru-question-play-container').css('height', (height - 47));
       }

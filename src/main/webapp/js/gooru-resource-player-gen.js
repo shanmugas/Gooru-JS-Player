@@ -79,6 +79,7 @@ var resourcePreview = {
   },
   showResourcePreviewPopupBox : function(param) {
     var gooruOid = param.id;
+
     var resourceInstanceId = param.resourceInstanceId;
     var url = GOORU_REST_ENDPOINT + '/resource/resourceSource/' + gooruOid + '.json?';
       if (typeof(resourceInstanceId) != 'undefined' && resourceInstanceId != null && resourceInstanceId != '') {
@@ -155,7 +156,7 @@ var resourcePreview = {
 	      : data.resource.instructornotes.start;
 	      previewValues.stopPPT = (data.resource.instructornotes.stop == null) ? '' : data.resource.instructornotes.stop;
 	      }
-	      previewValues.assetURI = data.resource.assetURI;
+	      preheightviewValues.assetURI = data.resource.assetURI;
 	      previewValues.filePath = data.resource.assetURI + data.resource.resourcefolder;
 	      previewValues.title = (data.resource.label == null) ? '' : data.resource.label;
 	      previewValues.description = (data.resource.description == null) ? '' : data.resource.description;
@@ -209,16 +210,17 @@ var resourcePreview = {
 	      previewValues.isWebResource = helper.isWebResource(previewValues.resourceUrl, previewValues.type);
 	      previewValues.resourceExtenstion = helper.getResourceFileExtenstion(previewValues.resourceUrl);
 	      if (previewValues.type == "assessment-question") {
-		previewValues.questionType = data.typeName;
-		previewValues.answers = data.quizQuestion.answers;
-		previewValues.questionExplanation = data.explanation;
-		previewValues.questionHints = data.quizQuestion.hints;
-		previewValues.questionImageURL = resourcePreview.checkImageURLStatus(data.thumbnails.url);
+			previewValues.questionType = data.typeName;
+			previewValues.answers = data.quizQuestion.answers;
+			previewValues.questionExplanation = data.explanation;
+			previewValues.questionHints = data.quizQuestion.hints;
+			previewValues.questionImageURL = resourcePreview.checkImageURLStatus(data.thumbnails.url);
 	      }
-	      resourcePreview.showResourcePreview(previewValues);
-	      resourcePreview.showResourceCollections(previewValues.gooruOid);						
-	      helper.updateResourceViews(previewValues.gooruOid, previewValues.resourceViews);						
-	      helper.previewToolTip('.resourceBottomPreviewTooltip', 'bottom');
+
+		resourcePreview.showResourcePreview(previewValues);
+		resourcePreview.showResourceCollections(previewValues.gooruOid);
+		helper.updateResourceViews(previewValues.gooruOid, previewValues.resourceViews);
+		helper.previewToolTip('.resourceBottomPreviewTooltip', 'bottom'); 
 	      if (previewValues.resourceLicense != null && typeof(previewValues.resourceLicense.name) != 'undefined' &&  previewValues.resourceLicense.name != 'Other' && 			previewValues.resourceLicense.code != ''){
 		  helper.previewToolTip('.resourcePreviewTooltipLicense', 'bottom');
 	      }
@@ -279,6 +281,14 @@ showResourceCollections : function(gooruOid) {
 	});
 	$('span.resourcePreviewHeaderNavigationArrowLearnMore').is(':visible') ? $('span.resourcePreviewHeaderNavigationArrowLearnMore').hide() : $('span.resourcePreviewHeaderNavigationArrowLearnMore').css('display', 'block');
     });
+      	var param = helper.getRequestParam();
+     if(param.state == "resourceView"){
+         $('div#gooru-resource-player-about-container, span.resourcePreviewHeaderNavigationArrowAbout').hide();
+         resetResourcePreviewHeight();     	
+     }
+ 	if(param.state == "learnMore"){
+	  $('div#gooru-resource-player-learn-more').trigger('click');  
+	}
     function resetResourcePreviewHeight() {
       var height = $(window).height();
       if($('div.gooru-resource-player-menu-container').is(':visible')) { 
@@ -335,7 +345,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
-  helper.userSignin({onComplete:resourcePreview.init});
+  //helper.userSignin({onComplete:resourcePreview.init});
   resourcePreview.init();
 });
 

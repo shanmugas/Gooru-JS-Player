@@ -8,7 +8,7 @@ var USER = {
 };
 var GOORU_PROFILE_S3_URL = ('https:' == document.location.protocol ? 'https://' : 'http://') + '//profile-demo.s3.amazonaws.com/profile-qa/';
 var STATIC_FILE_PATH = ('https:' == document.location.protocol ? 'https://' : 'http://') + '//sheeban.goorulearning.org/p';
-var BUILD_TIME_STAMP = '14031120';
+var BUILD_TIME_STAMP = '14042212';
 /* Gooru Google analytics */
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-20089789-1']);
@@ -247,9 +247,9 @@ var helper = {
     var options = $.extend(defaults, options);
       $.ajax ({
 	  type : 'POST',
-	  url : GOORU_REST_ENDPOINT + '/account/signin.json',
+	  url : GOORU_REST_ENDPOINT + '/v2/account/loginas/anonymous',
 	  cache: false,
-	  data: {isGuestUser: options.isGuestUser, apiKey:param.api_key},
+	  data: {apiKey:param.api_key},
 	  dataType:'json',
 	  success:function(data){
 	    options.onComplete(data);

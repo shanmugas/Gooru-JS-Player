@@ -1452,9 +1452,11 @@ div#gooru-collection-resource-player-source-content {
   width: 220px;
   height: 140px;
   float: left;
-  margin: 59px 10px 10px 10px;
+  margin:21px 10px 53px 10px;
 }
-
+.searchCollectionBoxPreview{
+  margin:2px 10px 10px 10px !important;
+}
 .collectionImageOverlay {
 width: 222px;
 height: 142px;
@@ -1464,7 +1466,15 @@ bottom: 0;
 background: rgba(0, 0, 0, 0.8);
 left: 10px;
 }
-
+.collectionImageOverlays{
+width: 350px;
+height: 262px;
+position: relative;
+top: -272px;
+bottom: 0;
+background: rgba(0, 0, 0, 0.8);
+left: 10px;
+}
 .collectionTitle {
 padding: 4px;
 display: block;
@@ -1498,6 +1508,19 @@ text-align:left;
     width: 40px;
     z-index: 9999;
 }
+.replayIcon {
+  cursor: pointer;
+  display: block;
+  height: 62px;
+  margin-left: 141px;
+  margin-top: 106px;
+  position: absolute;
+  width: 62px;
+  z-index: 9999;
+  background: url(../images/collection-all-icon.png) -392px 2px;
+}
+
+
 .collectionImageDiv {
   background: #f8f8f8;
   border: 1px solid #c6c6c6;
@@ -1507,10 +1530,23 @@ text-align:left;
   text-align: center;
   padding-top: 9px;
 }
+.collectionImageDivs{
+    background: #f8f8f8;
+  border: 1px solid #c6c6c6;
+  padding: 2px;
+  width: 350px;
+  height: 262px;
+  text-align: center;
+  padding: 9px;
+}
 .collectionImg {
   border: 1px solid #c6c6c6;
   width:220px;
   height:140px;
+}
+.collectionImgs{
+width: 350px;
+height: 262px;
 }
 .viewCounts {
   font-size: 12px;
@@ -1530,4 +1566,21 @@ text-align:left;
   height: 0;
   margin: 11px 0 0 16px;
   width: 0;
+}
+.summaryContentDiv {
+width: 72%;
+background: #fff;
+min-height: 1000px;
+margin: 0 auto;
+}
+.learnMoreHeader {
+font-size: 14px;
+color: #555;
+margin-top: 18px;
+width: 164px;
+padding: 10px;
+}
+.replayResource {
+height: 283px;
+width: 381px;
 }
