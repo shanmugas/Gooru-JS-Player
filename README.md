@@ -9,7 +9,7 @@ Command: `mvn clean install -Dmaven.test.skip=true`
 
 
 ## How to embed the player ?
-Checkout this [embed](http://developers.goorulearning.org/documentation/players) link.
+Checkout this [doc](http://developers.goorulearning.org/documentation/players) link.
 
 ## Learn more 
 Learn more about our open source software on our developer’s page where you can find links to documentation and resources at: http://developers.goorulearning.org/
