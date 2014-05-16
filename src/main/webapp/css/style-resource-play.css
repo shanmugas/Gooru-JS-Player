@@ -129,7 +129,7 @@ div.gooru-resource-type-overlay-icon-question {
 div.gooru-resource-type-overlay-icon-video {
   background-position: 5px 3px;
 }
-div.gooru-resource-type-overlay-icon-website {
+div.gooru-resource-type-overlay-icon-webpage {
   background-position: 5px -223px;
 }
 div.gooru-resource-type-overlay-icon-image {
@@ -259,6 +259,7 @@ div#gooru-resource-player-type-content {
   height: 2.2em;
 /*   line-height: 1.1em; */
   overflow: hidden;
+  text-transform: capitalize;
 }
 div#gooru-resource-player-desc-content {
 /*   float: left; */

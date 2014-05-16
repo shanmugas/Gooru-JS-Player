@@ -3,7 +3,7 @@
   <div id="gooru-resource-player-about-content-left">
     <div id="gooru-resource-player-type-container">
 	<div id="gooru-resource-player-type-header">Type: </div>
-	<div id="gooru-resource-player-type-content"><%= category %></div>
+	<div id="gooru-resource-player-type-content"><%= resourceFormatType %></div>
     </div>
     <div id="gooru-resource-player-desc-container">
 	<div id="gooru-resource-player-desc-header">Description: </div>

@@ -40,7 +40,7 @@
 		} 
 		var startPage = startPPT -1;
 	    %>
-	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
+	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	    	</div>
     <% } else if(type == "resource/url") { %>
 	<div id="resourcePreviewWebResourceContainer">

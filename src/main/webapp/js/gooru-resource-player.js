@@ -45,6 +45,7 @@ var resourcePreview = {
       previewValues.GOORU_REST_ENDPOINT = ('https:' == document.location.protocol ? 'https://' : 'http://') + GOORU_REST_ENDPOINT;
       previewValues.DOC_HOME = DOC_HOME;
       previewValues.DOC_CACHE = DOC_CACHE;
+      previewValues.TOKEN = USER.sessionToken;
       var resourcePreviewHeader = new EJS({
         url: STATIC_FILE_PATH + '/templates/resources/resourcePreviewHeader.template?buildId='+BUILD_TIME_STAMP
       }).render(previewValues);
