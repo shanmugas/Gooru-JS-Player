@@ -41,7 +41,7 @@ var scollectionPlay = {
     showCollectionPlayCoverPage: function (param) {
         if (typeof (param.id) === 'undefined' || param.id === '') {
             var collectionInfo = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'
+                url: '/templates/collection/collectionPlayerInfo.template'
             }).render({
                 message: 'Please provide collection Id',
                 reduceSize: 0
@@ -62,7 +62,7 @@ var scollectionPlay = {
     renderCollectionPlayer: function (data, param) {
         if (data.status == 404) {
             var collectionInfo = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'
+                url: '/templates/collection/collectionPlayerInfo.template'
             }).render({
                 message: 'Collection Not Found, please check the collection Id - ' + param.id,
                 reduceSize: 0
@@ -71,7 +71,7 @@ var scollectionPlay = {
             return;
         } else if (data.status == 403) {
             var collectionInfo = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'
+                url: '/templates/collection/collectionPlayerInfo.template'
             }).render({
                 message: "You don't have permission to play this collection",
                 reduceSize: 0
@@ -85,13 +85,13 @@ var scollectionPlay = {
         $('div#gooru-collection-player-base-container').data('collectionOwnerName', data.user.usernameDisplay);
 
         var collectionPlayCoverPage = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerCoverPage.template'
+            url: '/templates/collection/collectionPlayerCoverPage.template'
         }).render({
             data: data
         });
         $('div#gooru-collection-player-base-container').html(collectionPlayCoverPage);
         var collectionPlayMeta = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerMeta.template'
+            url: '/templates/collection/collectionPlayerMeta.template'
         }).render({
             data: data
         });
@@ -118,7 +118,7 @@ var scollectionPlay = {
         $('.collection-course-seemore').click(function () {
             $('#collection-course-dialog-container').dialog('open');
             var course = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayercourse.template'
+                url: '/templates/collection/collectionPlayercourse.template'
             }).render({
                 course: data.metaInfo.course
             });
@@ -130,7 +130,7 @@ var scollectionPlay = {
         $('.collection-voc-seemore').click(function () {
             $('#collection-voc-dialog-container').dialog('open');
             var vocabulary = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerVocabulary.template'
+                url: '/templates/collection/collectionPlayerVocabulary.template'
             }).render({
                 vocabulary: data.vocabulary
             });
@@ -143,7 +143,7 @@ var scollectionPlay = {
             $('#collection-standards-dialog-container').dialog('open');
 
             var standards = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerStandards.template'
+                url: '/templates/collection/collectionPlayerStandards.template'
             }).render({
                 data: data.metaInfo.standards
             });
@@ -261,7 +261,7 @@ var scollectionPlay = {
     },
     collectionPlayResourceAcknowledgment: function (data) {
         var acknowledgmentHTML = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerAcknowledgement.template'
+            url: '/templates/collection/collectionPlayerAcknowledgement.template'
         }).render({
             data: scollectionPlay.groupResourceAcknowledgment(data)
         });
@@ -341,7 +341,7 @@ var scollectionPlay = {
 
     showCollectionPlayResourcePreview: function (data) {
         var resourcePlayHeader = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/resourcePlayHeader.template'
+            url: '/templates/collection/resourcePlayHeader.template'
         }).render({
             data: data.collectionItems
         });
@@ -471,7 +471,7 @@ var scollectionPlay = {
         }
         previewValues.useScribd = useScribd;
         var resourcePreviewHtml = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/collectionResourcePreview.template'
+            url: '/templates/collection/collectionResourcePreview.template'
         }).render(previewValues);
         with(previewValues) {
             $('div#gooru-collection-player-header-resource-title').html(title);
@@ -522,7 +522,7 @@ var scollectionPlay = {
         if (typeof (previewValues.narrative) != 'undefined' && previewValues.narrative != null && previewValues.narrative.length > 0) {
 
             var resourceNarrativeHtml = new EJS({
-                url: STATIC_FILE_PATH + '/templates/collection/resourceNarrative.template'
+                url: '/templates/collection/resourceNarrative.template'
             }).render(previewValues);
             $('div#gooru-collection-player-resource-play-menu-narrative-container').html(resourceNarrativeHtml);
             var menuType = $('div#gooru-collection-player-base-container').data('selected-menu');
@@ -542,7 +542,7 @@ var scollectionPlay = {
     showResourceInfo: function (previewValues) {
 
         var resourceAboutHtml = new EJS({
-            url: STATIC_FILE_PATH + '/templates/collection/resourceAbout.template'
+            url: '/templates/collection/resourceAbout.template'
         }).render(previewValues);
         $('div#gooru-collection-player-resource-play-menu-info-container').html(resourceAboutHtml);
         helper.roundedCornerForIE();
@@ -577,7 +577,7 @@ var scollectionPlay = {
             success: function (data) {
                 EJS.ext = ".template";
                 var featuredCollectionTemplate = new EJS({
-                    url: STATIC_FILE_PATH + '/templates/collection/collectionSummaryPage.template'
+                    url: '/templates/collection/collectionSummaryPage.template'
                 }).render({
                     data: data,
 		    HOME_URL: HOME_URL,

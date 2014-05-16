@@ -58,7 +58,6 @@ EJS = function( options ){
 	}else if(options.url){
         options.url = EJS.endExt(options.url, this.extMatch);
 		this.name = this.name ? this.name : options.url;
-	        options.url =  $.browser.msie ? options.url.replace(STATIC_FILE_PATH, '..') :  options.url;
         var url = options.url
         //options.view = options.absolute_url || options.view || options.;
 		var template = EJS.get(this.name /*url*/, this.cache);

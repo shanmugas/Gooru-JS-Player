@@ -35,7 +35,7 @@ var collectionPlay = {
   },
   showCollectionPlayCoverPage: function(param) { 
     if (typeof(param.id) === 'undefined' || param.id === '') { 
-      var collectionInfo = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'}).render({message: 'Please provide collection Id', reduceSize: 0});
+      var collectionInfo = new EJS({url: 'templates/collection/collectionPlayerInfo.template'}).render({message: 'Please provide collection Id', reduceSize: 0});
       $('div#gooru-collection-player-base-container').html(collectionInfo).css('height', $(window).height()); 
       return;
     }
@@ -51,11 +51,11 @@ var collectionPlay = {
   },
   renderCollectionPlayer: function(data, param) { 
     if (data.status == 404) {
-      var collectionInfo = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'}).render({message: 'Collection Not Found, please check the collection Id - ' + param.id, reduceSize: 0});
+      var collectionInfo = new EJS({url: 'templates/collection/collectionPlayerInfo.template'}).render({message: 'Collection Not Found, please check the collection Id - ' + param.id, reduceSize: 0});
       $('div#gooru-collection-player-base-container').html(collectionInfo); 
       return;
     } else if (data.status == 403) {
-      var collectionInfo = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerInfo.template'}).render({message: "You don't have permission to play this collection", reduceSize: 0});
+      var collectionInfo = new EJS({url: 'templates/collection/collectionPlayerInfo.template'}).render({message: "You don't have permission to play this collection", reduceSize: 0});
       $('div#gooru-collection-player-base-container').html(collectionInfo); 
       return;
     }
@@ -64,9 +64,9 @@ var collectionPlay = {
     $('div#gooru-collection-player-base-container').data('collectionOwnerId', data.user.gooruUId);
     $('div#gooru-collection-player-base-container').data('collectionOwnerName', data.user.usernameDisplay);
     
-    var collectionPlayCoverPage = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerCoverPage.template'}).render({data:data});
+    var collectionPlayCoverPage = new EJS({url: 'templates/collection/collectionPlayerCoverPage.template'}).render({data:data});
     $('div#gooru-collection-player-base-container').html(collectionPlayCoverPage); 
-    var collectionPlayMeta = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerMeta.template'}).render({data:data});
+    var collectionPlayMeta = new EJS({url: 'templates/collection/collectionPlayerMeta.template'}).render({data:data});
     $('div#gooru-collection-player-cover-page-meta-container').html(collectionPlayMeta); 
     helper.roundedCornerForIE();
     helper.previewToolTip('.collection-play-standards-preview', 'top');
@@ -87,7 +87,7 @@ var collectionPlay = {
     });
     $('.collection-course-seemore').click(function() { 
       $('#collection-course-dialog-container').dialog('open');
-      var course = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayercourse.template'}).render({course:data.collectionTaxonomy.course});
+      var course = new EJS({url: 'templates/collection/collectionPlayercourse.template'}).render({course:data.collectionTaxonomy.course});
       $('div#collection-course-dialog-container').html(course);
       $('div.gooru-collection-player-course-button-okay').click(function() { 
 	  $('#collection-course-dialog-container').dialog('close');
@@ -95,7 +95,7 @@ var collectionPlay = {
     });
     $('.collection-voc-seemore').click(function() { 
 	$('#collection-voc-dialog-container').dialog('open');
-	var vocabulary = new EJS({url: STATIC_FILE_PATH + '/templates/collection/collectionPlayerVocabulary.template'}).render({vocabulary:data.vocabulary});
+	var vocabulary = new EJS({url: 'templates/collection/collectionPlayerVocabulary.template'}).render({vocabulary:data.vocabulary});
 	$('div#collection-voc-dialog-container').html(vocabulary);
 	$('div.gooru-collection-player-voc-button-okay').click(function() { 
 	    $('#collection-voc-dialog-container').dialog('close');
@@ -103,7 +103,7 @@ var collectionPlay = {
     });
     $('.collection-standards-seemore').click(function() { 
 	$('#collection-standards-dialog-container').dialog('open');
-	var standards = new EJS({url : STATIC_FILE_PATH + '/templates/collection/collectionPlayerStandards.template'}).render({data : data.collectionTaxonomy.curriculum});
+	var standards = new EJS({url : 'templates/collection/collectionPlayerStandards.template'}).render({data : data.collectionTaxonomy.curriculum});
 	$('div#collection-standards-dialog-container').html(standards);
 	$('div.gooru-collection-player-standards-button-okay').click(function() { 
 	  $('#collection-standards-dialog-container').dialog('close');
@@ -222,7 +222,7 @@ var collectionPlay = {
       url : url,
       dataType : 'jsonp',
       success : function(data) {
-	  var acknowledgmentHTML = new EJS({url : STATIC_FILE_PATH + '/templates/collection/collectionPlayerAcknowledgement.template'}).render({data : collectionPlay.groupResourceAcknowledgment(data)});
+	  var acknowledgmentHTML = new EJS({url : 'templates/collection/collectionPlayerAcknowledgement.template'}).render({data : collectionPlay.groupResourceAcknowledgment(data)});
 	  $('div#collection-ack-dialog-container').html(acknowledgmentHTML);
 	  helper.onErrorDefaultImage();
 	  $('div.gooru-collection-player-ack-button-okay').click(function() { 
@@ -297,7 +297,7 @@ var collectionPlay = {
   },
   
   showCollectionPlayResourcePreview: function(data) { 
-    var resourcePlayHeader = new EJS({url : STATIC_FILE_PATH + '/templates/collection/resourcePlayHeader.template'}).render({data: data.collectionSegments});
+    var resourcePlayHeader = new EJS({url : 'templates/collection/resourcePlayHeader.template'}).render({data: data.collectionSegments});
     $('div#gooru-collection-player-resource-play-container').html(resourcePlayHeader);
     helper.onErrorDefaultImage();
     var numberOfResourceDisplay = Math.floor($('div#collection-segment-base-container').width() / ($('div.collection-segment-content:eq(0)').width()));
@@ -423,7 +423,7 @@ var collectionPlay = {
 	}
 	previewValues.useScribd = useScribd;
 	var resourcePreviewHtml = new EJS({
-	    url: STATIC_FILE_PATH + '/templates/collection/collectionResourcePreview.template'
+	    url: 'templates/collection/collectionResourcePreview.template'
 	}).render(previewValues);
 	with(previewValues) {
 	  $('div#gooru-collection-player-header-resource-title').html(title);
@@ -471,7 +471,7 @@ var collectionPlay = {
     showResourceNarrative: function(previewValues) { 
         if(typeof(previewValues.narrative) != 'undefined'  && previewValues.narrative != null && previewValues.narrative.length > 0) {
 	  var resourceNarrativeHtml = new EJS({
-	      url: STATIC_FILE_PATH + '/templates/collection/resourceNarrative.template'
+	      url: 'templates/collection/resourceNarrative.template'
 	  }).render(previewValues);
 	  $('div#gooru-collection-player-resource-play-menu-narrative-container').html(resourceNarrativeHtml);
 	  var menuType = $('div#gooru-collection-player-base-container').data('selected-menu');
@@ -490,7 +490,7 @@ var collectionPlay = {
     }, 
     showResourceInfo: function(previewValues) { 
 	var resourceAboutHtml = new EJS({
-	    url: STATIC_FILE_PATH + '/templates/collection/resourceAbout.template'
+	    url: 'templates/collection/resourceAbout.template'
 	}).render(previewValues);
 	$('div#gooru-collection-player-resource-play-menu-info-container').html(resourceAboutHtml);
 	helper.roundedCornerForIE();
@@ -511,7 +511,7 @@ var collectionPlay = {
     },
     
     collectionSummaryPage: function(data) { 
-      var collectionSummaryContentHtml = new EJS({url : STATIC_FILE_PATH + '/templates/collection/collectionSummaryPage.template'}).render({data: data});
+      var collectionSummaryContentHtml = new EJS({url : 'templates/collection/collectionSummaryPage.template'}).render({data: data});
       $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
       helper.onErrorDefaultImage();
       $('#collection-summrary-page-retake-content').click(function()  { 
