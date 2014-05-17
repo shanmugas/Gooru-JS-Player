@@ -58,7 +58,8 @@ EJS = function( options ){
 	}else if(options.url){
         options.url = EJS.endExt(options.url, this.extMatch);
 		this.name = this.name ? this.name : options.url;
-        var url =  HOME_URL + options.url;
+                options.url = HOME_URL + options.url;
+        var url = options.url;
         //options.view = options.absolute_url || options.view || options.;
 		var template = EJS.get(this.name /*url*/, this.cache);
 		if (template) return template;
