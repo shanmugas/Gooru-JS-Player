@@ -47,16 +47,16 @@ var resourcePreview = {
       previewValues.DOC_CACHE = DOC_CACHE;
       previewValues.TOKEN = USER.sessionToken;
       var resourcePreviewHeader = new EJS({
-        url: 'templates/resources/resourcePreviewHeader.template?buildId='+BUILD_TIME_STAMP
+        url: '/templates/resources/resourcePreviewHeader.template?buildId='+BUILD_TIME_STAMP
       }).render(previewValues);
       $('div#gooru-resource-player-base-container').css('height', ($(window).height() - 6));
       $('div#gooru-resource-player-base-container').html(resourcePreviewHeader);
       document.title = previewValues.title;
       var previewTemplate = new EJS({
-        url: 'templates/resources/resourcePreview.template'
+        url: '/templates/resources/resourcePreview.template'
       }).render(previewValues);
       var resourceMetaData = new EJS({
-        url: 'templates/resources/resourceMetaData.template'
+        url: '/templates/resources/resourceMetaData.template'
       }).render(previewValues);
       $('#gooru-resource-player-meta-container').html(resourceMetaData);
       var previewHeight = $(window).height();
@@ -113,7 +113,7 @@ var resourcePreview = {
 	  resourcePreview.renderResourcePreview(data, param);
 	},
 	error : function(data) {
-	  var resourceInfo = new EJS({url: 'templates/resources/resourcePlayerInfo.template'}).render({message: 'Resource Not Found, Please check the resource Id - ' + param.id, reduceSize: 0});
+	  var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: 'Resource Not Found, Please check the resource Id - ' + param.id, reduceSize: 0});
           $('div#gooru-resource-player-base-container').html(resourceInfo); 
 	}
       });
@@ -255,7 +255,7 @@ showResourceCollections : function(gooruOid) {
       '&boostField.hasNoThumbnail=0',
       dataType : 'jsonp',
       success : function(data) {
-	  var resourcesCollectionTemplate = new EJS({url : 'templates/resources/resourceCollections.template'}).render({
+	  var resourcesCollectionTemplate = new EJS({url : '/templates/resources/resourceCollections.template'}).render({
 						      resourceCollection : data,
 						      HOME_URL: HOME_URL,
 						      TOKEN : USER.sessionToken

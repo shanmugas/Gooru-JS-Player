@@ -59,7 +59,7 @@
         so.write(playerContainer);
       } else {
 	    var resourceInfo = new EJS({
-	    url: 'templates/resources/resourcePlayerInfo.template'
+	    url: '/templates/resources/resourcePlayerInfo.template'
 	  }).render({message: '<span class="installFlashSpan">Flash player is needed to display this content....!</span> <a href="http://www.adobe.com/support/flashplayer/downloads.html" target="_blank">Install Plugin</a>', reduceSize: 176});
 	  $('div.resourcePreviewBoxContentContainer').html(resourceInfo);
       }
@@ -71,18 +71,18 @@
       if(previewValues.questionType != "" && typeof previewValues.questionType != 'undefined') {
 	if (previewValues.questionType == "MC" || previewValues.questionType == "T/F" || previewValues.questionType == 1 || previewValues.questionType == 3) {
 	  var resourceInfo = new EJS({
-	      url: 'templates/resources/question/resourceQuestionMCQ.template'
+	      url: '/templates/resources/question/resourceQuestionMCQ.template'
 	    }).render({data:previewValues});
 	}
 	if (previewValues.questionType == "FIB" || previewValues.questionType == 4) {
 	  var resourceInfo = new EJS({
-	      url: 'templates/resources/question/resourceQuestionFIB.template'
+	      url: '/templates/resources/question/resourceQuestionFIB.template'
 	    }).render({data:previewValues});
 	    console.log(resourceInfo);
 	}
 	if (previewValues.questionType == "OE" || previewValues.questionType == 6) {
 	  var resourceInfo = new EJS({
-	      url: 'templates/resources/question/resourceQuestionOE.template'
+	      url: '/templates/resources/question/resourceQuestionOE.template'
 	    }).render({data:previewValues});
 	}
 	$(targetElement).html(resourceInfo);
@@ -241,7 +241,7 @@ var helper = {
     var param = helper.getRequestParam();
     EJS.ext = '.template';
     if(typeof(param.api_key) == 'undefined' || param.api_key == '') { 
-      var resourceInfo = new EJS({url: 'templates/resources/resourcePlayerInfo.template'}).render({message: '<span>Required API Key for play this resource. You do not have API Key, please send request by clicking this link </span> <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
+      var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: '<span>Required API Key for play this resource. You do not have API Key, please send request by clicking this link </span> <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
           $('div.gooru-player-GOORU_REST_ENDPOINTbase-container').html(resourceInfo);
       return;
        
@@ -265,7 +265,7 @@ var helper = {
 	  }, 
 	error : function(data) {
 		var key = data.responseText.split(":");
-      var resourceInfo = new EJS({url: 'templates/resources/resourcePlayerInfo.template'}).render({message: key[1] + ' For new API Key, please send request by clicking this link <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
+      var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: key[1] + ' For new API Key, please send request by clicking this link <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
 
 	        $('div.gooru-player-base-container').html(resourceInfo);
 	}
