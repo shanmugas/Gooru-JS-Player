@@ -59,7 +59,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	  
 	  
 	  <div>
-	    <div style="margin-bottom: 5px;">
+	    <div style="margin-top: 60px;text-align: center;">
 	      <input id = "gooru-oe-save-button" data-question-type = "<%= questionData.questionType %>" class = "gooru-answer-container gooru-default-grey-disable-button" type="button" value = "Save" />
 	    </div>
 	  </div>

@@ -65,7 +65,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	  </div>
 	  
 	  <div>
-	    <div style="margin-bottom: 5px;">
+	    <div style="margin-top: 60px;text-align: center;">
 	      <input data-question-type = "<%= questionData.questionType %>" class = "gooru-answer-container gooru-default-grey-disable-button" type="button" value = "Check Answer" />
 	    </div>
 	  </div>

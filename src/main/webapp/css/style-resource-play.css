@@ -609,9 +609,9 @@ div.gooru-resource-player-all-arrow {
     }
     span.gooru-answer-content-container{
     display: inline-block;
-    width: 45%;
+    width: 44%;
     margin-top: 15px;
-    margin-left: 30px;
+    margin-left: 47px;
     }
     .border-bottom{
     border-bottom: solid 1px #ccc;
@@ -822,3 +822,12 @@ div.gooru-resource-player-all-arrow {
   /*div#gooru-resource-player-about, div#gooru-resource-player-learn-more {
 	   display:none !important; 
   }*/
+  div.mc-question-yes-no-header {
+    font-size: 12px;
+    font-style: italic;
+    color: #515151;
+    position: relative;
+    display: inline-block;
+    top: 10px;
+    left: 29px;
+  }
