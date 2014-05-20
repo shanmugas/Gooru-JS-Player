@@ -35,7 +35,7 @@
   /* core functions of resource player */
   var resourcePlayers = {
     youtubeVideo: function (videoId, startSeconds, playerContainer) {
-      var s1 = new SWFObject(('https:' == document.location.protocol ? 'https://' : 'http://') + '//www.youtube.com/v/' + videoId + '?fs=1&amp;rel=0&amp;enablejsapi=1&amp;version=3&amp;playerapiid=youtubeMovie-' + playerContainer + '&amp;autoplay=1&amp;start=' + startSeconds, 'youtubeMovie-' + playerContainer, '100%', '99%', '8', '#111111');
+      var s1 = new SWFObject(('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.youtube.com/v/' + videoId + '?fs=1&amp;rel=0&amp;enablejsapi=1&amp;version=3&amp;playerapiid=youtubeMovie-' + playerContainer + '&amp;autoplay=1&amp;start=' + startSeconds, 'youtubeMovie-' + playerContainer, '100%', '99%', '8', '#111111');
       s1.addParam('height', '99%');
       s1.addParam('width', '100%');
       s1.addParam('movie', 'http://www.youtube.com/v/' + videoId + '?fs=1&amp;rel=0&amp;enablejsapi=1&amp;version=3&amp;playerapiid=youtubeMovie-' + playerContainer + '&amp;autoplay=1&amp;start=' + startSeconds);
