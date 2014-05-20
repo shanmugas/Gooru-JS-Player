@@ -64,29 +64,29 @@
 	  </div>
 	  <div id="collection-segment-base-container" style="width:<%= resourceSlideWidth %>px">
 	      <div id="collection-segment-container">  
-		      <% for(var collectionItemIndex=0;  collectionItemIndex < data.length; collectionItemIndex++) { 
-			    var resoureFolder = data[collectionItemIndex].resource.folder;
-			    var thumbnailName = data[collectionItemIndex].resource.thumbnail;
+		      <% for(var collectionItemIndex=0;  collectionItemIndex < data.collectionItems.length; collectionItemIndex++) { 
+			    var resoureFolder = data.collectionItems[collectionItemIndex].resource.folder;
+			    var thumbnailName = data.collectionItems[collectionItemIndex].resource.thumbnail;
 			    var resourceImageURL="";
-			    if(data[collectionItemIndex].resource.resourceType.name == 'video/youtube') {
-				  resourceImageURL = helper.youtubeImageLink(data[collectionItemIndex].resource.url);
+			    if(data.collectionItems[collectionItemIndex].resource.resourceType.name == 'video/youtube') {
+				  resourceImageURL = helper.youtubeImageLink(data.collectionItems[collectionItemIndex].resource.url);
 			    } else {
-				    resourceImageURL = data[collectionItemIndex].resource.assetURI + resoureFolder + thumbnailName;
+				    resourceImageURL = data.collectionItems[collectionItemIndex].resource.assetURI + resoureFolder + thumbnailName;
 			    }
 		      %>
-		      <div class="collection-player-resource-container collection-segment-content" id="collection-player-resource-<%= data[collectionItemIndex].resourceInstanceId %>" data-resourceinstanceid="<%= data[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder++ %>">
-		       <div class="collection-player-resource-content-val" data-resourceinstanceid="<%= data[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder %>" data-resource-json='<%= escape(JSON.stringify(scollectionPlay.resourceDataFormatter(data[collectionItemIndex]))) %>' data-segment-index= "<%= collectionItemIndex %>">
+		      <div class="collection-player-resource-container collection-segment-content" id="collection-player-resource-<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder++ %>">
+		       <div class="collection-player-resource-content-val" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder %>" data-resource-json='<%= escape(JSON.stringify(collectionPlay.resourceDataFormatter(data.collectionItems[collectionItemIndex]))) %>' data-segment-index= "<%= collectionItemIndex %>">
 			<div class="collection-player-resource-data collection-player-resource-transform">
 			  <div class="collection-player-resource-image-container">
 			      <div class="collection-player-resource-image default-image-div">
-				  <img width="80" height="60" class="resource-thumbnail  resource-img-slide" data-resourcefolder="<%=resoureFolder%>" data-category="<%=data[collectionItemIndex].resource.resourceFormat.value %>" data-asseturi="<%=data[collectionItemIndex].resource.assetURI %>" data-resourceUrl="<%= data[collectionItemIndex].resource.url %>" data-resourceImage="<%= resourceImageURL %>"  src="<%= resourceImageURL %>"  />
+				  <img width="80" height="60" class="resource-thumbnail  resource-img-slide" data-resourcefolder="<%=resoureFolder%>" data-category="<%=data.collectionItems[collectionItemIndex].resource.resourceFormat.value %>" data-asseturi="<%=data.collectionItems[collectionItemIndex].resource.assetURI %>" data-resourceUrl="<%= data.collectionItems[collectionItemIndex].resource.url %>" data-resourceImage="<%= resourceImageURL %>"  src="<%= resourceImageURL %>"  />
 			      </div>
-			      <div class="gooru-collection-player-overlay-icon gooru-collection-player-overlay-resource-play-icon gooru-collection-player-overlay-icon-<%= data[collectionItemIndex].resource.resourceFormat.value.toLowerCase() %>"></div>
+			      <div class="gooru-collection-player-overlay-icon gooru-collection-player-overlay-resource-play-icon gooru-collection-player-overlay-icon-<%= data.collectionItems[collectionItemIndex].resource.resourceFormat.value.toLowerCase() %>"></div>
 			  </div>
 			 </div>
 			  <div class="gooru-collection-player-resource-content">
 			      <div class="gooru-collection-player-resource-content-title">
-					<%=  data[collectionItemIndex].resource.title %>
+					<%=  data.collectionItems[collectionItemIndex].resource.title %>
 			      </div>
 			  </div>
 		       </div>

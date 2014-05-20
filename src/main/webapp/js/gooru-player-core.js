@@ -67,7 +67,7 @@
     flvPlayer: function (resourceUrl, playerContainer) {
       flowplayer(playerContainer, resourceUrl);
     },
-    questionResource: function (previewValues,targetElement) {
+    questionResource: function (previewValues,targetElement) { 
       if(previewValues.questionType != "" && typeof previewValues.questionType != 'undefined') {
 	if (previewValues.questionType == "MC" || previewValues.questionType == "T/F" || previewValues.questionType == 1 || previewValues.questionType == 3) {
 	  var resourceInfo = new EJS({
@@ -78,11 +78,15 @@
 	  var resourceInfo = new EJS({
 	      url: '/templates/resources/question/resourceQuestionFIB.template'
 	    }).render({data:previewValues});
-	    console.log(resourceInfo);
 	}
 	if (previewValues.questionType == "OE" || previewValues.questionType == 6) {
 	  var resourceInfo = new EJS({
 	      url: '/templates/resources/question/resourceQuestionOE.template'
+	    }).render({data:previewValues});
+	}
+	if (typeof previewValues.questionType != "undefined" && previewValues.questionType == "MA") {
+	  var resourceInfo = new EJS({
+	      url: '/templates/resources/question/resourceQuestionMA.template'
 	    }).render({data:previewValues});
 	}
 	$(targetElement).html(resourceInfo);
@@ -121,6 +125,17 @@
 	$("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
 	$("div#gooru-oe-submited-answer").show();
 	$("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button").hide();
+    } else if($(this).data("question-type") != "undefined" && $(this).data("question-type") == "MA") {  
+	$('div.multiple-choice-answer-marker').css("visibility","visible");
+ 	$('input.gooru-mcq-radio-button').each(function() {
+ 	  if($('input[name='+$(this).attr("name")+']:checked').val() == $('input[name='+$(this).attr("name")+']').data('mc-is-correct').toString()) { 
+ 	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).addClass('question-correct-answer-marker');
+	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-wrong-answer-marker');
+ 	  } else {
+	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).addClass('question-wrong-answer-marker');
+	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-correct-answer-marker');
+	  }  
+	});
     }
      $("input.gooru-answer-container").addClass("gooru-default-grey-disable-button");
     $("input.gooru-answer-container").removeClass("gooru-default-blue-button");

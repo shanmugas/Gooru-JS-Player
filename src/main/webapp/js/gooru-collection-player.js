@@ -39,7 +39,7 @@ var collectionPlay = {
       $('div#gooru-collection-player-base-container').html(collectionInfo).css('height', $(window).height()); 
       return;
     }
-    var url = GOORU_REST_ENDPOINT + '/collection/' + param.id + '/play.json';
+    var url = GOORU_REST_ENDPOINT + '/v2/collection/' + param.id + '/?includeCollectionItem=true&includeMetaInfo=true';
     $.ajax({
       type: 'GET',
       url: url,
@@ -59,7 +59,7 @@ var collectionPlay = {
       $('div#gooru-collection-player-base-container').html(collectionInfo); 
       return;
     }
-    document.title = data.lesson;
+    document.title = data.title;
     $('div#gooru-collection-player-base-container').data('collectionId', data.gooruOid);
     $('div#gooru-collection-player-base-container').data('collectionOwnerId', data.user.gooruUId);
     $('div#gooru-collection-player-base-container').data('collectionOwnerName', data.user.usernameDisplay);
@@ -296,8 +296,8 @@ var collectionPlay = {
       return resourceSourceGroup;
   },
   
-  showCollectionPlayResourcePreview: function(data) { 
-    var resourcePlayHeader = new EJS({url : '/templates/collection/resourcePlayHeader.template'}).render({data: data.collectionSegments});
+  showCollectionPlayResourcePreview: function(data) {
+    var resourcePlayHeader = new EJS({url : '/templates/collection/resourcePlayHeader.template'}).render({data: data});
     $('div#gooru-collection-player-resource-play-container').html(resourcePlayHeader);
     helper.onErrorDefaultImage();
     var numberOfResourceDisplay = Math.floor($('div#collection-segment-base-container').width() / ($('div.collection-segment-content:eq(0)').width()));
@@ -408,12 +408,21 @@ var collectionPlay = {
             resourceUserId: collectionOwnerId,
             resourcestatus: resourcestatus,
             thumbnail: data.resource.thumbnail,
+	    questionType:null,
 	    category: data.resource.category,
             gooruOid: gooruOid,
 	    resourceInstanceId: data.resourceInstanceId,
 	    resource: data.resource,
-	    collectionOwnerName: $('div#gooru-collection-player-base-container').data('collectionOwnerName')
+	    collectionOwnerName: $('div#gooru-collection-player-base-container').data('collectionOwnerName'),
+	    TOKEN : USER.sessionToken
         };
+	if (type == 'assessment-question') {
+	  previewValues.questionType = data.questionInfo.type;
+	  previewValues.answers = data.questionInfo.answers;
+	  previewValues.questionExplanation = data.questionInfo.explanation;
+	  previewValues.questionHints = data.questionInfo.hints;
+	  previewValues.questionImageURL = (typeof data.questionInfo.thumbnails.url != 'undefined') ? data.questionInfo.thumbnails.url : "";
+	}
         return previewValues;
     },
     resourcePreview: function (previewValues) {
@@ -460,6 +469,9 @@ var collectionPlay = {
 	      if(useScribd){
 		resourcePlayers.pdfReader(documentId, documentKey, startPPT, 'collectionResourcePreviewTextbookScribd');
 	      }
+	    break;
+	    case 'assessment-question': 
+	      resourcePlayers.questionResource(previewValues,'div#collectionQuestionPreviewContentContainer');
 	    break;
 	  }
  	  var activityLogId = generateGUID();	
@@ -511,25 +523,25 @@ var collectionPlay = {
     },
     
     collectionSummaryPage: function(data) { 
-      var collectionSummaryContentHtml = new EJS({url : '/templates/collection/collectionSummaryPage.template'}).render({data: data});
-      $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
-      helper.onErrorDefaultImage();
-      $('#collection-summrary-page-retake-content').click(function()  { 
-	$('div#gooru-collection-player-resource-summary-container').hide();
-	$('div#gooru-collection-player-cover-page-container').show();
-      });
-      $('div.collection-player-summary-resource-container').mouseenter(function() { 
-	$(this).find('span.collection-summary-page-goto-resource-span').show();
-      });
-      $('div.collection-player-summary-resource-container').mouseleave(function() { 
-	$(this).find('span.collection-summary-page-goto-resource-span').hide();
-      });
-      $('span.collection-summary-page-goto-resource-span').click(function() { 
-	$('div#gooru-collection-player-resource-summary-container').hide();
-	$('div#gooru-collection-player-resource-play-container').show();
-	var resourceinstanceid = $(this).data('resourceinstanceid');
-	$('div#collection-player-resource-' + resourceinstanceid).find('div.collection-player-resource-content-val').trigger('click');
-      });
+//       var collectionSummaryContentHtml = new EJS({url : '/templates/collection/collectionSummaryPage.template'}).render({data: data});
+//       $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
+//       helper.onErrorDefaultImage();
+//       $('#collection-summrary-page-retake-content').click(function()  { 
+// 	$('div#gooru-collection-player-resource-summary-container').hide();
+// 	$('div#gooru-collection-player-cover-page-container').show();
+//       });
+//       $('div.collection-player-summary-resource-container').mouseenter(function() { 
+// 	$(this).find('span.collection-summary-page-goto-resource-span').show();
+//       });
+//       $('div.collection-player-summary-resource-container').mouseleave(function() { 
+// 	$(this).find('span.collection-summary-page-goto-resource-span').hide();
+//       });
+//       $('span.collection-summary-page-goto-resource-span').click(function() { 
+// 	$('div#gooru-collection-player-resource-summary-container').hide();
+// 	$('div#gooru-collection-player-resource-play-container').show();
+// 	var resourceinstanceid = $(this).data('resourceinstanceid');
+// 	$('div#collection-player-resource-' + resourceinstanceid).find('div.collection-player-resource-content-val').trigger('click');
+//       });
     }
 };
 function resetResourcePreviewHeight() {
@@ -570,7 +582,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- //helper.userSignin({onComplete:collectionPlay.init});
- collectionPlay.init();
+ helper.userSignin({onComplete:collectionPlay.init});
+// collectionPlay.init();
 });
 

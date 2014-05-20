@@ -36,7 +36,7 @@ var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 	      } 
 	      var startPage = startPPT -1;
 	  %>
-	  <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
+	  <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	      </div>
   <% } else if(type == "resource/url") { %>
       <div id="collectionResourcePreviewWebResourceContainer" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
@@ -84,5 +84,7 @@ var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 	    <div id="resourcePlayYoutubeplayer-<%= gooruOid %>"  class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" class="resourceYoutubeplayerContainer currentlyPlayingYoutubeVideoResource" data-playerid=<%= gooruOid  %>  data-videostop="<%= stopTime %>"></div>
   <%} else if(type == "textbook/scribd") { %>
 	    <div id="collectionResourcePreviewTextbookScribd" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" ></div>
+  <%} else if(type == "assessment-question") { %>
+	    <div id="collectionQuestionPreviewContentContainer" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" ></div>
   <%} %>
 </div>
