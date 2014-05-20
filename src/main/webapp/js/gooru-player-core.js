@@ -67,7 +67,7 @@
     flvPlayer: function (resourceUrl, playerContainer) {
       flowplayer(playerContainer, resourceUrl);
     },
-    questionResource: function (previewValues,targetElement) {
+    questionResource: function (previewValues,targetElement) { 
       if(previewValues.questionType != "" && typeof previewValues.questionType != 'undefined') {
 	if (previewValues.questionType == "MC" || previewValues.questionType == "T/F" || previewValues.questionType == 1 || previewValues.questionType == 3) {
 	  var resourceInfo = new EJS({
