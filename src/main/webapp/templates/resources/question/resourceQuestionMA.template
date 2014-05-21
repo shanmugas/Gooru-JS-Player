@@ -1,7 +1,7 @@
 <% var questionData = data;
 var resourcePreviewContainerHeight = $(window).height() - 162;
 %> 
-<div class = "gooru-question-play-container" style="height:<%= resourcePreviewContainerHeight %>px">
+<div class = "gooru-question-play-container gooru-collection-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px">
     <div class = "gooru-question-resource-container">
 	
 	<span class = "gooru-question-content-container" >
