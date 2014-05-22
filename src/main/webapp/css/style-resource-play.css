@@ -702,7 +702,7 @@ div.gooru-resource-player-all-arrow {
     top: 7px;
     }
     .multiple-choice-answer-text{
-/*     width: 65%; */
+    width: 64%;
     display: inline-block;
     position: relative;
     top: 10px;
@@ -733,7 +733,7 @@ div.gooru-resource-player-all-arrow {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#d9dddd',GradientType=0 ); /* IE6-9 */
     }
     
-    input[type="button"]{
+    input[type="button"] , span.standardExtraCount{
     cursor: pointer;
     }
     
@@ -830,4 +830,10 @@ div.gooru-resource-player-all-arrow {
     display: inline-block;
     top: 10px;
     left: 29px;
+  }
+  span.standardExtraCount{
+  color: #0f76bb;
+  display: inline-block;
+  margin: 2px 0px 0px 2px;
+  font-size: 10px;
   }
