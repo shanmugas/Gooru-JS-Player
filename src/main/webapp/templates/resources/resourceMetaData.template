@@ -13,11 +13,19 @@
 	<div id="gooru-resource-player-standards-header">Standards: </div>
 	<div id="gooru-resource-player-standards-content"> 
 	    <% if(standards.length > 0){%>
-		<% for(var i=0; i< standards.length; i++) { 
-		  var description = standardDescriptions[i].length > 400 ? standardDescriptions[i].substr(0, 399) : standardDescriptions[i];
+		<% for(var i=0; i< 3; i++) { 
+		    var description = (typeof standardDescriptions[i] != "undefined" && standardDescriptions[i].length > 400) ? standardDescriptions[i].substr(0, 399) : standardDescriptions[i];
 		%>
-		<span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i]%>"><%=standards[i]%></span>
+		<% if (typeof standards[i] != "undefined" && standards[i] != null && standards[i].length > 0) { %>
+		  <span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i]%>"><%=standards[i]%></span>
+		<% } %>  
 	      <%}%>
+	    <% if(standards.length > 3) { %>
+	      <% var overFlowCode = ""; for(var standard = 3; standard < standards.length ; standard++) { %>
+		<% overFlowCode += '<span>'+ standards[standard] +'</span></br>'; %>
+	      <% } %>
+	      <span description = "" class = "standardExtraCount" data-code = "<%= overFlowCode %>">+<%= standards.length -3 %></span>
+	    <% } %>
 	    <%} else {%>
 		<div class="noStandardsAvailable">No Standards Available.</div>
 	    <% } %>

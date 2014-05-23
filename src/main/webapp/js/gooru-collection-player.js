@@ -520,6 +520,9 @@ var collectionPlay = {
 	if( menuType === 'info' && !$('div#gooru-collection-player-info-container').is(':visible')) {
 	  $('div#gooru-collection-player-info-container').trigger('click');
 	}
+	if(previewValues.standards.length > 3 ) { 
+		helper.previewToolTip('.standardExtraCount', 'bottom');
+	}
     },
     
     collectionSummaryPage: function(data) { 
@@ -583,6 +586,6 @@ function onYouTubeStateChange(playerStatusId) {
 
 $(document).ready(function () {
  helper.userSignin({onComplete:collectionPlay.init});
-// collectionPlay.init();
+ //collectionPlay.init();
 });
 

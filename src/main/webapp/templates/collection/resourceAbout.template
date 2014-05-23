@@ -18,12 +18,20 @@
 	<div id="gooru-collection-resource-player-standards-container" class="gooru-collection-player-clear-fix">
 	    <div id="gooru-collection-resource-player-standards-header">Standards: </div>
 	    <div id="gooru-collection-resource-player-standards-content"> 
-	     <% if(standards.length > 0){%>
-		<% for(var i=0; i< standards.length; i++) { 
-		  var description =  (standards[i].description != null && standards[i].length > 400)? standards[i].description.substr(0, 399) : standards[i].description;
+	     <% if(standards.length > 0){ %>
+		<% for(var i=0; i< 3; i++) { 
+		  var description =  (typeof standards[i].description != "undefined" && standards[i].description != null && standards[i].length > 400)? standards[i].description.substr(0, 399) : standards[i].description;
 		%>
-		<span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i].code%>"><%=standards[i].code%></span>
+		<% if(typeof standards[i].code != "undefined" && standards[i].code != null && standards[i].code.length > 0) { %>
+		  <span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i].code%>"><%=standards[i].code%></span>
+		<% } %>  
 	      <%}%>
+	      <% if(standards.length > 3) { %>
+	      <% var overFlowCode = ""; for(var standard = 3; standard < standards.length ; standard++) { %>
+		<% overFlowCode += '<span>'+ standards[standard].code +'</span></br>'; %>
+	      <% } %>
+	      <span description = "" class = "standardExtraCount" data-code = "<%= overFlowCode %>">+<%= standards.length -3 %></span>
+	    <% } %>
 	    <%} else {%>
 		<div class="noStandardsAvailable">No Standards Available.</div>
 	    <% } %>

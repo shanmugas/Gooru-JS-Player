@@ -245,6 +245,9 @@ var resourcePreview = {
 		  helper.previewToolTip('.resourcePreviewTooltipLicense', 'bottom');
 	      }
 	      helper.previewToolTip('.resourceBottomPreviewTooltipOER', 'bottom');
+	      if(previewValues.standards.length > 3 ) { 
+		helper.previewToolTip('.standardExtraCount', 'bottom');
+	      }
 	      resourcePreview.handleResourcePreviewEvents();
   },
    
@@ -370,5 +373,6 @@ function onYouTubeStateChange(playerStatusId) {
 
 $(document).ready(function () {
   helper.userSignin({onComplete:resourcePreview.init});
+  //resourcePreview.init();
 });
 
