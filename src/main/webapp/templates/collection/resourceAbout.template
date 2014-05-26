@@ -19,19 +19,22 @@
 	    <div id="gooru-collection-resource-player-standards-header">Standards: </div>
 	    <div id="gooru-collection-resource-player-standards-content"> 
 	     <% if(standards.length > 0){ %>
-		<% for(var i=0; i< 3; i++) { 
+		<% var codeTotalCount = 0; var standardDisplay = 0; var codeIterateCount = 0; for(var i=0; i< standards.length; i++) {
+		 if(typeof standards[i] != 'undefined' ) {
 		  var description =  (typeof standards[i].description != "undefined" && standards[i].description != null && standards[i].length > 400)? standards[i].description.substr(0, 399) : standards[i].description;
 		%>
 		<% if(typeof standards[i].code != "undefined" && standards[i].code != null && standards[i].code.length > 0) { %>
 		  <span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i].code%>"><%=standards[i].code%></span>
-		<% } %>  
+		<% codeIterateCount++;standardDisplay++;codeTotalCount++; } } if(standardDisplay == 3) {break;} %>  
 	      <%}%>
 	      <% if(standards.length > 3) { %>
-	      <% var overFlowCode = ""; for(var standard = 3; standard < standards.length ; standard++) { %>
-		<% overFlowCode += '<span>'+ standards[standard].code +'</span></br>'; %>
-	      <% } %>
-	      <span description = "" class = "standardExtraCount" data-code = "<%= overFlowCode %>">+<%= standards.length -3 %></span>
-	    <% } %>
+	      <% var overFlowCount = codeIterateCount+1; var overFlowCode = ""; for(var standard = overFlowCount; standard < standards.length ; standard++) { 
+		if(typeof standards[standard] != 'undefined') { if(typeof standards[standard].code != 'undefined'){
+	      %>
+		<% codeTotalCount++; overFlowCode += '<span>'+ standards[standard].code +'</span></br>'; %>
+	      <% } } } if(codeTotalCount > 3) { %>
+	      <span description = "" class = "standardExtraCount" data-code = "<%= overFlowCode %>">+<%= codeTotalCount -3 %></span>
+	    <% } } %>
 	    <%} else {%>
 		<div class="noStandardsAvailable">No Standards Available.</div>
 	    <% } %>
