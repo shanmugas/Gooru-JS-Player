@@ -493,7 +493,7 @@ div.gooru-collection-player-overlay-icon-question {
 div.gooru-collection-player-overlay-icon-video {
   background-position: 5px 3px;
 }
-div.gooru-collection-player-overlay-icon-website {
+div.gooru-collection-player-overlay-icon-webpage {
   background-position: 5px -223px;
 }
 div.gooru-collection-player-overlay-icon-image {
@@ -1108,7 +1108,7 @@ div.question-default-image {
 div.interactive-default-image {
   background-position: -7px -1488px!important;
 }
-div.website-default-image {
+div.webpage-default-image {
   background-position: -7px -1726px!important;
 }
 div.text-default-image {
