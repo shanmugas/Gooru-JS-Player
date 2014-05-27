@@ -28,7 +28,7 @@
 		<% codeIterateCount++;standardDisplay++;codeTotalCount++; } } if(standardDisplay == 3) {break;} %>  
 	      <%}%>
 	      <% if(standards.length > 3) { %>
-	      <% var overFlowCount = codeIterateCount+1; var overFlowCode = ""; for(var standard = overFlowCount; standard < standards.length ; standard++) { 
+	      <% var overFlowCount = codeIterateCount; var overFlowCode = ""; for(var standard = overFlowCount; standard < standards.length ; standard++) { 
 		if(typeof standards[standard] != 'undefined') { if(typeof standards[standard].code != 'undefined'){
 	      %>
 		<% codeTotalCount++; overFlowCode += '<span>'+ standards[standard].code +'</span></br>'; %>

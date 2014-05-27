@@ -142,7 +142,7 @@
   });
   
   var i = 0;
-  $('#gooru-question-hint-button').live("click", function() {
+  $('#gooru-question-hint-button').click( function() {
     var currentHintCount = parseInt((($(this).val()).substring(7,9)).trim());
     if(currentHintCount == 1){
       $(this).addClass("gooru-question-deactive-button-font");
@@ -151,7 +151,7 @@
     if(currentHintCount != 0) {
       currentHintCount--;
       $(this).val("Hints ("+currentHintCount+" Left)");
-    } 
+    }
     $('.gooru-question-hint-container-'+i).css("display","block");
     i++;
   });
