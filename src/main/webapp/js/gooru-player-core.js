@@ -84,7 +84,7 @@
 	      url: '/templates/resources/question/resourceQuestionOE.template'
 	    }).render({data:previewValues});
 	}
-	if (typeof previewValues.questionType != "undefined" && previewValues.questionType == "MA") {
+	if (typeof previewValues.questionType == 7 || previewValues.questionType == "MA") {
 	  var resourceInfo = new EJS({
 	      url: '/templates/resources/question/resourceQuestionMA.template'
 	    }).render({data:previewValues});
