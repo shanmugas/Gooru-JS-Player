@@ -125,7 +125,7 @@
 	$("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
 	$("div#gooru-oe-submited-answer").show();
 	$("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button").hide();
-    } else if($(this).data("question-type") != "undefined" && $(this).data("question-type") == "MA") {  
+    } else if($(this).data("question-type") == "7" || $(this).data("question-type") == "MA") {  
 	$('div.multiple-choice-answer-marker').css("visibility","visible");
  	$('input.gooru-mcq-radio-button').each(function() {
  	  if($('input[name='+$(this).attr("name")+']:checked').val() == $('input[name='+$(this).attr("name")+']').data('mc-is-correct').toString()) { 
