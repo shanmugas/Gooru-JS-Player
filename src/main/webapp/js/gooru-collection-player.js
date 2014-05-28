@@ -87,7 +87,7 @@ var collectionPlay = {
     });
     $('.collection-course-seemore').click(function() { 
       $('#collection-course-dialog-container').dialog('open');
-      var course = new EJS({url: '/templates/collection/collectionPlayercourse.template'}).render({course:data.collectionTaxonomy.course});
+      var course = new EJS({url: '/templates/collection/collectionPlayercourse.template'}).render({course:data.metaInfo.course});
       $('div#collection-course-dialog-container').html(course);
       $('div.gooru-collection-player-course-button-okay').click(function() { 
 	  $('#collection-course-dialog-container').dialog('close');
@@ -103,7 +103,7 @@ var collectionPlay = {
     });
     $('.collection-standards-seemore').click(function() { 
 	$('#collection-standards-dialog-container').dialog('open');
-	var standards = new EJS({url : '/templates/collection/collectionPlayerStandards.template'}).render({data : data.collectionTaxonomy.curriculum});
+	var standards = new EJS({url : '/templates/collection/collectionPlayerStandards.template'}).render({data : data.metaInfo.standards});
 	$('div#collection-standards-dialog-container').html(standards);
 	$('div.gooru-collection-player-standards-button-okay').click(function() { 
 	  $('#collection-standards-dialog-container').dialog('close');
