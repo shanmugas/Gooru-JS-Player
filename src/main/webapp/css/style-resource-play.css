@@ -196,7 +196,7 @@ div#gooru-resource-player-learn-more-grey {
   display: none;
 }
 
-div#gooru-resource-player-about:hover, div#gooru-resource-player-learn-more:hover, div#gooru-resource-player-share:hover { 
+div#gooru-resource-player-about:hover, div#gooru-resource-player-share:hover { 
   font-weight: bold;
   cursor: pointer;
 }
@@ -837,3 +837,40 @@ div.gooru-resource-player-all-arrow {
   margin: 2px 0px 0px 2px;
   font-size: 10px;
   }
+  
+  div#gooru-resource-player-new-tab { 
+  height: 50px;
+  font-size: 22px;
+  background: #1076BB;
+  line-height: 50px;
+  text-indent: 16px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  font-weight: bold;
+  width: 200px;
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 105px;
+  margin-bottom: 69px;
+}
+div#gooru-resource-player-new-tab:hover {
+  background: #4C98CC;
+  cursor: pointer;
+}
+ div.gooru-new-tab-click-message {
+  color: #333333;
+  margin: 0 auto;
+  width: 520px;
+  font-size: 26px;
+  position: relative;
+  top: 50px;
+}
+div.gooru-resource-http-error-issue-message {
+  color: black;
+  width: 572px;
+  margin: 0 auto;
+  font-size: 16px;
+}

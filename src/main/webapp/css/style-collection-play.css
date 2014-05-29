@@ -347,6 +347,9 @@ span.collection-meta-count {
   margin-left:2px;
   cursor: pointer;
 }
+span.acknowledgement_hide {
+  display:none;
+}
 
 div#gooru-collection-player-standards span.standardsDescription,  span.standards-description-dialog{
   background: none repeat scroll 0 0 #515151;
@@ -493,7 +496,7 @@ div.gooru-collection-player-overlay-icon-question {
 div.gooru-collection-player-overlay-icon-video {
   background-position: 5px 3px;
 }
-div.gooru-collection-player-overlay-icon-website {
+div.gooru-collection-player-overlay-icon-webpage {
   background-position: 5px -223px;
 }
 div.gooru-collection-player-overlay-icon-image {
@@ -1108,7 +1111,7 @@ div.question-default-image {
 div.interactive-default-image {
   background-position: -7px -1488px!important;
 }
-div.website-default-image {
+div.webpage-default-image {
   background-position: -7px -1726px!important;
 }
 div.text-default-image {

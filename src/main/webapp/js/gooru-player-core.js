@@ -84,7 +84,7 @@
 	      url: '/templates/resources/question/resourceQuestionOE.template'
 	    }).render({data:previewValues});
 	}
-	if (typeof previewValues.questionType == 7 || previewValues.questionType == "MA") {
+	if (previewValues.questionType == 7 || previewValues.questionType == "MA") {
 	  var resourceInfo = new EJS({
 	      url: '/templates/resources/question/resourceQuestionMA.template'
 	    }).render({data:previewValues});
@@ -125,7 +125,7 @@
 	$("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
 	$("div#gooru-oe-submited-answer").show();
 	$("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button").hide();
-    } else if($(this).data("question-type") != "undefined" && $(this).data("question-type") == "MA") {  
+    } else if($(this).data("question-type") == "7" || $(this).data("question-type") == "MA") {  
 	$('div.multiple-choice-answer-marker').css("visibility","visible");
  	$('input.gooru-mcq-radio-button').each(function() {
  	  if($('input[name='+$(this).attr("name")+']:checked').val() == $('input[name='+$(this).attr("name")+']').data('mc-is-correct').toString()) { 
@@ -252,15 +252,15 @@ var helper = {
     var resourceExtension = resourceUrl.split('.')[resourceUrl.split('.').length - 1];
     return resourceExtension.toLowerCase();
   },
-  userSignin: function(options) { 
+  userSignin: function(options) {
     var param = helper.getRequestParam();
     EJS.ext = '.template';
     if(typeof(param.api_key) == 'undefined' || param.api_key == '') { 
       var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: '<span>Required API Key for play this resource. You do not have API Key, please send request by clicking this link </span> <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
-          $('div.gooru-player-GOORU_REST_ENDPOINTbase-container').html(resourceInfo);
+          $('div.gooru-player-base-container').html(resourceInfo);
       return;
        
-    }
+    } 
     var defaults = { 
       userName: null,
       password: null,
