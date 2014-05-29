@@ -72,7 +72,7 @@
   <% var resourceSourceList =  data.metaInfo.acknowledgement %>
   <% if (resourceSourceList.length > 0) { %>
     <div id="gooru-collection-player-acknowledgments" class="gooru-collection-player-clear-fix gooru-collection-player-all-meta">
-      <div class="collection-meta-header">Acknowledgment<% if (resourceSourceList.length > 1) { %>s<% } %><span class="collection-meta-count collection-ack-seemore"> (<%= resourceSourceList.length %>)</span></div>
+      <div class="collection-meta-header">Acknowledgment<% if (resourceSourceList.length > 1) { %>s<% } %><span class="collection-meta-count collection-ack-seemore acknowledgement_hide"> (<%= resourceSourceList.length %>)</span></div>
 	  <div class="collection-meta-ack-list-container">
 	    <%
 	      var acknowledgeMaxIndex = resourceSourceList.length > 3 ? 3 : resourceSourceList.length; 
@@ -82,7 +82,7 @@
 	  </div>
 	  <% if (resourceSourceList.length > 3) {  %>
 	      <div id="collection-meta-ack-seemore-container" class="collection-meta-seemore-container">
-		  <div id="collection-meta-ack-seemore" class="collection-meta-seemore collection-ack-seemore">(see all)</div>
+		  <div id="collection-meta-ack-seemore" class="collection-meta-seemore collection-ack-seemore acknowledgement_hide">(see all)</div>
 	      </div>
 	  <% } %>
       </div>

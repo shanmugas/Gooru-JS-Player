@@ -347,6 +347,9 @@ span.collection-meta-count {
   margin-left:2px;
   cursor: pointer;
 }
+span.acknowledgement_hide {
+  display:none;
+}
 
 div#gooru-collection-player-standards span.standardsDescription,  span.standards-description-dialog{
   background: none repeat scroll 0 0 #515151;

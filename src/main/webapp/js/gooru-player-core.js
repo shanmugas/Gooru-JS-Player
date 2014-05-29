@@ -252,15 +252,15 @@ var helper = {
     var resourceExtension = resourceUrl.split('.')[resourceUrl.split('.').length - 1];
     return resourceExtension.toLowerCase();
   },
-  userSignin: function(options) { 
+  userSignin: function(options) {
     var param = helper.getRequestParam();
     EJS.ext = '.template';
     if(typeof(param.api_key) == 'undefined' || param.api_key == '') { 
       var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: '<span>Required API Key for play this resource. You do not have API Key, please send request by clicking this link </span> <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
-          $('div.gooru-player-GOORU_REST_ENDPOINTbase-container').html(resourceInfo);
+          $('div.gooru-player-base-container').html(resourceInfo);
       return;
        
-    }
+    } 
     var defaults = { 
       userName: null,
       password: null,
