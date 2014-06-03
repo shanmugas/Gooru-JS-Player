@@ -1464,3 +1464,30 @@ div#gooru-collection-resource-player-source-content {
   font-size: 13px;
   margin-left: 5px;
 }
+div#gooru-resource-player-message { 
+  display: table-cell;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+}
+div#gooru-resource-player-message { 
+  width: 35%;
+  margin: 0 auto;  
+}
+
+div#gooru-resource-player-message { 
+  color: #ffffff;
+}
+
+div#gooru-resource-player-message a,  div#gooru-resource-player-message a:hover{ 
+  color: #1076bb;
+  text-decoration: underline;
+}
+div#gooru-resource-player-message-container { 
+  background: #000000;
+  vertical-align: middle;
+  display: table;
+  width: 100%;
+  position: relative;
+  font-size: 20px;
+}

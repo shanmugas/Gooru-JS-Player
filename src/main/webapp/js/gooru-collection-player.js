@@ -19,7 +19,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 var collectionPlay = {
-  init: function(data) { 
+  init: function(data) {
     EJS.ext = '.template';
     var param = helper.getRequestParam();
     if (typeof(param.session_token) != 'undefined' && param.session_token != '') {
@@ -46,6 +46,10 @@ var collectionPlay = {
       dataType: 'jsonp',
       success: function (data) {
 	  collectionPlay.renderCollectionPlayer(data, param);
+      },
+      error : function(data) {
+	  var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: 'Collection Not Found, Please check the collection Id - ' + param.id, reduceSize: 0});
+          $('div#gooru-collection-player-base-container').html(resourceInfo); 
       }
     });
   },

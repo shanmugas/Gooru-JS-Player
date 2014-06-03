@@ -255,6 +255,14 @@ var helper = {
   userSignin: function(options) {
     var param = helper.getRequestParam();
     EJS.ext = '.template';
+    if(typeof(param.session_token) != 'undefined' && param.session_token != '' && param.session_token.length == 36) { 
+      if(window.location.pathname.split("/")[2] == 'r') {
+	resourcePreview.init();
+      } else if(window.location.pathname.split("/")[2] == 'c') {
+	collectionPlay.init();
+      }
+      return;
+    } 
     if(typeof(param.api_key) == 'undefined' || param.api_key == '') { 
       var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: '<span>Required API Key for play this resource. You do not have API Key, please send request by clicking this link </span> <a href="http://developers.goorulearning.org/request-a-key" target="_blank">Request API Key</a>', reduceSize: 0});
           $('div.gooru-player-base-container').html(resourceInfo);
