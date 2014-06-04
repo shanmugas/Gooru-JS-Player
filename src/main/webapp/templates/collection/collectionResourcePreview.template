@@ -9,7 +9,7 @@ if (resourceSource != null) {
 var signedBaseUrl = GOORU_REST_ENDPOINT + '/resource/signed-url/'+gooruOid;
 var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 %>
-<div class="collectionResourcePreviewBoxContentContainer" style="height:<%= collectionResourcePreviewContainerHeight %>px">
+<div class="collectionResourcePreviewBoxContentContainer" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
   <% if (type != "question" && type != "resource/url" && (resourceExtenstion === "png" || resourceExtenstion === "gif" || resourceExtenstion === "jpg" || resourceExtenstion === "jpeg")) { %>
 	<div style="text-align:center;clear:both">
 	  <div class="source-content">
@@ -39,13 +39,37 @@ var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 	  <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	      </div>
   <% } else if(type == "resource/url") { %>
-      <div id="collectionResourcePreviewWebResourceContainer" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
+      <div id="collectionResourcePreviewWebResourceContainer" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;background : #FFFFFF;">
 		  <% if(resourcestatus.statusIsFrameBreaker == 0 || resourcestatus.statusIsFrameBreaker == null) { 
-		      if (resourceUrl.indexOf('youtube.com') != -1) {
-			      resourceUrl = gooruHelper.formYouTubeVideoUrl(resourceUrl);  
-		      }
-		  %>
-		      <iframe src="<%=resourceUrl%>"  width=100% height="100%" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;"  hspace=0 vspace=0 frameborder=0 ></iframe>
+		      var isMixedContent = false;
+		      var domainProtocol = window.location.protocol.substring(0, window.location.protocol.length - 1).trim();
+			if (resourceUrl.indexOf('youtube.com') != -1) {
+				resourceUrl = gooruHelper.formYouTubeVideoUrl(resourceUrl);  
+			} else {
+			  var resourceProtocol = resourceUrl.substring(0,6).trim()
+			  if(resourceProtocol.split(":")[0] != domainProtocol) {
+			    isMixedContent = true;
+			  }
+			}
+		    %>
+		    <% if(!isMixedContent) { %>
+			<iframe src="<%=resourceUrl%>"  width=100% height="100%" class="gooru-resource-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;"  hspace=0 vspace=0 frameborder=0 ></iframe>
+		    <% } else { %>
+		    <div id = "gooru-resource-open-new-tab-container">
+		      <div style= "margin-top:45px;width: 100%;float: left;"></div>
+		      <div class = "gooru-new-tab-click-message">
+			Click the button below to open this resource!
+		      </div>
+			<div class = "ie-rounded-corner" id = "gooru-resource-player-new-tab">
+			  <a style = "text-decoration: none;color: white;" href = "<%= resourceUrl %>" target = "_blank">
+			    Open in new tab
+			  </a>
+			</div>
+		      <div class = "gooru-resource-http-error-issue-message">
+			You are seeing this page because this resource cannot be displayed in our player.
+		      </div>
+		    </div>
+		    <% } %>
 		  <% } else {  %>
 		      <div class="linkedOutWebResourcePreview gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
 			    <div class="linkedOutWebResource">

@@ -21,7 +21,6 @@
 var resourcePreview = {
     init: function(data) { 
       EJS.ext = '.template';
-      var media_type = "resource";
       var param = helper.getRequestParam();
       if (typeof(param.session_token) != 'undefined' && param.session_token != '') {
 	USER.sessionToken = param.session_token;
