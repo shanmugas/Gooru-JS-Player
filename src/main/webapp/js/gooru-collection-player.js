@@ -45,7 +45,11 @@ var collectionPlay = {
       url: url,
       dataType: 'jsonp',
       success: function (data) {
+	if(data.collectionType == 'collection') {
 	  collectionPlay.renderCollectionPlayer(data, param);
+	} else {
+	  this.error(data);
+	}
       },
       error : function(data) {
 	  var resourceInfo = new EJS({url: '/templates/resources/resourcePlayerInfo.template'}).render({message: 'Collection Not Found, Please check the collection Id - ' + param.id, reduceSize: 0});
