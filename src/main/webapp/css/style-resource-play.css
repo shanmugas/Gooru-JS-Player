@@ -196,7 +196,7 @@ div#gooru-resource-player-learn-more-grey {
   display: none;
 }
 
-div#gooru-resource-player-about:hover, div#gooru-resource-player-share:hover { 
+div#gooru-resource-player-about:hover, div#gooru-resource-player-learn-more:hover, div#gooru-resource-player-share:hover { 
   font-weight: bold;
   cursor: pointer;
 }

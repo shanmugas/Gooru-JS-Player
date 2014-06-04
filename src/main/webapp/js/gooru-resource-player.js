@@ -21,6 +21,7 @@
 var resourcePreview = {
     init: function(data) { 
       EJS.ext = '.template';
+      var media_type = "resource";
       var param = helper.getRequestParam();
       if (typeof(param.session_token) != 'undefined' && param.session_token != '') {
 	USER.sessionToken = param.session_token;
@@ -298,7 +299,7 @@ showResourceCollections : function(gooruOid) {
 	$('span.resourcePreviewHeaderNavigationArrowAbout, div#gooru-resource-player-about-container').slideToggle('slow', function() {resetResourcePreviewHeight(); });
     });
     
- /*   $('div#gooru-resource-player-learn-more').click(function() { 
+    $('div#gooru-resource-player-learn-more').click(function() { 
         $('span.resourcePreviewHeaderNavigationArrowAbout, span.resourcePreviewHeaderNavigationArrowShare, div#gooru-resource-player-about-container ,div#gooru-resource-player-share-container').hide();
         $('div#gooru-resource-player-header-container').find('.gooru-resource-player-menu-share-selected').removeClass('gooru-resource-player-menu-share-selected');
 	$('div#gooru-resource-player-header-container').find('.gooru-resource-player-menu-about-selected').removeClass('gooru-resource-player-menu-about-selected');
@@ -307,7 +308,7 @@ showResourceCollections : function(gooruOid) {
 	  resetResourcePreviewHeight(); 
 	});
 	$('span.resourcePreviewHeaderNavigationArrowLearnMore').is(':visible') ? $('span.resourcePreviewHeaderNavigationArrowLearnMore').hide() : $('span.resourcePreviewHeaderNavigationArrowLearnMore').css('display', 'block');
-    }); */
+    }); 
       	var param = helper.getRequestParam();
      if(param.state == "resourceView"){
          $('div#gooru-resource-player-about-container, span.resourcePreviewHeaderNavigationArrowAbout').hide();
@@ -372,7 +373,6 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
-  helper.userSignin({onComplete:resourcePreview.init});
-  //resourcePreview.init();
+   helper.userSignin({onComplete:resourcePreview.init});
+   //resourcePreview.init();
 });
-
