@@ -874,3 +874,10 @@ div.gooru-resource-http-error-issue-message {
   margin: 0 auto;
   font-size: 16px;
 }
+div.gooru-oe-answer-empty-error-message {
+  display:none;
+  color: #fbb03b;
+  font-style: italic;
+  font-size: 12px;
+  margin-top: 10px;
+}

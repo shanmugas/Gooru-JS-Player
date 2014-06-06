@@ -122,9 +122,13 @@
 	$(this).prop("disabled",true);
 	$("input.fib-answer").attr("disabled", "disabled");
      } else if($(this).data("question-type") == "OE" || $(this).data("question-type") == '6') {
-	$("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
-	$("div#gooru-oe-submited-answer").show();
-	$("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button").hide();
+	if($("textarea#gooru-oe-answer-submit").val().length > 0) {
+	  $("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
+	  $("div#gooru-oe-submited-answer").show();
+	  $("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button,div.gooru-oe-answer-empty-error-message").hide();
+	} else {
+	  $("div.gooru-oe-answer-empty-error-message").show();
+	} 
     } else if($(this).data("question-type") == "7" || $(this).data("question-type") == "MA") {  
 	$('div.multiple-choice-answer-marker').css("visibility","visible");
  	$('input.gooru-mcq-radio-button').each(function() {
