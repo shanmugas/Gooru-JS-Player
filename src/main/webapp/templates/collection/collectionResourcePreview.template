@@ -18,10 +18,10 @@ var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 		if (isWebResource) { 
 		  imageUrl = resourceUrl;
 		} else { 
-		  imageUrl = signedBaseUrl + "?file="+ resourceUrl;
+		  imageUrl = signedBaseUrl + "?file="+ resourceUrl+"&sessionToken="+TOKEN;
 		}
 	      %>
-	    <img class="popUpFaceBoxImage" onerror="defaultSlide(this)" src="<%= imageUrl %>" style="min-height:400px; height:auto; width:100%; background: none repeat scroll 0% 0% #FFFFFF;">
+	    <img class="popUpFaceBoxImage" onerror="this.src='../images/study-default-image.jpg';" src="<%= imageUrl %>" style="min-height:400px; height:auto; width:100%; background: none repeat scroll 0% 0% #FFFFFF;">
 	  </div>
 	  
       </div>
