@@ -131,7 +131,7 @@
 	} 
     } else if($(this).data("question-type") == "7" || $(this).data("question-type") == "MA") {  
 	$('div.multiple-choice-answer-marker').css("visibility","visible");
- 	$('input.gooru-mcq-radio-button').each(function() {
+ 	$('input.gooru-ma-radio-button').each(function() {
  	  if($('input[name='+$(this).attr("name")+']:checked').val() == $('input[name='+$(this).attr("name")+']').data('mc-is-correct').toString()) { 
  	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).addClass('question-correct-answer-marker');
 	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-wrong-answer-marker');
@@ -166,11 +166,27 @@
     $(this).removeClass("gooru-question-active-button-font");
   });
   
-  $("input.gooru-mcq-radio-button , input.fib-answer , textarea#gooru-oe-answer-submit").live("click",function() {
-    $("input.gooru-answer-container").removeClass("gooru-default-grey-disable-button");
-    $("input.gooru-answer-container").addClass("gooru-default-blue-button");
+  $("input.gooru-mcq-radio-button").live("click",function() {
+    helper.enableCheckAnswerButton();
+  });
+  $("input.fib-answer , textarea#gooru-oe-answer-submit").keypress(function(){
+    ($(this).val().length == 0 ) ? helper.enableCheckAnswerButton() : '';
   });
       }
+      $("input.gooru-mcq-radio-button,input.gooru-ma-radio-button").click(function(){
+	$("div.multiple-choice-answer-marker").css("visibility","hidden");
+      });
+      $("input.gooru-ma-radio-button").click(function(){
+	var radioElement = 0;
+	var checkedRadio = 0;
+	$("input.gooru-ma-radio-button").each(function(){
+	  radioElement++;
+	  ($(this)[0].checked) ? checkedRadio++ : "";
+	});
+	if(checkedRadio === radioElement/2 ) {  
+	    helper.enableCheckAnswerButton();
+	  }
+      });
     },
     pdfReader: function (documentId, documentKey, startPage, playerContainer) {
       var scribd_doc = scribd.Document.getDoc(documentId, documentKey);
@@ -417,6 +433,11 @@ var helper = {
 	    PIE.attach(this);
 	});
     }
+  },
+  enableCheckAnswerButton : function(){
+    $("input.gooru-answer-container").removeClass("gooru-default-grey-disable-button");
+    $("input.gooru-answer-container").addClass("gooru-default-blue-button");
+    $("input.gooru-answer-container").removeAttr('disabled');
   }
 }; 
 
