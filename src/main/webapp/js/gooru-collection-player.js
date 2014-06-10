@@ -378,7 +378,7 @@ var collectionPlay = {
         var resourceSource = typeof (data.resource.resourceSource) != 'undefined' ? data.resource.resourceSource : null;
         var documentId = (data.documentid == null) ? '' : data.documentid;
         var documentkey = (data.documentkey == null) ? '' : data.documentkey;
-        var narrative = (typeof (data.narrative) != 'undefined' && data.narrative != null) ? data.narrative : '';
+        var narrative = (typeof (data.narration) != 'undefined' && data.narration != null) ? data.narration : '';
         var brokenStatus = data.resource.hasFrameBreaker != null && data.resource.hasFrameBreaker ? 1 : 0;
         var resourcestatus = {statusIsFrameBreaker: brokenStatus};
         var gooruOid = data.resource.gooruOid;
