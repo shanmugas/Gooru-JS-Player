@@ -261,7 +261,7 @@ var collectionPlay = {
 		$('span.gooru-collection-player-prev-arrow-' + sequence).css('display', 'block');
 	      }
 	  });
-	  $('span.gooru-collection-player-prev-arrow').click(function(e) { 
+	  $('span.gooru-collection-player-prev-arrow').click(function() { 
 	      var sequence = $(this).data('sequence');
 	      var marginLeftCurrentVal = Number($('div.collection-player-acknowledgement-list-inner-content-' + sequence).css('margin-left').replace('px', ''));
 	      var actualWidth = $('div.gooru-collection-player-acknowledgement-list-content').width();
@@ -344,18 +344,21 @@ var collectionPlay = {
 	    $('span.gooru-collection-player-resource-next-arrow').css('display', 'block');
 	  } 
       });
-      $('div.collection-player-resource-content-val').click(function() {
+      $('div.collection-player-resource-content-val').click(function(e) {
+	 $('div.collection-player-resource-content-val').removeClass('currentCollectionResourcePlayed');
+	 $('div.collection-player-resource-content-val').removeClass('lastCollectionResourcePlayed');
+	 $('div.collection-player-resource-content-val-selected').addClass('lastCollectionResourcePlayed');
           collectionPlay.resourcePlayerActivityStop();
 	  $('div.collection-player-resource-content-val').removeClass('collection-player-resource-content-val-selected');
 	  $(this).addClass('collection-player-resource-content-val-selected');
+	  $(this).addClass('currentCollectionResourcePlayed');
 	  var previewValues =  JSON.parse(unescape($(this).data('resource-json')));
 	  var segmentIndex = $(this).data('segment-index');
 	  previewValues.segmentTitle =  unescape($('div.collection-segment-resource-container-' + segmentIndex).data('segment-title'));
 	  previewValues.segmentIndex = segmentIndex;
 	  collectionPlay.resourcePreview(previewValues);
 	  collectionPlay.showResourceNarrative(previewValues);
-	  collectionPlay.showResourceInfo(previewValues);
-	  
+	  collectionPlay.showResourceInfo(previewValues); 
       });
   },
   resourcePlayerActivityStop: function() { 
@@ -422,7 +425,8 @@ var collectionPlay = {
 	    resourceInstanceId: data.resourceInstanceId,
 	    resource: data.resource,
 	    collectionOwnerName: $('div#gooru-collection-player-base-container').data('collectionOwnerName'),
-	    TOKEN : USER.sessionToken
+	    TOKEN : USER.sessionToken,
+	    collectionitemSequence:data.itemSequence
         };
 	if (type == 'assessment-question') {
 	  previewValues.questionType = data.questionInfo.type;
@@ -435,6 +439,10 @@ var collectionPlay = {
     },
     resourcePreview: function (previewValues) {
       var useScribd = false;
+      var eventLoggingData = {};
+      var urlParam = helper.getRequestParam();
+      eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
+      eventLoggingData.sessionToken = USER.sessionToken;
 	if (previewValues.documentId != '' && previewValues.documentKey != '') {
 	useScribd = true;
 	}
@@ -456,13 +464,14 @@ var collectionPlay = {
 	  $('div#gooru-collection-player-overlay-icon-header').addClass('gooru-collection-player-overlay-icon-' + category.toLowerCase());
 	  var signedBaseUrl = GOORU_REST_ENDPOINT + '/signed/resource/url/'+gooruOid;
 	  $('div#gooru-collection-resource-play-content').html(resourcePreviewHtml);
+	  (type == 'assessment-question') ? eventLoggingData.resourceType = "question" : eventLoggingData.resourceType = "resource";
 	  switch (type) {
 	    case 'video/youtube':
 	      var videoId = helper.getYoutubeVideoId(resourceUrl);
 	      resourcePlayers.youtubeVideo(videoId, startTime, 'resourcePlayYoutubeplayer-' + gooruOid);
 	    break;
 	    case 'animation/kmz':
-	      mtours.init((signedBaseUrl + '?file=' + resourceUrl), 'collectionResourcePreviewGoogleEarthContainer');
+	      mtours.init((signedBaseUrl + '?file=' + resourcshowCollectionPlayResourcePrevieweUrl), 'collectionResourcePreviewGoogleEarthContainer');
 	    break;
 	    case 'animation/swf':
 	      var fileExtension = resourceUrl.split('.').pop();
@@ -482,10 +491,40 @@ var collectionPlay = {
 	      resourcePlayers.questionResource(previewValues,'div#collectionQuestionPreviewContentContainer');
 	    break;
 	  }
- 	  var activityLogId = generateGUID();	
+ 	  var activityLogId = generateGUID();
+	  var playTime = helper.getTimeInMilliSecond();
+	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
  	  $('div#gooru-collection-player-base-container').data('activity-log-id', activityLogId);
  	  $('div#gooru-collection-player-base-container').data('gooru-oid',  gooruOid);
  	  activityLog.triggerActivityLog(activityLogId, 'start', gooruOid, 'collection-resource-play', null, window.location , 'collection-resource-play-Start');
+	  eventLoggingData.sessionId = (typeof helper.getSessionIdForEvent(previewValues.gooruOid,USER.sessionToken) != 'undefined') ? helper.getSessionIdForEvent(previewValues.gooruOid,USER.sessionToken) : generateGUID();
+	  var previousPlayedElementId = (typeof $('div.lastCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.lastCollectionResourcePlayed').attr('id')).data('resource-position') : "" ;
+	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
+	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
+	    eventLoggingData.eventName = 'collection.play';
+	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
+	    eventLoggingData.activityType = "start";
+	    eventLoggingData.startTime = playTime;
+	    eventLoggingData.stopTime = playTime;
+	  } else {
+	    eventLoggingData.eventName = 'collection.resource.play';
+	    eventLoggingData.activityType = "stop";
+	    eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
+	    eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
+	    eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
+	    eventLoggingData.startTime = playTime;
+	    eventLoggingData.stopTime = playTime;
+	  }
+	  activityLog.generateEventLogData(eventLoggingData);
+	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
+	  eventLoggingData.activityType = "start";
+	  eventLoggingData.eventName = 'collection.resource.play';
+	  eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
+	  eventLoggingData.totalTimeSpent = 0;
+	  eventLoggingData.startTime = playTime;
+	  eventLoggingData.stopTime = playTime;
+	  activityLog.generateEventLogData(eventLoggingData);
       }
     },
     showResourceNarrative: function(previewValues) { 
@@ -532,7 +571,7 @@ var collectionPlay = {
 		helper.previewToolTip('.standardExtraCount', 'bottom');
 	}
     },
-    
+
     collectionSummaryPage: function(data) { 
 //       var collectionSummaryContentHtml = new EJS({url : '/templates/collection/collectionSummaryPage.template'}).render({data: data});
 //       $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
@@ -593,7 +632,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- helper.userSignin({onComplete:collectionPlay.init});
- //collectionPlay.init();
+ //helper.userSignin({onComplete:collectionPlay.init});
+ collectionPlay.init();
 });
 

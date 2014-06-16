@@ -438,11 +438,27 @@ var helper = {
     $("input.gooru-answer-container").removeClass("gooru-default-grey-disable-button");
     $("input.gooru-answer-container").addClass("gooru-default-blue-button");
     $("input.gooru-answer-container").removeAttr('disabled');
+  },
+  getSessionIdForEvent: function (contentGooruOid,sessionToken){
+    var sessionIdentity = "";
+    $.ajax({
+      url: GOORU_REST_ENDPOINT +"/gooruapi/rest/v2/session?sessionToken="+sessionToken,
+      type:'POST',
+      data:JSON.stringify({session:{resource:{gooruOid:contentGooruOid},mode:'test'}}),
+      dataType:'json',
+      success:function(data){
+	 sessionIdentity = data.sessionId;    
+      }
+    });
+    return sessionIdentity;
+  },
+  getTimeInMilliSecond : function (){
+    return new Date().getTime();
   }
 }; 
 
 var activityLog =  {
-  init : function (settings) {	
+  init : function (settings) { 
     $.ajax ({
       type : 'POST',
       url : GOORU_REST_ENDPOINT + '/activity/log/' + settings.eventId + '/' + settings.type,
@@ -457,6 +473,53 @@ var activityLog =  {
       var options =   {eventId : eventId, type :  type, contentGooruOid : gooruOid, eventName : eventName, parentGooruOid : parentGooruOid, contex:context};
       $('div.gooru-player-base-container').trigger('activity.log', [ section,  options]);
     }
+  },
+  generateEventLogData : function(eventLoggingData){
+    var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
+      var eventContextData = {
+	contentGooruId: eventLoggingData.contentGooruId,
+	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
+	parentEventId:"",
+	type:eventLoggingData.activityType,
+	resourceType: eventLoggingData.resourceType,
+	clientSource: 'web',
+	path: "",
+	pageLocation: "",
+      };
+      var eventSessionData = {
+	apiKey:eventLoggingData.apiKey,
+	organizationUId:"",
+	sessionToken:eventLoggingData.sessionToken,
+	sessionId:eventLoggingData.sessionId
+      };
+      var eventPayLoadObjectData = {
+	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
+	totalNoOfCharacter:"",
+	text:"",
+	attemptStatus:"",
+	attemptTrySequence:"",
+	answers:"",
+	attemptCount:"",
+	hints:"",
+	explanation:"",
+	answerObject:""
+      };
+      var eventData = {
+	context : JSON.stringify(eventContextData),
+	endTime: eventLoggingData.stopTime,
+	eventId : generateGUID(),
+	eventName: eventLoggingData.eventName,
+	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":0}',
+	payLoadObject:JSON.stringify(eventPayLoadObjectData),
+	session:JSON.stringify(eventSessionData),
+	startTime:eventLoggingData.startTime,
+	user: '{"gooruUId":"ANONYMOUS"}',
+	version: '{"logApi":"0.1"}'
+      };
+      activityLog.pushActivityLogData(eventData);
+  },
+  pushActivityLogData : function (eventData){
+    _et.data.push(JSON.stringify(eventData));
   }
 };
 var generateGUID = (typeof (window.crypto) != 'undefined' && typeof (window.crypto.getRandomValues) != 'undefined') ?

@@ -9,7 +9,7 @@ if (resourceSource != null) {
 var signedBaseUrl = GOORU_REST_ENDPOINT + '/resource/signed-url/'+gooruOid;
 var collectionResourcePreviewContainerHeight = $(window).height() - 155;
 %>
-<div class="collectionResourcePreviewBoxContentContainer" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
+<div class="collectionResourcePreviewBoxContentContainer collectionResourcePreviewBoxContentContainer_<%= collectionitemSequence %>" data-prev-gooru-oid = "<%= gooruOid %>" style="height:<%= collectionResourcePreviewContainerHeight %>px;">
   <% if (type != "question" && type != "resource/url" && (resourceExtenstion === "png" || resourceExtenstion === "gif" || resourceExtenstion === "jpg" || resourceExtenstion === "jpeg")) { %>
 	<div style="text-align:center;clear:both">
 	  <div class="source-content">

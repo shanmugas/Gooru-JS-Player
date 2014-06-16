@@ -48,7 +48,9 @@
   </div>
    <div id="gooru-collection-player-resource-play-menu-container">
       <div id="gooru-collection-player-resource-play-menu-nav-container" class="collection-resource-play-menu-container">
-	<% var resourceOrder = 0; 
+	<% var resourceOrder = 0;
+	   var resourceIndex = 0;
+	   var resourcePosition = 1;
 	   var resourceWidth = $(window).width() - 6;
 	   var resourceSlideWidth = resourceWidth - 90;
            var collectionResourcePreviewContainerHeight = $(window).height() - 162;
@@ -74,8 +76,8 @@
 				    resourceImageURL = data.collectionItems[collectionItemIndex].resource.assetURI + resoureFolder + thumbnailName;
 			    }
 		      %>
-		      <div class="collection-player-resource-container collection-segment-content" id="collection-player-resource-<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder++ %>">
-		       <div class="collection-player-resource-content-val" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder %>" data-resource-json='<%= escape(JSON.stringify(collectionPlay.resourceDataFormatter(data.collectionItems[collectionItemIndex]))) %>' data-segment-index= "<%= collectionItemIndex %>">
+		      <div class="collection-player-resource-container collection-segment-content collection-player-resource-container_<%= resourcePosition++ %>" id="collection-player-resource-<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder++ %>" data-resource-position = "<%= resourceIndex++ %>" >
+		       <div data-resource-position = "<%= resourceOrder %>" id = "collection-player-resource-content-val-<%= resourceOrder %>" class="collection-player-resource-content-val" data-resourceinstanceid="<%= data.collectionItems[collectionItemIndex].resourceInstanceId %>"  data-resourceorder="<%= resourceOrder %>" data-resource-json='<%= escape(JSON.stringify(collectionPlay.resourceDataFormatter(data.collectionItems[collectionItemIndex]))) %>' data-segment-index= "<%= collectionItemIndex %>">
 			<div class="collection-player-resource-data collection-player-resource-transform">
 			  <div class="collection-player-resource-image-container">
 			      <div class="collection-player-resource-image default-image-div">
