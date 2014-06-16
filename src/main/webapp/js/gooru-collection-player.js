@@ -471,7 +471,7 @@ var collectionPlay = {
 	      resourcePlayers.youtubeVideo(videoId, startTime, 'resourcePlayYoutubeplayer-' + gooruOid);
 	    break;
 	    case 'animation/kmz':
-	      mtours.init((signedBaseUrl + '?file=' + resourcshowCollectionPlayResourcePrevieweUrl), 'collectionResourcePreviewGoogleEarthContainer');
+	      mtours.init((signedBaseUrl + '?file=' + resourceUrl), 'collectionResourcePreviewGoogleEarthContainer');
 	    break;
 	    case 'animation/swf':
 	      var fileExtension = resourceUrl.split('.').pop();
@@ -632,7 +632,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- //helper.userSignin({onComplete:collectionPlay.init});
- collectionPlay.init();
+ helper.userSignin({onComplete:collectionPlay.init});
+ //collectionPlay.init();
 });
 
