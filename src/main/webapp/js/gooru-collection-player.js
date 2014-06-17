@@ -502,6 +502,8 @@ var collectionPlay = {
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
+	  var initialEventId = generateGUID()
+	  eventLoggingData.eventId = initialEventId;
 	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
 	    eventLoggingData.eventName = 'collection.play';
 	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
@@ -511,6 +513,8 @@ var collectionPlay = {
 	    firstSessionId = helper.getSessionIdForEvent($('div#gooru-collection-player-base-container').data('collectionId'),USER.sessionToken);
 	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = "";
+	    $('div.collection-player-resource-content-val').attr("data-parent-event-id",initialEventId);
+	    eventLoggingData.parentEventId = "";
 	  } else {
 	    eventLoggingData.eventName = 'collection.resource.play';
 	    eventLoggingData.activityType = "stop";
@@ -522,8 +526,10 @@ var collectionPlay = {
 	    firstSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid'),USER.sessionToken);
 	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
+	    eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
+	  eventLoggingData.eventId = generateGUID();
 	  var secondSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid"),USER.sessionToken);	  
 	  eventLoggingData.sessionId = (typeof secondSessionId != 'undefined' && secondSessionId.length > 0) ? secondSessionId : generateGUID();
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
@@ -533,7 +539,8 @@ var collectionPlay = {
 	  eventLoggingData.totalTimeSpent = 0;
 	  eventLoggingData.startTime = playTime;
 	  eventLoggingData.stopTime = playTime;
-	  eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data('resource-type')
+	  eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data('resource-type');
+	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	  activityLog.generateEventLogData(eventLoggingData);
       }
     },

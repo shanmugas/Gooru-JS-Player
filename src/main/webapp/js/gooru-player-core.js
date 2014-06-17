@@ -481,7 +481,7 @@ var activityLog =  {
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
-	parentEventId:"",
+	parentEventId:eventLoggingData.parentEventId,
 	type:eventLoggingData.activityType,
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
@@ -509,7 +509,7 @@ var activityLog =  {
       var eventData = {
 	context : JSON.stringify(eventContextData),
 	endTime: eventLoggingData.stopTime,
-	eventId : generateGUID(),
+	eventId : eventLoggingData.eventId,
 	eventName: eventLoggingData.eventName,
 	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":0}',
 	payLoadObject:JSON.stringify(eventPayLoadObjectData),
