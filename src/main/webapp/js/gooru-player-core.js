@@ -456,6 +456,23 @@ var helper = {
   },
   getTimeInMilliSecond : function (){
     return new Date().getTime();
+  },
+  getQuestionResourceType:function(id){
+    if(id == 1) {
+      return "MC";
+    } else if(id == 2) {
+      return "SA";
+    } else if(id == 3) {
+      return "T/F";
+    } else if(id == 4) {
+      return "FIB";
+    } else if(id == 5) {
+      return "MTF";
+    } else if(id == 6) {
+      return "OE";
+    } else if(id == 7) {
+      return "MA";
+    }
   }
 }; 
 

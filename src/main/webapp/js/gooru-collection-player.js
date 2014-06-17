@@ -439,10 +439,6 @@ var collectionPlay = {
     },
     resourcePreview: function (previewValues) {
       var useScribd = false;
-      var eventLoggingData = {};
-      var urlParam = helper.getRequestParam();
-      eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
-      eventLoggingData.sessionToken = USER.sessionToken;
 	if (previewValues.documentId != '' && previewValues.documentKey != '') {
 	useScribd = true;
 	}
@@ -464,7 +460,7 @@ var collectionPlay = {
 	  $('div#gooru-collection-player-overlay-icon-header').addClass('gooru-collection-player-overlay-icon-' + category.toLowerCase());
 	  var signedBaseUrl = GOORU_REST_ENDPOINT + '/signed/resource/url/'+gooruOid;
 	  $('div#gooru-collection-resource-play-content').html(resourcePreviewHtml);
-	  (type == 'assessment-question') ? eventLoggingData.resourceType = "question" : eventLoggingData.resourceType = "resource";
+	  
 	  switch (type) {
 	    case 'video/youtube':
 	      var videoId = helper.getYoutubeVideoId(resourceUrl);
@@ -492,17 +488,36 @@ var collectionPlay = {
 	    break;
 	  }
  	  var activityLogId = generateGUID();
-	  var playTime = helper.getTimeInMilliSecond();
-	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
+	  
  	  $('div#gooru-collection-player-base-container').data('activity-log-id', activityLogId);
  	  $('div#gooru-collection-player-base-container').data('gooru-oid',  gooruOid);
  	  activityLog.triggerActivityLog(activityLogId, 'start', gooruOid, 'collection-resource-play', null, window.location , 'collection-resource-play-Start');
-	  var firstSessionId = "";
+	  collectionPlay.sendCollectionDataForEventLogging(previewValues);
+      }
+    },
+    
+    sendCollectionDataForEventLogging: function(previewValues){
+      var eventLoggingData = {};
+      var urlParam = helper.getRequestParam();
+      eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
+      eventLoggingData.sessionToken = USER.sessionToken;
+      with(previewValues){
+      var playTime = helper.getTimeInMilliSecond();
+      $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
+      var firstSessionId = "";
 	  var previousPlayedElementId = (typeof $('div.lastCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.lastCollectionResourcePlayed').attr('id')).data('resource-position') : "" ;
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
-	  var initialEventId = generateGUID()
+	  var questionResourceType = "";
+	  if(type == 'assessment-question'){ 
+	    eventLoggingData.resourceType = "question";
+	    questionResourceType = helper.getQuestionResourceType(questionType);
+	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
+	  } else {
+	    eventLoggingData.resourceType = "resource";
+	  }
+	  var initialEventId = generateGUID();
 	  eventLoggingData.eventId = initialEventId;
 	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
 	    eventLoggingData.eventName = 'collection.play';
@@ -527,6 +542,7 @@ var collectionPlay = {
 	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
 	    eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
+	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
@@ -541,6 +557,7 @@ var collectionPlay = {
 	  eventLoggingData.stopTime = playTime;
 	  eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data('resource-type');
 	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
+	  eventLoggingData.questionType = questionResourceType;
 	  activityLog.generateEventLogData(eventLoggingData);
       }
     },
@@ -649,7 +666,6 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- helper.userSignin({onComplete:collectionPlay.init});
- //collectionPlay.init();
+ //helper.userSignin({onComplete:collectionPlay.init});
+ collectionPlay.init();
 });
-
