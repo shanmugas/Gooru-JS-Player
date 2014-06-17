@@ -638,7 +638,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- //helper.userSignin({onComplete:collectionPlay.init});
- collectionPlay.init();
+ helper.userSignin({onComplete:collectionPlay.init});
+ //collectionPlay.init();
 });
 
