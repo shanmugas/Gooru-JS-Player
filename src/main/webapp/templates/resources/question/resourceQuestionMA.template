@@ -60,8 +60,8 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    <div class = "gooru-multiple-choice-answer">
 		<div class = "multiple-choice-answer-marker multiple-choice-answer-marker-<%= alphabets[i].toUpperCase() %>"></div>
 	      <div class = "multiple-choice-answer-radio">
-		<input value = "true" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
-		<input value = "false" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
+		<input value = "true" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
+		<input value = "false" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
 	      </div>
 	      <div class = "multiple-choice-answer-option">(<%= alphabets[i].toUpperCase() %>)</div>
 	      <div class = "multiple-choice-answer-text"><%= questionData.answers[i].answerText %></div>
@@ -73,7 +73,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	
       <div>
 	<div style="margin-top: 60px;text-align: center;">
-	  <input data-question-type = "<%= questionData.questionType %>" class = "gooru-answer-container gooru-default-grey-disable-button" type="button"  value = "Check Answer" />
+	  <input disabled = "disabled" data-question-type = "<%= questionData.questionType %>" class = "gooru-answer-container gooru-default-grey-disable-button" type="button"  value = "Check Answer" />
 	</div>
       </div>
 	

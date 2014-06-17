@@ -41,7 +41,8 @@
 	<div id="gooru-resource-player-source-header">Source: </div>
 
 	  <% if((type == "video/youtube" || type == "resource/url") && resourceSource != null && typeof(resourceSource) != 'undefined' && resourceSource.attribution != null && typeof(resourceSource.attribution) != 'undefined'){%>
-		    <div class="resourceOriginalSource"><a href="<%=resourceUrl%>" target="_blank"><%= resourceSource.attribution %></a></div>
+	    <% var resourceAttribution = (resourceSource.attribution.trim().length > 0) ? resourceSource.attribution : resourceUrl.split('.')[1]; %>
+		    <div class="resourceOriginalSource"><a href="<%=resourceUrl%>" target="_blank"><%= resourceAttribution %></a></div>
 	  <%} else {%>
 	      <div id="gooru-resource-player-type-content">No source available.</div>
 	  <% } %>

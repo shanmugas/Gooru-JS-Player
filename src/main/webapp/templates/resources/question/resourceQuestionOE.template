@@ -57,6 +57,9 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    </div>
 	  </div>
 	  
+	  <div class = "gooru-oe-answer-empty-error-message">
+	    Answer text should not be empty
+	  </div>
 	  
 	  <div>
 	    <div style="margin-top: 60px;text-align: center;">

@@ -1269,7 +1269,9 @@ div#collection-balloon-meta-course-content, div#collection-balloon-meta-voc-cont
   padding: 5px;
   min-height: 60px;
 }
-
+div#collection-balloon-meta-voc-container {
+  overflow-y: scroll;
+}
 div.collection-meta-dia-divider-container { 
   width: 150px;
   float: left;

@@ -196,7 +196,7 @@ div#gooru-resource-player-learn-more-grey {
   display: none;
 }
 
-div#gooru-resource-player-about:hover, div#gooru-resource-player-share:hover { 
+div#gooru-resource-player-about:hover, div#gooru-resource-player-learn-more:hover, div#gooru-resource-player-share:hover { 
   font-weight: bold;
   cursor: pointer;
 }
@@ -873,4 +873,11 @@ div.gooru-resource-http-error-issue-message {
   width: 572px;
   margin: 0 auto;
   font-size: 16px;
+}
+div.gooru-oe-answer-empty-error-message {
+  display:none;
+  color: #fbb03b;
+  font-style: italic;
+  font-size: 12px;
+  margin-top: 10px;
 }

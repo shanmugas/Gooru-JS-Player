@@ -122,12 +122,16 @@
 	$(this).prop("disabled",true);
 	$("input.fib-answer").attr("disabled", "disabled");
      } else if($(this).data("question-type") == "OE" || $(this).data("question-type") == '6') {
-	$("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
-	$("div#gooru-oe-submited-answer").show();
-	$("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button").hide();
+	if($("textarea#gooru-oe-answer-submit").val().length > 0) {
+	  $("div#gooru-oe-submited-answer").text($("textarea#gooru-oe-answer-submit").val());
+	  $("div#gooru-oe-submited-answer").show();
+	  $("textarea#gooru-oe-answer-submit, input#gooru-oe-save-button,div.gooru-oe-answer-empty-error-message").hide();
+	} else {
+	  $("div.gooru-oe-answer-empty-error-message").show();
+	} 
     } else if($(this).data("question-type") == "7" || $(this).data("question-type") == "MA") {  
 	$('div.multiple-choice-answer-marker').css("visibility","visible");
- 	$('input.gooru-mcq-radio-button').each(function() {
+ 	$('input.gooru-ma-radio-button').each(function() {
  	  if($('input[name='+$(this).attr("name")+']:checked').val() == $('input[name='+$(this).attr("name")+']').data('mc-is-correct').toString()) { 
  	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).addClass('question-correct-answer-marker');
 	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-wrong-answer-marker');
@@ -162,11 +166,27 @@
     $(this).removeClass("gooru-question-active-button-font");
   });
   
-  $("input.gooru-mcq-radio-button , input.fib-answer , textarea#gooru-oe-answer-submit").live("click",function() {
-    $("input.gooru-answer-container").removeClass("gooru-default-grey-disable-button");
-    $("input.gooru-answer-container").addClass("gooru-default-blue-button");
+  $("input.gooru-mcq-radio-button").live("click",function() {
+    helper.enableCheckAnswerButton();
+  });
+  $("input.fib-answer , textarea#gooru-oe-answer-submit").keypress(function(){
+    ($(this).val().length == 0 ) ? helper.enableCheckAnswerButton() : '';
   });
       }
+      $("input.gooru-mcq-radio-button,input.gooru-ma-radio-button").click(function(){
+	$("div.multiple-choice-answer-marker").css("visibility","hidden");
+      });
+      $("input.gooru-ma-radio-button").click(function(){
+	var radioElement = 0;
+	var checkedRadio = 0;
+	$("input.gooru-ma-radio-button").each(function(){
+	  radioElement++;
+	  ($(this)[0].checked) ? checkedRadio++ : "";
+	});
+	if(checkedRadio === radioElement/2 ) {  
+	    helper.enableCheckAnswerButton();
+	  }
+      });
     },
     pdfReader: function (documentId, documentKey, startPage, playerContainer) {
       var scribd_doc = scribd.Document.getDoc(documentId, documentKey);
@@ -413,11 +433,34 @@ var helper = {
 	    PIE.attach(this);
 	});
     }
+  },
+  enableCheckAnswerButton : function(){
+    $("input.gooru-answer-container").removeClass("gooru-default-grey-disable-button");
+    $("input.gooru-answer-container").addClass("gooru-default-blue-button");
+    $("input.gooru-answer-container").removeAttr('disabled');
+  },
+  getSessionIdForEvent: function (contentGooruOid,sessionToken){
+    var sessionIdentity = "";
+    $.ajax({
+      url: GOORU_REST_ENDPOINT +"/v2/session?sessionToken="+sessionToken,
+      type:'POST',
+      contentType: "application/json",
+      data:'{"session":{"resource":{"gooruOid":"'+contentGooruOid+'"},"mode":"test"}}',
+      dataType:'json',
+      async:false,
+      success:function(data){
+	 sessionIdentity = data.sessionId;
+      }
+    });
+    return sessionIdentity;
+  },
+  getTimeInMilliSecond : function (){
+    return new Date().getTime();
   }
 }; 
 
 var activityLog =  {
-  init : function (settings) {	
+  init : function (settings) { 
     $.ajax ({
       type : 'POST',
       url : GOORU_REST_ENDPOINT + '/activity/log/' + settings.eventId + '/' + settings.type,
@@ -432,6 +475,53 @@ var activityLog =  {
       var options =   {eventId : eventId, type :  type, contentGooruOid : gooruOid, eventName : eventName, parentGooruOid : parentGooruOid, contex:context};
       $('div.gooru-player-base-container').trigger('activity.log', [ section,  options]);
     }
+  },
+  generateEventLogData : function(eventLoggingData){
+    var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
+      var eventContextData = {
+	contentGooruId: eventLoggingData.contentGooruId,
+	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
+	parentEventId:"",
+	type:eventLoggingData.activityType,
+	resourceType: eventLoggingData.resourceType,
+	clientSource: 'web',
+	path: "",
+	pageLocation: "",
+      };
+      var eventSessionData = {
+	apiKey:eventLoggingData.apiKey,
+	organizationUId:"",
+	sessionToken:eventLoggingData.sessionToken,
+	sessionId:eventLoggingData.sessionId
+      };
+      var eventPayLoadObjectData = {
+	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
+	totalNoOfCharacter:"",
+	text:"",
+	attemptStatus:"",
+	attemptTrySequence:"",
+	answers:"",
+	attemptCount:"",
+	hints:"",
+	explanation:"",
+	answerObject:""
+      };
+      var eventData = {
+	context : JSON.stringify(eventContextData),
+	endTime: eventLoggingData.stopTime,
+	eventId : generateGUID(),
+	eventName: eventLoggingData.eventName,
+	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":0}',
+	payLoadObject:JSON.stringify(eventPayLoadObjectData),
+	session:JSON.stringify(eventSessionData),
+	startTime:eventLoggingData.startTime,
+	user: '{"gooruUId":"ANONYMOUS"}',
+	version: '{"logApi":"0.1"}'
+      };
+      activityLog.pushActivityLogData(eventData);
+  },
+  pushActivityLogData : function (eventData){
+    _et.data.push(JSON.stringify(eventData));
   }
 };
 var generateGUID = (typeof (window.crypto) != 'undefined' && typeof (window.crypto.getRandomValues) != 'undefined') ?
