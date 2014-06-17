@@ -442,12 +442,14 @@ var helper = {
   getSessionIdForEvent: function (contentGooruOid,sessionToken){
     var sessionIdentity = "";
     $.ajax({
-      url: GOORU_REST_ENDPOINT +"/gooruapi/rest/v2/session?sessionToken="+sessionToken,
+      url: GOORU_REST_ENDPOINT +"/v2/session?sessionToken="+sessionToken,
       type:'POST',
-      data:JSON.stringify({session:{resource:{gooruOid:contentGooruOid},mode:'test'}}),
+      contentType: "application/json",
+      data:'{"session":{"resource":{"gooruOid":"'+contentGooruOid+'"},"mode":"test"}}',
       dataType:'json',
+      async:false,
       success:function(data){
-	 sessionIdentity = data.sessionId;    
+	 sessionIdentity = data.sessionId;
       }
     });
     return sessionIdentity;

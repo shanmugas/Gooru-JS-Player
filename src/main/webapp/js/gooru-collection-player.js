@@ -497,7 +497,7 @@ var collectionPlay = {
  	  $('div#gooru-collection-player-base-container').data('activity-log-id', activityLogId);
  	  $('div#gooru-collection-player-base-container').data('gooru-oid',  gooruOid);
  	  activityLog.triggerActivityLog(activityLogId, 'start', gooruOid, 'collection-resource-play', null, window.location , 'collection-resource-play-Start');
-	  eventLoggingData.sessionId = (typeof helper.getSessionIdForEvent(previewValues.gooruOid,USER.sessionToken) != 'undefined') ? helper.getSessionIdForEvent(previewValues.gooruOid,USER.sessionToken) : generateGUID();
+	  var firstSessionId = "";
 	  var previousPlayedElementId = (typeof $('div.lastCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.lastCollectionResourcePlayed').attr('id')).data('resource-position') : "" ;
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
@@ -507,6 +507,8 @@ var collectionPlay = {
 	    eventLoggingData.activityType = "start";
 	    eventLoggingData.startTime = playTime;
 	    eventLoggingData.stopTime = playTime;
+	    firstSessionId = helper.getSessionIdForEvent($('div#gooru-collection-player-base-container').data('collectionId'),USER.sessionToken);
+	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	  } else {
 	    eventLoggingData.eventName = 'collection.resource.play';
 	    eventLoggingData.activityType = "stop";
@@ -515,8 +517,12 @@ var collectionPlay = {
 	    eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
 	    eventLoggingData.startTime = playTime;
 	    eventLoggingData.stopTime = playTime;
+	    firstSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid'),USER.sessionToken);
+	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
+	  var secondSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid"),USER.sessionToken);	  
+	  eventLoggingData.sessionId = (typeof secondSessionId != 'undefined' && secondSessionId.length > 0) ? secondSessionId : generateGUID();
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
 	  eventLoggingData.activityType = "start";
 	  eventLoggingData.eventName = 'collection.resource.play';
@@ -632,7 +638,7 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- helper.userSignin({onComplete:collectionPlay.init});
- //collectionPlay.init();
+ //helper.userSignin({onComplete:collectionPlay.init});
+ collectionPlay.init();
 });
 
