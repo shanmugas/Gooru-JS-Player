@@ -91,7 +91,7 @@
 	}
 	$(targetElement).html(resourceInfo);
 	
-	$('input.gooru-answer-container').live("click", function() {
+	$('input.gooru-answer-container').click(function() {
     if($(this).data("question-type") == "MC" || $(this).data("question-type") == "T/F" || $(this).data("question-type") == '1' || $(this).data("question-type") == '3') {
 	$('.multiple-choice-answer-marker-'+$('input[name="gooru-mcq"]:checked').data("radio-option-value")).css("visibility","visible");
 	$('input[name="gooru-mcq"]').not(':checked').each(function() {
@@ -494,6 +494,12 @@ var activityLog =  {
     }
   },
   generateEventLogData : function(eventLoggingData){
+    var questionAttemptStatus = "";
+    var questionAttemptCount = 0;
+    if(eventLoggingData.questionAttemptData.length > 0){
+      questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
+      questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
+    }
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
@@ -513,12 +519,12 @@ var activityLog =  {
       };
       var eventPayLoadObjectData = {
 	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
-	totalNoOfCharacter:"",
+	totalNoOfCharacter:(typeof eventLoggingData.totalNoOfCharacter != 'undefined') ? eventLoggingData.totalNoOfCharacter : 0,
 	text:"",
-	attemptStatus:"",
+	attemptStatus:"["+questionAttemptStatus+"]",
 	attemptTrySequence:"",
 	answers:"",
-	attemptCount:"",
+	attemptCount:questionAttemptCount,
 	hints:"",
 	explanation:"",
 	answerObject:""

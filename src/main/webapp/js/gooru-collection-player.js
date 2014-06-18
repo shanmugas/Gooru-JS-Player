@@ -509,11 +509,27 @@ var collectionPlay = {
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
+	  
 	  var questionResourceType = "";
 	  if(type == 'assessment-question'){ 
 	    eventLoggingData.resourceType = "question";
 	    questionResourceType = helper.getQuestionResourceType(questionType);
 	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
+	    var attemptStatus = [];
+	    var attemptCount = 0;
+	    $('input.gooru-answer-container').click(function(){
+	      attemptCount++;
+	      var wrongAnswerElement = $('div.question-wrong-answer-marker');
+	      var isCorrect = 1;
+	      for(var wrongVisible = 0 ; wrongAnswerElement.length > wrongVisible ; wrongVisible++){
+		if($(wrongAnswerElement[wrongVisible]).css('visibility') == 'visible') {
+		  isCorrect = 0;
+		  break;
+		}
+	      }
+	      attemptStatus[attemptCount] = isCorrect;
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+	    });
 	  } else {
 	    eventLoggingData.resourceType = "resource";
 	  }
@@ -543,6 +559,7 @@ var collectionPlay = {
 	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
 	    eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
+	    eventLoggingData.questionAttemptData = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status') != undefined) ? $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status') : [];
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
@@ -558,6 +575,7 @@ var collectionPlay = {
 	  eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data('resource-type');
 	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	  eventLoggingData.questionType = questionResourceType;
+	  eventLoggingData.questionAttemptData = "";
 	  activityLog.generateEventLogData(eventLoggingData);
       }
     },
@@ -666,6 +684,6 @@ function onYouTubeStateChange(playerStatusId) {
 }
 
 $(document).ready(function () {
- //helper.userSignin({onComplete:collectionPlay.init});
- collectionPlay.init();
+ helper.userSignin({onComplete:collectionPlay.init});
+ //collectionPlay.init();
 });
