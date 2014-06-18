@@ -160,7 +160,7 @@
     i++;
   });
   
-  $('#gooru-question-explanation-button').live("click", function() {
+  $('#gooru-question-explanation-button').click( function() {
     $('.gooru-question-explanation-container').css("display","block");
     $(this).addClass("gooru-question-deactive-button-font");
     $(this).removeClass("gooru-question-active-button-font");
@@ -502,6 +502,7 @@ var activityLog =  {
     }
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
+    var explanationTimestamp = (typeof eventLoggingData.questionHintTimestamp != 'undefined' ) ? '{"1":'+eventLoggingData.questionHintTimestamp+'}' : '{}';
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
@@ -527,7 +528,7 @@ var activityLog =  {
 	answers:"",
 	attemptCount:questionAttemptCount,
 	hints:"",
-	explanation:"",
+	explanation:explanationTimestamp,
 	answerObject:""
       };
       var eventData = {

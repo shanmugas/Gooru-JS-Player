@@ -511,6 +511,7 @@ var collectionPlay = {
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
 	  var questionResourceType = (questionType != null) ? helper.getQuestionResourceType(questionType) : "RES";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeAttr('data-question-explanation-time');
 	  if(type == 'assessment-question'){ 
 	    eventLoggingData.resourceType = "question";
 	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-attempt-status');
@@ -532,6 +533,9 @@ var collectionPlay = {
 	      attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+	    });
+	    $("input#gooru-question-explanation-button").click(function(){
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-explanation-time',helper.getTimeInMilliSecond());
 	    });
 	  } else {
 	    eventLoggingData.resourceType = "resource";
@@ -564,6 +568,7 @@ var collectionPlay = {
 	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
 	    eventLoggingData.questionAttemptData = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status');
 	    eventLoggingData.questionAttemptSequence = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-try-sequence');
+	    eventLoggingData.questionHintTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
@@ -580,6 +585,7 @@ var collectionPlay = {
 	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	  eventLoggingData.questionType = questionResourceType;
 	  eventLoggingData.questionAttemptData = "";
+	  eventLoggingData.questionHintTimestamp = undefined;
 	  activityLog.generateEventLogData(eventLoggingData);
       }
     },

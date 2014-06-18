@@ -22,10 +22,10 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    <% } else { %>
 	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
 	    <% } %>
-	    <% if(questionData.questionExplanation.length > 0) { %>
+	    <% if(questionData.questionExplanation.length > 0 && questionData.questionExplanation != "") { %>
 	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } else { %>
-	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
+	      <input disabled = "disabled" id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } %>
 	  </div>
 	  
