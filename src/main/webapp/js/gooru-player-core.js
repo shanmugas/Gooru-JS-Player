@@ -496,10 +496,11 @@ var activityLog =  {
   generateEventLogData : function(eventLoggingData){
     var questionAttemptStatus = "";
     var questionAttemptCount = 0;
-    if(eventLoggingData.questionAttemptData.length > 0){
+    if(typeof eventLoggingData.questionAttemptData != 'undefined'){
       questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
     }
+    var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
@@ -522,7 +523,7 @@ var activityLog =  {
 	totalNoOfCharacter:(typeof eventLoggingData.totalNoOfCharacter != 'undefined') ? eventLoggingData.totalNoOfCharacter : 0,
 	text:"",
 	attemptStatus:"["+questionAttemptStatus+"]",
-	attemptTrySequence:"",
+	attemptTrySequence:"["+questionAttemptSequence+"]",
 	answers:"",
 	attemptCount:questionAttemptCount,
 	hints:"",

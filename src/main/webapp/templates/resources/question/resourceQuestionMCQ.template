@@ -54,7 +54,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	  
 	<% if(questionData.answers.length > 0 && questionData.answers != "" && typeof questionData.answers != "undefined") { %>
 	<% var alphabets = new Array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'); %>
-	  <% for(var i in questionData.answers) {  %>
+	  <% var sequence = 1; for(var i in questionData.answers) {  %>
 	    <div class = "gooru-multiple-choice-answer">
 	      <% if(questionData.answers[i].isCorrect != false) { %>
 		<div class = "question-correct-answer-marker multiple-choice-answer-marker multiple-choice-answer-marker-<%= alphabets[i].toUpperCase() %>">
@@ -62,7 +62,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 		<div class = "question-wrong-answer-marker multiple-choice-answer-marker multiple-choice-answer-marker-<%= alphabets[i].toUpperCase() %>">
 	      <% } %>
 	      </div>
-	      <div class = "multiple-choice-answer-radio"><input class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" name = "gooru-mcq" type = "radio" /></div>
+	      <div class = "multiple-choice-answer-radio"><input class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" name = "gooru-mcq" type = "radio" data-answer-sequence = "<%= sequence++ %>" /></div>
 	      <div class = "multiple-choice-answer-option">(<%= alphabets[i].toUpperCase() %>)</div>
 	      <div class = "multiple-choice-answer-text"><%= questionData.answers[i].answerText %></div>
 	    </div>
