@@ -509,11 +509,10 @@ var collectionPlay = {
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
-	  var questionResourceType = "";
+	  var questionResourceType = (questionType != null) ? helper.getQuestionResourceType(questionType) : "RES";
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
 	  if(type == 'assessment-question'){ 
 	    eventLoggingData.resourceType = "question";
-	    questionResourceType = helper.getQuestionResourceType(questionType);
-	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
 	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-attempt-status');
 	    $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-attempt-try-sequence');
 	    var attemptStatus = [];
