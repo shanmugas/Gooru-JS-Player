@@ -503,6 +503,7 @@ var activityLog =  {
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
     var explanationTimestamp = (typeof eventLoggingData.questionHintTimestamp != 'undefined' ) ? '{"1":'+eventLoggingData.questionHintTimestamp+'}' : '{}';
+    var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) : '{}';
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
@@ -525,7 +526,7 @@ var activityLog =  {
 	text:"",
 	attemptStatus:"["+questionAttemptStatus+"]",
 	attemptTrySequence:"["+questionAttemptSequence+"]",
-	answers:"",
+	answers:answerTimestamp,
 	attemptCount:questionAttemptCount,
 	hints:"",
 	explanation:explanationTimestamp,

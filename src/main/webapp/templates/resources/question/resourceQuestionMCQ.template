@@ -62,7 +62,7 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 		<div class = "question-wrong-answer-marker multiple-choice-answer-marker multiple-choice-answer-marker-<%= alphabets[i].toUpperCase() %>">
 	      <% } %>
 	      </div>
-	      <div class = "multiple-choice-answer-radio"><input class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" name = "gooru-mcq" type = "radio" data-answer-sequence = "<%= sequence++ %>" /></div>
+	      <div class = "multiple-choice-answer-radio"><input class = "gooru-mcq-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" name = "gooru-mcq" type = "radio" data-answer-sequence = "<%= sequence++ %>" data-answer-id = "<%= questionData.answers[i].answerId %>" /></div>
 	      <div class = "multiple-choice-answer-option">(<%= alphabets[i].toUpperCase() %>)</div>
 	      <div class = "multiple-choice-answer-text"><%= questionData.answers[i].answerText %></div>
 	    </div>
