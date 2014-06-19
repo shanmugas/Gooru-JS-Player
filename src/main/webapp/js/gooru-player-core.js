@@ -496,9 +496,11 @@ var activityLog =  {
   generateEventLogData : function(eventLoggingData){
     var questionAttemptStatus = "";
     var questionAttemptCount = 0;
+    var score = 0;
     if(typeof eventLoggingData.questionAttemptData != 'undefined'){
       questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
+      score = eventLoggingData.questionAttemptData.split(',').pop();
     }
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
@@ -537,7 +539,7 @@ var activityLog =  {
 	endTime: eventLoggingData.stopTime,
 	eventId : eventLoggingData.eventId,
 	eventName: eventLoggingData.eventName,
-	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":0}',
+	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":'+score+'}',
 	payLoadObject:JSON.stringify(eventPayLoadObjectData),
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,

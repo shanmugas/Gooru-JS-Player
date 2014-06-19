@@ -544,12 +544,12 @@ var collectionPlay = {
 	  }
 	  var initialEventId = generateGUID();
 	  eventLoggingData.eventId = initialEventId;
+	  eventLoggingData.startTime = playTime;
+	  eventLoggingData.stopTime = playTime;
 	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
 	    eventLoggingData.eventName = 'collection.play';
 	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.activityType = "start";
-	    eventLoggingData.startTime = playTime;
-	    eventLoggingData.stopTime = playTime;
 	    firstSessionId = helper.getSessionIdForEvent($('div#gooru-collection-player-base-container').data('collectionId'),USER.sessionToken);
 	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = "";
@@ -561,8 +561,6 @@ var collectionPlay = {
 	    eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
 	    eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
-	    eventLoggingData.startTime = playTime;
-	    eventLoggingData.stopTime = playTime;
 	    firstSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid'),USER.sessionToken);
 	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
@@ -572,6 +570,7 @@ var collectionPlay = {
 	    eventLoggingData.questionAttemptSequence = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-try-sequence');
 	    eventLoggingData.questionHintTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
 	    eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
+	    eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
