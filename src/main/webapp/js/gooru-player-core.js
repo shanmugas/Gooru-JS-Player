@@ -151,6 +151,7 @@
     if(currentHintCount == 1){
       $(this).addClass("gooru-question-deactive-button-font");
       $(this).removeClass("gooru-question-active-button-font");
+      $(this).attr("disabled","disabled");
     }
     if(currentHintCount != 0) {
       currentHintCount--;
@@ -506,6 +507,7 @@ var activityLog =  {
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
     var explanationTimestamp = (typeof eventLoggingData.questionHintTimestamp != 'undefined' ) ? '{"1":'+eventLoggingData.questionHintTimestamp+'}' : '{}';
     var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) : '{}';
+    var hintsUsed = (typeof eventLoggingData.hintTimeStamp != 'undefined') ? eventLoggingData.hintTimeStamp.substring(0,eventLoggingData.hintTimeStamp.length - 1): '{}';
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
@@ -530,7 +532,7 @@ var activityLog =  {
 	attemptTrySequence:"["+questionAttemptSequence+"]",
 	answers:answerTimestamp,
 	attemptCount:questionAttemptCount,
-	hints:"",
+	hints:hintsUsed,
 	explanation:explanationTimestamp,
 	answerObject:""
       };

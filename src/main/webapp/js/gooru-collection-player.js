@@ -502,15 +502,15 @@ var collectionPlay = {
       eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
       eventLoggingData.sessionToken = USER.sessionToken;
       with(previewValues){
-      var playTime = helper.getTimeInMilliSecond();
-      $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
-      var firstSessionId = "";
+	  var playTime = helper.getTimeInMilliSecond();
+	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
+	  var firstSessionId = "";
 	  var previousPlayedElementId = (typeof $('div.lastCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.lastCollectionResourcePlayed').attr('id')).data('resource-position') : "" ;
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
 	  var questionResourceType = (questionType != null) ? helper.getQuestionResourceType(questionType) : "RES";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
-	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-explanation-time question-answer-time question-attempt-status question-attempt-try-sequence play-start-time');
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-explanation-time question-answer-time question-attempt-status question-attempt-try-sequence play-start-time question-hints-used');
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  if(type == 'assessment-question'){ 
 	    eventLoggingData.resourceType = "question"; 
@@ -538,6 +538,13 @@ var collectionPlay = {
 	    });
 	    $("input#gooru-question-explanation-button").click(function(){
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-explanation-time',helper.getTimeInMilliSecond());
+	    });
+	    var hintVisibleContainerId = 0;
+	    var answerHintObject = "";
+	    $("input#gooru-question-hint-button").click(function(){
+	      answerHintObject += "{'"+$("div.gooru-question-hint-container-"+hintVisibleContainerId).data('hint-id')+"':'"+helper.getTimeInMilliSecond()+"'},";
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-hints-used',answerHintObject);
+	      hintVisibleContainerId++;
 	    });
 	  } else {
 	    eventLoggingData.resourceType = "resource";
@@ -571,6 +578,7 @@ var collectionPlay = {
 	    eventLoggingData.questionHintTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
 	    eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
 	    eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
+	    eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
@@ -590,8 +598,9 @@ var collectionPlay = {
 	  eventLoggingData.questionHintTimestamp = undefined;
 	  eventLoggingData.answerTimestamp = undefined;
 	  eventLoggingData.questionAttemptSequence = undefined;
+	  eventLoggingData.hintTimeStamp = undefined;
 	  activityLog.generateEventLogData(eventLoggingData);
-	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time");
+	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time data-question-hints-used");
       }
     },
     showResourceNarrative: function(previewValues) { 
