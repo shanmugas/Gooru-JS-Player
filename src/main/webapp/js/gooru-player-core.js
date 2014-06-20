@@ -508,6 +508,8 @@ var activityLog =  {
     var explanationTimestamp = (typeof eventLoggingData.questionHintTimestamp != 'undefined' ) ? '{"1":'+eventLoggingData.questionHintTimestamp+'}' : '{}';
     var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) : '{}';
     var hintsUsed = (typeof eventLoggingData.hintTimeStamp != 'undefined') ? eventLoggingData.hintTimeStamp.substring(0,eventLoggingData.hintTimeStamp.length - 1): '{}';
+    var answerText = (typeof eventLoggingData.answerText != 'undefined') ? eventLoggingData.answerText.substring(0,eventLoggingData.answerText.length - 1) : "";
+    var totalNoOfCharacter = answerText.length;
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
@@ -526,8 +528,8 @@ var activityLog =  {
       };
       var eventPayLoadObjectData = {
 	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
-	totalNoOfCharacter:(typeof eventLoggingData.totalNoOfCharacter != 'undefined') ? eventLoggingData.totalNoOfCharacter : 0,
-	text:"",
+	totalNoOfCharacter:totalNoOfCharacter,
+	text:answerText,
 	attemptStatus:"["+questionAttemptStatus+"]",
 	attemptTrySequence:"["+questionAttemptSequence+"]",
 	answers:answerTimestamp,

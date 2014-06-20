@@ -58,9 +58,9 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	  
 	  <div class = "gooru-fib-answer-question-container" >
 	    <div class = "gooru-fib-answer-question-text">
-	      <% var questionText = questionData.title.replace(/_______/g, ' <span><input id = "input-id" class = "fib-answer" type = "text" /></span> '); %>
+	      <% var questionText = questionData.title.replace(/_______/g, ' <span><input data-answer-fib-id = "answer-id" id = "input-id" class = "fib-answer" type = "text" /></span> '); %>
 	      <% for (var input in questionData.answers) { %>
-		<% var inputId = "answer-"+input; questionText = questionText.replace("input-id",inputId); %>
+		<% var inputId = "answer-"+input; questionText = questionText.replace("input-id",inputId).replace("answer-id",questionData.answers[input].answerId); %>
 	      <% } %>
 	      <%= questionText %>
 	    </div>
