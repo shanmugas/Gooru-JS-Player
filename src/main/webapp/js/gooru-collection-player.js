@@ -504,7 +504,6 @@ var collectionPlay = {
       with(previewValues){
 	  var playTime = helper.getTimeInMilliSecond();
 	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
-	  var firstSessionId = "";
 	  var previousPlayedElementId = (typeof $('div.lastCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.lastCollectionResourcePlayed').attr('id')).data('resource-position') : "" ;
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  var questionResourceType = (questionType != null) ? helper.getQuestionResourceType(questionType) : "RES";
@@ -578,12 +577,17 @@ var collectionPlay = {
 	  eventLoggingData.eventId = initialEventId;
 	  eventLoggingData.startTime = playTime;
 	  eventLoggingData.stopTime = playTime;
+	  if(typeof $('div.collection-player-resource-content-val').data("session-id") == 'undefined' || $('div.collection-player-resource-content-val').data("session-id").length == 0) {
+	    var sessionIdForCollection = helper.getSessionIdForEvent($('div#gooru-collection-player-base-container').data('collectionId'),USER.sessionToken);
+	    var collectionSessionId = (typeof sessionIdForCollection != 'undefined' && sessionIdForCollection.length > 0) ? sessionIdForCollection : generateGUID();
+	    $('div.collection-player-resource-content-val').attr("data-session-id",collectionSessionId);
+	  }
+	  
+	  eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
 	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
 	    eventLoggingData.eventName = 'collection.play';
 	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.activityType = "start";
-	    firstSessionId = helper.getSessionIdForEvent($('div#gooru-collection-player-base-container').data('collectionId'),USER.sessionToken);
-	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = "";
 	    $('div.collection-player-resource-content-val').attr("data-parent-event-id",initialEventId);
 	    eventLoggingData.parentEventId = "";
@@ -593,8 +597,6 @@ var collectionPlay = {
 	    eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
 	    eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
-	    firstSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid'),USER.sessionToken);
-	    eventLoggingData.sessionId = (typeof firstSessionId != 'undefined' && firstSessionId.length > 0) ? firstSessionId : generateGUID();
 	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
 	    eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
@@ -608,8 +610,6 @@ var collectionPlay = {
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
-	  var secondSessionId = helper.getSessionIdForEvent($("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid"),USER.sessionToken);	  
-	  eventLoggingData.sessionId = (typeof secondSessionId != 'undefined' && secondSessionId.length > 0) ? secondSessionId : generateGUID();
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
 	  eventLoggingData.activityType = "start";
 	  eventLoggingData.eventName = 'collection.resource.play';
