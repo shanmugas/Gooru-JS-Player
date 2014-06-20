@@ -521,15 +521,7 @@ var collectionPlay = {
 	      var attemptQuestionType = helper.getQuestionResourceType($(this).data('question-type'));
 	      if(attemptQuestionType == 'T/F' || attemptQuestionType == 'MC'){
 		attemptCount++;
-		var wrongAnswerElement = $('div.question-wrong-answer-marker');
-		var isCorrect = 1;
-		for(var wrongVisible = 0 ; wrongAnswerElement.length > wrongVisible ; wrongVisible++){
-		  if($(wrongAnswerElement[wrongVisible]).css('visibility') == 'visible') {
-		    isCorrect = 0;
-		    break;
-		  }
-		}
-		attemptStatus[attemptCount] = isCorrect;
+		attemptStatus[attemptCount] = helper.isAttemptAnswerCorrect();
 		attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
@@ -560,6 +552,11 @@ var collectionPlay = {
 	      if(attemptQuestionType == 'OE'){
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',$("textarea#gooru-oe-answer-submit").val()+",");
 		attemptStatus[1] = null;
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+	      }
+	      if(attemptQuestionType == 'MA'){
+		attemptCount++;
+		attemptStatus[attemptCount] = helper.isAttemptAnswerCorrect();
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
 	      }
 	    });

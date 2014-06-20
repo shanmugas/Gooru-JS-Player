@@ -474,6 +474,17 @@ var helper = {
     } else if(id == 7) {
       return "MA";
     }
+  },
+  isAttemptAnswerCorrect : function (){
+    var wrongAnswerElement = $('div.question-wrong-answer-marker');
+    var isCorrect = 1;
+    for(var wrongVisible = 0 ; wrongAnswerElement.length > wrongVisible ; wrongVisible++){
+      if($(wrongAnswerElement[wrongVisible]).css('visibility') == 'visible') {
+	  isCorrect = 0;
+	break;
+      }
+    }
+    return isCorrect;
   }
 }; 
 
