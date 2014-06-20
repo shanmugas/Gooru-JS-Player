@@ -533,7 +533,7 @@ var collectionPlay = {
 		attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
-		var answerAttemptObject = "{'"+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "':'" +helper.getTimeInMilliSecond()+"'}";
+		var answerAttemptObject = "{\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +helper.getTimeInMilliSecond()+"}";
 		answerTimestamp += answerAttemptObject + ',' ;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
 	      }
@@ -549,7 +549,7 @@ var collectionPlay = {
 		  }
 		  attemptTrySequence[attemptCount] = attemptCount;
 		  fibUserAnswers += "[" + $(fillInBlankElement[blanks]).val() + "],";
-		  answerTimestamp += "{'" + $(fillInBlankElement[blanks]).data('answer-fib-id') + "':'" + fibSubmitTime + "'}";
+		  answerTimestamp += "{\"" + $(fillInBlankElement[blanks]).data('answer-fib-id') + "\":" + fibSubmitTime + "}";
 		}
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',fibUserAnswers);
 		attemptStatus[1] = answerStatus;
@@ -569,7 +569,7 @@ var collectionPlay = {
 	    var hintVisibleContainerId = 0;
 	    var answerHintObject = "";
 	    $("input#gooru-question-hint-button").click(function(){
-	      answerHintObject += "{'"+$("div.gooru-question-hint-container-"+hintVisibleContainerId).data('hint-id')+"':'"+helper.getTimeInMilliSecond()+"'},";
+	      answerHintObject += "\""+$("div.gooru-question-hint-container-"+hintVisibleContainerId).data('hint-id')+"\":"+helper.getTimeInMilliSecond()+",";
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-hints-used',answerHintObject);
 	      hintVisibleContainerId++;
 	    });
@@ -603,7 +603,7 @@ var collectionPlay = {
 	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
 	    eventLoggingData.questionAttemptData = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status');
 	    eventLoggingData.questionAttemptSequence = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-try-sequence');
-	    eventLoggingData.questionHintTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
+	    eventLoggingData.questionExplanationTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
 	    eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
 	    eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
 	    eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
@@ -624,7 +624,7 @@ var collectionPlay = {
 	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
 	  eventLoggingData.questionType = questionResourceType;
 	  eventLoggingData.questionAttemptData = undefined;
-	  eventLoggingData.questionHintTimestamp = undefined;
+	  eventLoggingData.questionExplanationTimestamp = undefined;
 	  eventLoggingData.answerTimestamp = undefined;
 	  eventLoggingData.questionAttemptSequence = undefined;
 	  eventLoggingData.hintTimeStamp = undefined;
@@ -710,7 +710,7 @@ function resetResourcePreviewHeight() {
 }
 function onYouTubePlayerReady(playerid) {
   var myPlayer = document.getElementById(playerid);
-  var resourceInstanceId = playerid.split('youtubeMovie-resourcePlayYoutubeplayer-')[1];
+  var resourceI//nstanceId = playerid.split('youtubeMovie-resourcePlayYoutubeplayer-')[1];
   var stopTime = $('div#resourcePlayYoutubeplayer-' + resourceInstanceId).data('videostop');
   var fromPreRender = $('div#resourcePlayYoutubeplayer-' + resourceInstanceId).data('fromprerender');
     if(myPlayer != null) {
