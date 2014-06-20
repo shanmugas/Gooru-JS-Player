@@ -557,6 +557,11 @@ var collectionPlay = {
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
 	      }
+	      if(attemptQuestionType == 'OE'){
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',$("textarea#gooru-oe-answer-submit").val()+",");
+		attemptStatus[1] = null;
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+	      }
 	    });
 	    $("input#gooru-question-explanation-button").click(function(){
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-explanation-time',helper.getTimeInMilliSecond());
@@ -623,6 +628,7 @@ var collectionPlay = {
 	  eventLoggingData.answerTimestamp = undefined;
 	  eventLoggingData.questionAttemptSequence = undefined;
 	  eventLoggingData.hintTimeStamp = undefined;
+	  eventLoggingData.answerText = undefined;
 	  activityLog.generateEventLogData(eventLoggingData);
 	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time data-question-hints-used data-user-text");
       }

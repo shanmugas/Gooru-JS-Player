@@ -501,7 +501,7 @@ var activityLog =  {
     if(typeof eventLoggingData.questionAttemptData != 'undefined'){
       questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
-      score = eventLoggingData.questionAttemptData.split(',').pop();
+      score = (eventLoggingData.questionAttemptData.split(',').pop().length > 0) ? eventLoggingData.questionAttemptData.split(',').pop() : 0;
     }
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
