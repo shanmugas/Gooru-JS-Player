@@ -20,18 +20,20 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    <% if(questionData.questionHints.length > 0) {  %>
 	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
 	    <% } else { %>
-	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
+	      <input disabled = "disabled" id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
 	    <% } %>
-	    <% if(questionData.questionExplanation.length > 0) { %>
+	    <% if(questionData.questionExplanation.length > 0 && questionData.questionExplanation != "") { %>
 	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } else { %>
-	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
+	      <input disabled = "disabled" id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } %>
 	  </div>
 	  
 	  <% if (questionData.questionHints.length > 0) { %>
 	    <% for(var i in questionData.questionHints) { %>  
-	      <div class = "gooru-question-hint-container gooru-question-hint-container-<%= i %>"><%= questionData.questionHints[i].hintText %></div>
+	      <div data-hint-id = "<%= questionData.questionHints[i].hintId %>" class = "gooru-question-hint-container gooru-question-hint-container-<%= i %>">
+		<%= questionData.questionHints[i].hintText %>
+	      </div>
 	    <% } %>
 	  <% } %>
 	  <div class = "border-bottom"></div>
@@ -56,9 +58,9 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	  
 	  <div class = "gooru-fib-answer-question-container" >
 	    <div class = "gooru-fib-answer-question-text">
-	      <% var questionText = questionData.title.replace(/_______/g, ' <span><input id = "input-id" class = "fib-answer" type = "text" /></span> '); %>
+	      <% var questionText = questionData.title.replace(/_______/g, ' <span><input data-answer-fib-id = "answer-id" id = "input-id" class = "fib-answer" type = "text" /></span> '); %>
 	      <% for (var input in questionData.answers) { %>
-		<% var inputId = "answer-"+input; questionText = questionText.replace("input-id",inputId); %>
+		<% var inputId = "answer-"+input; questionText = questionText.replace("input-id",inputId).replace("answer-id",questionData.answers[input].answerId); %>
 	      <% } %>
 	      <%= questionText %>
 	    </div>

@@ -20,18 +20,20 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    <% if(questionData.questionHints.length > 0) {  %>
 	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
 	    <% } else { %>
-	      <input id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
+	      <input disabled = "disabled" id = "gooru-question-hint-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Hints (<%= questionData.questionHints.length %> Left)" />
 	    <% } %>
-	    <% if(questionData.questionExplanation.length > 0) { %>
+	    <% if(questionData.questionExplanation.length > 0 && questionData.questionExplanation != "") { %>
 	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-active-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } else { %>
-	      <input id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
+	      <input disabled = "disabled" id = "gooru-question-explanation-button" class = "gooru-question-container gooru-default-grey-disable-button gooru-question-deactive-button-font" type="button" value = "Explanation" style = "margin-left: 10px;" />
 	    <% } %>
 	  </div>
 	  
 	  <% if (questionData.questionHints.length > 0) { %>
 	    <% for(var i in questionData.questionHints) { %>  
-	      <div class = "gooru-question-hint-container gooru-question-hint-container-<%= i %>"><%= questionData.questionHints[i].hintText %></div>
+	      <div data-hint-id = "<%= questionData.questionHints[i].hintId %>" class = "gooru-question-hint-container gooru-question-hint-container-<%= i %>">
+		<%= questionData.questionHints[i].hintText %>
+	      </div>
 	    <% } %>
 	  <% } %>
 	  <div class = "border-bottom"></div>
@@ -60,8 +62,8 @@ var resourcePreviewContainerHeight = $(window).height() - 162;
 	    <div class = "gooru-multiple-choice-answer">
 		<div class = "multiple-choice-answer-marker multiple-choice-answer-marker-<%= alphabets[i].toUpperCase() %>"></div>
 	      <div class = "multiple-choice-answer-radio">
-		<input value = "true" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
-		<input value = "false" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
+		<input data-radio-position = "1" value = "true" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
+		<input data-radio-position = "0" value = "false" data-mc-is-correct = "<%= questionData.answers[i].isCorrect %>" name = "<%= questionData.answers[i].answerId %>" class = "gooru-ma-radio-button" data-radio-option-value = "<%= alphabets[i].toUpperCase() %>" type = "radio" />
 	      </div>
 	      <div class = "multiple-choice-answer-option">(<%= alphabets[i].toUpperCase() %>)</div>
 	      <div class = "multiple-choice-answer-text"><%= questionData.answers[i].answerText %></div>
