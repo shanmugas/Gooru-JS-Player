@@ -517,7 +517,7 @@ var activityLog =  {
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
     var explanationTimestamp = (typeof eventLoggingData.questionExplanationTimestamp != 'undefined' ) ? "{\"1\":"+eventLoggingData.questionExplanationTimestamp+"}" : '{}';
-    var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) : '{}';
+    var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? "{" + eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) + "}" : '{}';
     var hintsUsed = (typeof eventLoggingData.hintTimeStamp != 'undefined') ? "{"+ eventLoggingData.hintTimeStamp.substring(0,eventLoggingData.hintTimeStamp.length - 1) + "}" : '{}';
     var answerText = (typeof eventLoggingData.answerText != 'undefined') ? eventLoggingData.answerText.substring(0,eventLoggingData.answerText.length - 1) : "";
     var totalNoOfCharacter = answerText.length;
