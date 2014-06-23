@@ -557,6 +557,8 @@ var collectionPlay = {
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',$("textarea#gooru-oe-answer-submit").val()+",");
 		attemptStatus[1] = null;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+		answerObject = '"attempt1":[{"text":"'+$("textarea#gooru-oe-answer-submit").val()+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+answerSubmitTime+'}]';
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject+",");
 	      }
 	      if(attemptQuestionType == 'MA'){
 		var maAnswerOptions =  $("input.gooru-ma-radio-button");
