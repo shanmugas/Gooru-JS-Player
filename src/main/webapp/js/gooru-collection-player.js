@@ -508,7 +508,7 @@ var collectionPlay = {
 	  var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
 	  var questionResourceType = (questionType != null) ? helper.getQuestionResourceType(questionType) : "RES";
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-type',questionResourceType );
-	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-explanation-time question-answer-time question-attempt-status question-attempt-try-sequence play-start-time question-hints-used user-text');
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData('question-explanation-time question-answer-time question-attempt-status question-attempt-try-sequence play-start-time question-hints-used user-text question-answer-object');
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-play-start-time', playTime);
 	  if(type == 'assessment-question'){ 
 	    eventLoggingData.resourceType = "question"; 
@@ -516,6 +516,7 @@ var collectionPlay = {
 	    var attemptTrySequence = [];
 	    var attemptCount = 0;
 	    var answerTimestamp = "";
+	    var answerObject = "";
 	    $('input.gooru-answer-container').click(function(){
 	      var attemptQuestionType = helper.getQuestionResourceType($(this).data('question-type'));
 	      var answerSubmitTime = helper.getTimeInMilliSecond();
@@ -523,10 +524,12 @@ var collectionPlay = {
 		attemptCount++;
 		attemptStatus[attemptCount] = helper.isAttemptAnswerCorrect();
 		attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
+		answerObject += '"attempt'+attemptCount+'":[{"text":"'+$("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+answerSubmitTime+'}],';
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
-		answerTimestamp += "\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +helper.getTimeInMilliSecond()+",";
+		answerTimestamp += "\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +answerSubmitTime+",";
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject);
 	      }
 	      if(attemptQuestionType == 'FIB'){
 		var fillInBlankElement = $('input.fib-answer');
@@ -618,6 +621,7 @@ var collectionPlay = {
 	    eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
 	    eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
 	    eventLoggingData.answerText = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-user-text');
+	    eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
 	  }
 	  activityLog.generateEventLogData(eventLoggingData);
 	  eventLoggingData.eventId = generateGUID();
@@ -637,8 +641,9 @@ var collectionPlay = {
 	  eventLoggingData.questionAttemptSequence = undefined;
 	  eventLoggingData.hintTimeStamp = undefined;
 	  eventLoggingData.answerText = undefined;
+	  eventLoggingData.answerObject = undefined;
 	  activityLog.generateEventLogData(eventLoggingData);
-	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time data-question-hints-used data-user-text");
+	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time data-question-hints-used data-user-text data-question-answer-object");
       }
     },
     showResourceNarrative: function(previewValues) { 

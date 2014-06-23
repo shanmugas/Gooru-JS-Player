@@ -520,7 +520,7 @@ var activityLog =  {
     var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? "{" + eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) + "}" : '{}';
     var hintsUsed = (typeof eventLoggingData.hintTimeStamp != 'undefined') ? "{"+ eventLoggingData.hintTimeStamp.substring(0,eventLoggingData.hintTimeStamp.length - 1) + "}" : '{}';
     var answerText = (typeof eventLoggingData.answerText != 'undefined') ? eventLoggingData.answerText.substring(0,eventLoggingData.answerText.length - 1) : "";
-    var totalNoOfCharacter = answerText.length;
+    var answerObject = (typeof eventLoggingData.answerObject != 'undefined') ? "{" + eventLoggingData.answerObject.substring(0,eventLoggingData.answerObject.length - 1) + "}" : "{}";
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
@@ -539,7 +539,7 @@ var activityLog =  {
       };
       var eventPayLoadObjectData = {
 	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
-	totalNoOfCharacter:totalNoOfCharacter,
+	totalNoOfCharacter:answerText.length,
 	text:answerText,
 	attemptStatus:"["+questionAttemptStatus+"]",
 	attemptTrySequence:"["+questionAttemptSequence+"]",
@@ -547,7 +547,7 @@ var activityLog =  {
 	attemptCount:questionAttemptCount,
 	hints:hintsUsed,
 	explanation:explanationTimestamp,
-	answerObject:""
+	answerObject:answerObject
       };
       var eventData = {
 	context : JSON.stringify(eventContextData),
