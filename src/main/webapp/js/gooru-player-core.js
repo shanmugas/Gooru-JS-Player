@@ -91,7 +91,7 @@
 	}
 	$(targetElement).html(resourceInfo);
 	
-	$('input.gooru-answer-container').live("click", function() {
+	$('input.gooru-answer-container').click(function() {
     if($(this).data("question-type") == "MC" || $(this).data("question-type") == "T/F" || $(this).data("question-type") == '1' || $(this).data("question-type") == '3') {
 	$('.multiple-choice-answer-marker-'+$('input[name="gooru-mcq"]:checked').data("radio-option-value")).css("visibility","visible");
 	$('input[name="gooru-mcq"]').not(':checked').each(function() {
@@ -151,6 +151,7 @@
     if(currentHintCount == 1){
       $(this).addClass("gooru-question-deactive-button-font");
       $(this).removeClass("gooru-question-active-button-font");
+      $(this).attr("disabled","disabled");
     }
     if(currentHintCount != 0) {
       currentHintCount--;
@@ -160,7 +161,7 @@
     i++;
   });
   
-  $('#gooru-question-explanation-button').live("click", function() {
+  $('#gooru-question-explanation-button').click( function() {
     $('.gooru-question-explanation-container').css("display","block");
     $(this).addClass("gooru-question-deactive-button-font");
     $(this).removeClass("gooru-question-active-button-font");
@@ -456,6 +457,34 @@ var helper = {
   },
   getTimeInMilliSecond : function (){
     return new Date().getTime();
+  },
+  getQuestionResourceType:function(id){
+    if(id == 1) {
+      return "MC";
+    } else if(id == 2) {
+      return "SA";
+    } else if(id == 3) {
+      return "T/F";
+    } else if(id == 4) {
+      return "FIB";
+    } else if(id == 5) {
+      return "MTF";
+    } else if(id == 6) {
+      return "OE";
+    } else if(id == 7) {
+      return "MA";
+    }
+  },
+  isAttemptAnswerCorrect : function (){
+    var wrongAnswerElement = $('div.question-wrong-answer-marker');
+    var isCorrect = 1;
+    for(var wrongVisible = 0 ; wrongAnswerElement.length > wrongVisible ; wrongVisible++){
+      if($(wrongAnswerElement[wrongVisible]).css('visibility') == 'visible') {
+	  isCorrect = 0;
+	break;
+      }
+    }
+    return isCorrect;
   }
 }; 
 
@@ -477,11 +506,25 @@ var activityLog =  {
     }
   },
   generateEventLogData : function(eventLoggingData){
+    var questionAttemptStatus = "";
+    var questionAttemptCount = 0;
+    var score = 0;
+    if(typeof eventLoggingData.questionAttemptData != 'undefined'){
+      questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
+      questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
+      score = (eventLoggingData.questionAttemptData.split(',').pop().length > 0) ? eventLoggingData.questionAttemptData.split(',').pop() : 0;
+    }
+    var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
+    var explanationTimestamp = (typeof eventLoggingData.questionExplanationTimestamp != 'undefined' ) ? "{\"1\":"+eventLoggingData.questionExplanationTimestamp+"}" : '{}';
+    var answerTimestamp = (typeof eventLoggingData.answerTimestamp != 'undefined') ? "{" + eventLoggingData.answerTimestamp.substring(0,eventLoggingData.answerTimestamp.length - 1) + "}" : '{}';
+    var hintsUsed = (typeof eventLoggingData.hintTimeStamp != 'undefined') ? "{"+ eventLoggingData.hintTimeStamp.substring(0,eventLoggingData.hintTimeStamp.length - 1) + "}" : '{}';
+    var answerText = (typeof eventLoggingData.answerText != 'undefined') ? eventLoggingData.answerText.substring(0,eventLoggingData.answerText.length - 1) : "";
+    var answerObject = (typeof eventLoggingData.answerObject != 'undefined') ? "{" + eventLoggingData.answerObject.substring(0,eventLoggingData.answerObject.length - 1) + "}" : "{}";
       var eventContextData = {
 	contentGooruId: eventLoggingData.contentGooruId,
 	parentGooruId:(typeof eventLoggingData.parentGooruId != 'undefined') ? eventLoggingData.parentGooruId : "",
-	parentEventId:"",
+	parentEventId:eventLoggingData.parentEventId,
 	type:eventLoggingData.activityType,
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
@@ -496,22 +539,22 @@ var activityLog =  {
       };
       var eventPayLoadObjectData = {
 	questionType:(typeof eventLoggingData.questionType != "undefined") ? eventLoggingData.questionType : "",
-	totalNoOfCharacter:"",
-	text:"",
-	attemptStatus:"",
-	attemptTrySequence:"",
-	answers:"",
-	attemptCount:"",
-	hints:"",
-	explanation:"",
-	answerObject:""
+	totalNoOfCharacter:answerText.length,
+	text:answerText,
+	attemptStatus:"["+questionAttemptStatus+"]",
+	attemptTrySequence:"["+questionAttemptSequence+"]",
+	answers:answerTimestamp,
+	attemptCount:questionAttemptCount,
+	hints:hintsUsed,
+	explanation:explanationTimestamp,
+	answerObject:answerObject
       };
       var eventData = {
 	context : JSON.stringify(eventContextData),
 	endTime: eventLoggingData.stopTime,
-	eventId : generateGUID(),
+	eventId : eventLoggingData.eventId,
 	eventName: eventLoggingData.eventName,
-	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":0}',
+	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":'+score+'}',
 	payLoadObject:JSON.stringify(eventPayLoadObjectData),
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,
