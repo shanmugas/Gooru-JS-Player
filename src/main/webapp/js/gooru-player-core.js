@@ -485,6 +485,19 @@ var helper = {
       }
     }
     return isCorrect;
+  },
+  getGooruUidWithToken : function(token) {
+    var gooruUid = "";
+    $.ajax({
+      url:GOORU_REST_ENDPOINT+"/v2/user/token/"+token+"?sessionToken="+token,
+      type:"GET",
+      dataType:"json",
+      async:false,
+      success:function(data) {
+	gooruUid = data.gooruUId;
+      }
+    });
+    return gooruUid;
   }
 }; 
 
@@ -558,7 +571,7 @@ var activityLog =  {
 	payLoadObject:JSON.stringify(eventPayLoadObjectData),
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,
-	user: '{"gooruUId":"ANONYMOUS"}',
+	user: '{"gooruUId":"'+eventLoggingData.gooruUid+'"}',
 	version: '{"logApi":"0.1"}'
       };
       activityLog.pushActivityLogData(eventData);
