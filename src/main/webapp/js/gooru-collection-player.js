@@ -31,6 +31,7 @@ var collectionPlay = {
     $('#gooru-collection-player-base-container').bind('activity.log',function(e, section, options){
       activityLog.init(options);
     });
+    USER.gooruUid = helper.getGooruUidWithToken(USER.sessionToken);
     collectionPlay.showCollectionPlayCoverPage(helper.getRequestParam());
   },
   showCollectionPlayCoverPage: function(param) { 
@@ -501,6 +502,7 @@ var collectionPlay = {
       var urlParam = helper.getRequestParam();
       eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
       eventLoggingData.sessionToken = USER.sessionToken;
+      eventLoggingData.gooruUid = USER.gooruUid;
       with(previewValues){
 	  var playTime = helper.getTimeInMilliSecond();
 	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
