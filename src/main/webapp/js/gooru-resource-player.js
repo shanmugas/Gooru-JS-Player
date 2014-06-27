@@ -279,6 +279,7 @@ var resourcePreview = {
     var resourceStopTime = helper.getTimeInMilliSecond();
     eventLoggingData.activityType = "stop";
     eventLoggingData.stopTime = resourceStopTime;
+    eventLoggingData.totalTimeSpent = 5000;
     activityLog.generateEventLogData(eventLoggingData);
   },
    
