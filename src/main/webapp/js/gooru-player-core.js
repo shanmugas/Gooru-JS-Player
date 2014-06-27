@@ -542,7 +542,8 @@ var activityLog =  {
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
 	path: "",
-	pageLocation: "",
+	pageLocation: "home-search",
+	mode:"study"
       };
       var eventSessionData = {
 	apiKey:eventLoggingData.apiKey,
