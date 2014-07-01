@@ -638,9 +638,12 @@ var collectionPlay = {
 	    eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
 	    eventLoggingData.answerText = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-user-text');
 	    eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
+	    eventLoggingData.eventId = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-event-id');
 	  }
+	  var startEventId = generateGUID();
 	  activityLog.generateEventLogData(eventLoggingData);
-	  eventLoggingData.eventId = generateGUID();
+	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-event-id', startEventId);
+	  eventLoggingData.eventId = startEventId;
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
 	  eventLoggingData.activityType = "start";
 	  eventLoggingData.eventName = 'collection.resource.play';
