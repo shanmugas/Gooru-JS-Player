@@ -190,7 +190,7 @@ var collectionPlay = {
 	  $('div.collection-player-resource-content-val:eq('+ (currentIndex + 1)+')').trigger('click');
 	  resetResourcePreviewHeight();
 	} else { 
-	  $('div.gooru-collection-player-resource-review-div').trigger('click');
+	  $('div.gooru-collection-player-resource-summary-div').trigger('click');
 	}
     });
     $('span.gooru-collection-resource-play-prev-arrow-span').click(function() { 
@@ -206,11 +206,13 @@ var collectionPlay = {
       $('div#gooru-collection-player-cover-page-container').show();
       $('div#gooru-collection-resource-play-content').empty();
       $('div#gooru-collection-player-resource-play-container').hide();
+      collectionPlay.sendCollectionStopEvent();
     });
-    $('div.gooru-collection-player-resource-review-div').click(function() { 
+    $('div.gooru-collection-player-resource-summary-div').click(function() { 
       $('div#gooru-collection-resource-play-content').empty();
       $('div#gooru-collection-player-resource-play-container').hide();
       $('div#gooru-collection-player-resource-summary-container').show();
+      collectionPlay.sendCollectionStopEvent();
     });
   },
   collectionPlayDialogBox: function(element, width,  modal, heigth) { 
@@ -617,6 +619,7 @@ var collectionPlay = {
 	    eventLoggingData.activityType = "start";
 	    eventLoggingData.resourceType = "";
 	    $('div.collection-player-resource-content-val').attr("data-parent-event-id",initialEventId);
+	    $('div.collection-player-resource-content-val').attr("data-collection-start-time",playTime);
 	    eventLoggingData.parentEventId = "";
 	  } else {
 	    eventLoggingData.eventName = 'collection.resource.play';
@@ -705,25 +708,43 @@ var collectionPlay = {
     },
 
     collectionSummaryPage: function(data) { 
-//       var collectionSummaryContentHtml = new EJS({url : '/templates/collection/collectionSummaryPage.template'}).render({data: data});
-//       $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
-//       helper.onErrorDefaultImage();
-//       $('#collection-summrary-page-retake-content').click(function()  { 
-// 	$('div#gooru-collection-player-resource-summary-container').hide();
-// 	$('div#gooru-collection-player-cover-page-container').show();
-//       });
-//       $('div.collection-player-summary-resource-container').mouseenter(function() { 
-// 	$(this).find('span.collection-summary-page-goto-resource-span').show();
-//       });
-//       $('div.collection-player-summary-resource-container').mouseleave(function() { 
-// 	$(this).find('span.collection-summary-page-goto-resource-span').hide();
-//       });
-//       $('span.collection-summary-page-goto-resource-span').click(function() { 
-// 	$('div#gooru-collection-player-resource-summary-container').hide();
-// 	$('div#gooru-collection-player-resource-play-container').show();
-// 	var resourceinstanceid = $(this).data('resourceinstanceid');
-// 	$('div#collection-player-resource-' + resourceinstanceid).find('div.collection-player-resource-content-val').trigger('click');
-//       });
+       var collectionSummaryContentHtml = new EJS({url : '/templates/collection/collectionSummaryPage.template'}).render({data: data});
+       $('div#gooru-collection-player-resource-summary-container').html(collectionSummaryContentHtml);
+       helper.onErrorDefaultImage();
+       $('#collection-summrary-page-retake-content').click(function()  { 
+ 	$('div#gooru-collection-player-resource-summary-container').hide();
+ 	$('div#gooru-collection-player-cover-page-container').show();
+       });
+       $('div.collection-player-summary-resource-container').mouseenter(function() { 
+ 	$(this).find('span.collection-summary-page-goto-resource-span').show();
+       });
+       $('div.collection-player-summary-resource-container').mouseleave(function() { 
+ 	$(this).find('span.collection-summary-page-goto-resource-span').hide();
+       });
+       $('span.collection-summary-page-goto-resource-span').click(function() { 
+ 	$('div#gooru-collection-player-resource-summary-container').hide();
+ 	$('div#gooru-collection-player-resource-play-container').show();
+ 	var resourceinstanceid = $(this).data('resourceinstanceid');
+ 	$('div#collection-player-resource-' + resourceinstanceid).find('div.collection-player-resource-content-val').trigger('click');
+       });
+    },
+    sendCollectionStopEvent:function(){
+      var eventLoggingData = {};
+      var urlParameter = helper.getRequestParam();
+      var collectionStopTime = helper.getTimeInMilliSecond();
+      eventLoggingData.apiKey = (typeof urlParameter.api_key != 'undefined') ? urlParameter.api_key : "";
+      eventLoggingData.sessionToken = USER.sessionToken;
+      eventLoggingData.gooruUid = USER.gooruUid;
+      eventLoggingData.eventId = $('div.collection-player-resource-content-val').data("parent-event-id");
+      eventLoggingData.eventName = 'collection.play';
+      eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
+      eventLoggingData.activityType = "stop";
+      eventLoggingData.resourceType = "";
+      eventLoggingData.startTime = $('div.collection-player-resource-content-val').data("collection-start-time");
+      eventLoggingData.stopTime = collectionStopTime;
+      eventLoggingData.totalTimeSpent = collectionStopTime - eventLoggingData.startTime;
+      eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
+      activityLog.generateEventLogData(eventLoggingData);
     }
 };
 function resetResourcePreviewHeight() {

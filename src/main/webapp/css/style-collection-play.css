@@ -1286,7 +1286,7 @@ div.collection-meta-analytic-like-header {
 div.collection-meta-analytic-view-header {
   color: #cccccc;
 }
-div.gooru-collection-player-resource-home-div{
+div.gooru-collection-player-resource-home-div, div.gooru-collection-player-resource-summary-div{
   width: 20px;
   float: left;
   height: 87px;
@@ -1492,4 +1492,16 @@ div#gooru-resource-player-message-container {
   width: 100%;
   position: relative;
   font-size: 20px;
+}
+div.gooru-collection-replay-image{
+  background: url('//ram.goorulearning.org/player/images/replay.png') center 155px no-repeat,rgba(0,0,0,0.5);
+  width: 580px;
+  height: 353px;
+  top: 107px;
+  position: absolute;
+  transition: background-color 0.5s ease;
+  text-align: center;
+}
+div.gooru-collection-replay-image:hover{
+  background: url('//ram.goorulearning.org/player/images/replay.png') center 155px no-repeat,rgba(0,0,0,0.7);
 }

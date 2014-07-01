@@ -99,7 +99,11 @@
 	  <div class="gooru-collection-player-resource-next-arrow-div unselectable">
 		  <span  class="gooru-collection-player-all-arrow gooru-collection-player-resource-next-arrow"></span>
 	  </div>
-	
+	  <div class="gooru-collection-player-resource-summary-div unselectable">
+		<div class="gooru-collection-player-resource-home-content">
+		    <div style = "top: 51px !important;" class="gooru-collection-player-resource-home-text">Summary</div>
+		</div>
+	  </div>
     </div>
   </div>
   <div id="gooru-collection-player-resource-play-menu-info-container" class="collection-resource-play-menu-container"></div>
