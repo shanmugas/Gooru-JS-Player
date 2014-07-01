@@ -1505,3 +1505,9 @@ div.gooru-collection-replay-image{
 div.gooru-collection-replay-image:hover{
   background: url('//ram.goorulearning.org/player/images/replay.png') center 155px no-repeat,rgba(0,0,0,0.7);
 }
+div.gooru-collection-replay-message{
+  position: relative;
+  top: -100px;
+  left: 232px;
+  display: inline;
+}

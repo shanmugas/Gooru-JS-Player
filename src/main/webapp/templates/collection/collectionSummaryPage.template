@@ -3,10 +3,13 @@
     <div style = "height: 44px;font-size: 28px;margin-top: 60px;" class = "gooru-collection-title">
       <%= data.title %>
     </div>
-    <div onclick = "location.reload();" style = "cursor:pointer;margin-bottom: 28px;border-left: solid 13px #1e7ebf" class = "gooru-collection-thumbnail-image">
+    <div onclick = "location.reload();" style = "cursor:pointer;height: 350px;margin-bottom: 28px;border-left: solid 13px #1e7ebf" class = "gooru-collection-thumbnail-image">
       <img style = "height: 350px;width: 580px;" src = "<%= data.thumbnails.url %>" onerror="this.src='../images/default-collection-image-160x120.png';" />
       <div>
 	<div class = "gooru-collection-replay-image"></div>
+      </div>
+      <div class = "gooru-collection-replay-message">
+	replay this collection
       </div>
     </div>
     <div style = "width: 412px;font-size: 23px;margin: 0 auto;" class = "gooru-collection-end-message">
