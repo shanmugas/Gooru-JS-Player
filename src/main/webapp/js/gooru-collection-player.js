@@ -204,15 +204,19 @@ var collectionPlay = {
 	}
     });    
     $('div.gooru-collection-player-resource-home-div').click(function() { 
+      var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
       $('div#gooru-collection-player-cover-page-container').show();
       $('div#gooru-collection-resource-play-content').empty();
       $('div#gooru-collection-player-resource-play-container').hide();
+      collectionPlay.sendCollectionResourceStopEvent(helper.getEventDataObject(),currentPlayingElementId,helper.getTimeInMilliSecond());
       collectionPlay.sendCollectionStopEvent();
     });
     $('div.gooru-collection-player-resource-summary-div').click(function() { 
+      var currentPlayingElementId = (typeof $('div.currentCollectionResourcePlayed').attr('id') != 'undefined') ? $("div#"+$('div.currentCollectionResourcePlayed').attr('id')).data("resource-position") : "";
       $('div#gooru-collection-resource-play-content').empty();
       $('div#gooru-collection-player-resource-play-container').hide();
       $('div#gooru-collection-player-resource-summary-container').show();
+      collectionPlay.sendCollectionResourceStopEvent(helper.getEventDataObject(),currentPlayingElementId,helper.getTimeInMilliSecond());
       collectionPlay.sendCollectionStopEvent();
     });
   },
@@ -610,6 +614,8 @@ var collectionPlay = {
 	  }
 	  eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
 	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined' || $('div.collection-player-resource-content-val').hasClass("collection-init")){
+	    $('div.collection-player-resource-content-val').removeData("collection-start-time");
+	    $('div.collection-player-resource-content-val').removeAttr("data-collection-start-time");
 	    eventLoggingData.eventName = 'collection.play';
 	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.activityType = "start";
@@ -618,27 +624,11 @@ var collectionPlay = {
 	    $('div.collection-player-resource-content-val').attr("data-collection-start-time",playTime);
 	    eventLoggingData.parentEventId = "";
 	    $('div.collection-player-resource-content-val').removeClass("collection-init");
+	    activityLog.generateEventLogData(eventLoggingData);
 	  } else {
-	    eventLoggingData.eventName = 'collection.resource.play';
-	    eventLoggingData.activityType = "stop";
-	    eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
-	    eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
-	    eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
-	    eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
-	    eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
-	    eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
-	    eventLoggingData.questionAttemptData = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status');
-	    eventLoggingData.questionAttemptSequence = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-try-sequence');
-	    eventLoggingData.questionExplanationTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
-	    eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
-	    eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
-	    eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
-	    eventLoggingData.answerText = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-user-text');
-	    eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
-	    eventLoggingData.eventId = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-event-id');
+	    collectionPlay.sendCollectionResourceStopEvent(eventLoggingData,previousPlayedElementId,playTime);
 	  }
 	  var startEventId = generateGUID();
-	  activityLog.generateEventLogData(eventLoggingData);
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-event-id', startEventId);
 	  eventLoggingData.eventId = startEventId;
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
@@ -662,6 +652,29 @@ var collectionPlay = {
 	  $("div.collection-player-resource-content-val").removeAttr("data-question-answer-time data-question-attempt-try-sequence data-question-attempt-status data-question-explanation-time data-question-hints-used data-user-text data-question-answer-object");
       }
     },
+    
+    sendCollectionResourceStopEvent:function(eventLoggingData,previousPlayedElementId,playTime){
+	  eventLoggingData.eventName = 'collection.resource.play';
+	  eventLoggingData.activityType = "stop";
+	  eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
+	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
+	  eventLoggingData.totalTimeSpent = playTime - $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('play-start-time')
+	  eventLoggingData.resourceType = $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('resource-type');
+	  eventLoggingData.parentEventId = $('div.collection-player-resource-content-val').data("parent-event-id");
+	  eventLoggingData.questionType = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-type');
+	  eventLoggingData.questionAttemptData = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-status');
+	  eventLoggingData.questionAttemptSequence = $('div#collection-player-resource-content-val-'+previousPlayedElementId).data('question-attempt-try-sequence');
+	  eventLoggingData.questionExplanationTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
+	  eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
+	  eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
+	  eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
+	  eventLoggingData.answerText = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-user-text');
+	  eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
+	  eventLoggingData.eventId = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-event-id');
+	  eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
+	  activityLog.generateEventLogData(eventLoggingData);
+    },
+    
     showResourceNarrative: function(previewValues) { 
         if(typeof(previewValues.narrative) != 'undefined'  && previewValues.narrative != null && previewValues.narrative.length > 0) {
 	  var resourceNarrativeHtml = new EJS({
@@ -744,6 +757,8 @@ var collectionPlay = {
       eventLoggingData.stopTime = collectionStopTime;
       eventLoggingData.totalTimeSpent = collectionStopTime - eventLoggingData.startTime;
       eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
+      $('div.collection-player-resource-content-val').removeAttr("data-session-id");
+      $('div.collection-player-resource-content-val').removeData("session-id");
       activityLog.generateEventLogData(eventLoggingData);
     }
 };
