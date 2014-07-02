@@ -747,12 +747,8 @@ var collectionPlay = {
        });
     },
     sendCollectionStopEvent:function(){
-      var eventLoggingData = {};
-      var urlParameter = helper.getRequestParam();
+      var eventLoggingData = helper.getEventDataObject();
       var collectionStopTime = helper.getTimeInMilliSecond();
-      eventLoggingData.apiKey = (typeof urlParameter.api_key != 'undefined') ? urlParameter.api_key : "";
-      eventLoggingData.sessionToken = USER.sessionToken;
-      eventLoggingData.gooruUid = USER.gooruUid;
       eventLoggingData.eventId = $('div.collection-player-resource-content-val').data("parent-event-id");
       eventLoggingData.eventName = 'collection.play';
       eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
