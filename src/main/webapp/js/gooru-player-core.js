@@ -506,6 +506,13 @@ var helper = {
     eventLoggingData.sessionToken = USER.sessionToken;
     eventLoggingData.gooruUid = USER.gooruUid;
     return eventLoggingData;
+  },
+  getTotalCollectionScore:function(){
+    var collectionTotalScore = 0;
+    $('div.collection-player-resource-content-val').each(function(){
+      collectionTotalScore += (typeof $(this).data("last-score") != "undefined") ? $(this).data("last-score") : 0;
+    });
+    return collectionTotalScore;
   }
 }; 
 
@@ -534,6 +541,9 @@ var activityLog =  {
       questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
       score = (eventLoggingData.questionAttemptData.split(',').pop().length > 0) ? eventLoggingData.questionAttemptData.split(',').pop() : 0;
+    }
+    if(eventLoggingData.eventName == 'collection.play' && eventLoggingData.activityType == 'stop'){
+      score = helper.getTotalCollectionScore();
     }
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
