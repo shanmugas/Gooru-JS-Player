@@ -588,6 +588,10 @@ var collectionPlay = {
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object','"attempt1":['+maAnswerObject.substring(0,maAnswerObject.length-1)+'],');
 	      }
+	      var lastScore = (typeof attemptStatus[attemptStatus.length-1] != 'undefined' && attemptStatus[attemptStatus.length-1] != null) ? attemptStatus[attemptStatus.length-1] : 0;
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeAttr("data-last-score");
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeData("last-score");
+	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-last-score',lastScore);
 	    });
 	    $("input#gooru-question-explanation-button").click(function(){
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-explanation-time',helper.getTimeInMilliSecond());
@@ -598,7 +602,7 @@ var collectionPlay = {
 	      answerHintObject += "\""+$("div.gooru-question-hint-container-"+hintVisibleContainerId).data('hint-id')+"\":"+helper.getTimeInMilliSecond()+",";
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-hints-used',answerHintObject);
 	      hintVisibleContainerId++;
-	    });
+	    });   
 	  } else {
 	    eventLoggingData.resourceType = "resource";
 	  }
@@ -667,6 +671,7 @@ var collectionPlay = {
 	  eventLoggingData.questionExplanationTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-explanation-time');
 	  eventLoggingData.answerTimestamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-time');
 	  eventLoggingData.startTime = (typeof $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time') != 'undefined') ? Number($('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-play-start-time')) : playTime;
+	  eventLoggingData.stopTime = playTime;
 	  eventLoggingData.hintTimeStamp = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-hints-used');
 	  eventLoggingData.answerText = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-user-text');
 	  eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
