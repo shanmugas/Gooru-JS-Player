@@ -498,6 +498,14 @@ var helper = {
       }
     });
     return gooruUid;
+  },
+  getEventDataObject:function(){
+    var eventLoggingData = {};
+    var urlParameter = helper.getRequestParam();
+    eventLoggingData.apiKey = (typeof urlParameter.api_key != 'undefined') ? urlParameter.api_key : "";
+    eventLoggingData.sessionToken = USER.sessionToken;
+    eventLoggingData.gooruUid = USER.gooruUid;
+    return eventLoggingData;
   }
 }; 
 

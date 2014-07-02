@@ -119,6 +119,7 @@ var collectionPlay = {
 	});
     });
     $('div#gooru-collection-player-cover-page-study-container').click(function() { 
+      $('div.collection-player-resource-content-val').addClass("collection-init");
       $('div#gooru-collection-player-cover-page-container').hide();
       $('div#gooru-collection-player-resource-play-container').show();
       var views = $('div#collection-meta-analytic-view').data('views') + 1;
@@ -500,11 +501,7 @@ var collectionPlay = {
     },
     
     sendCollectionDataForEventLogging: function(previewValues){
-      var eventLoggingData = {};
-      var urlParam = helper.getRequestParam();
-      eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
-      eventLoggingData.sessionToken = USER.sessionToken;
-      eventLoggingData.gooruUid = USER.gooruUid;
+      var eventLoggingData = helper.getEventDataObject();
       with(previewValues){
 	  var playTime = helper.getTimeInMilliSecond();
 	  $('div#collection-player-resource-content-val-'+previewValues.collectionitemSequence).attr('data-gooru-oid', gooruOid);
@@ -611,9 +608,8 @@ var collectionPlay = {
 	    var collectionSessionId = (typeof sessionIdForCollection != 'undefined' && sessionIdForCollection.length > 0) ? sessionIdForCollection : generateGUID();
 	    $('div.collection-player-resource-content-val').attr("data-session-id",collectionSessionId);
 	  }
-	  
 	  eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
-	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined'){
+	  if (typeof $('div.lastCollectionResourcePlayed').attr('id') == 'undefined' || $('div.collection-player-resource-content-val').hasClass("collection-init")){
 	    eventLoggingData.eventName = 'collection.play';
 	    eventLoggingData.contentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
 	    eventLoggingData.activityType = "start";
@@ -621,6 +617,7 @@ var collectionPlay = {
 	    $('div.collection-player-resource-content-val').attr("data-parent-event-id",initialEventId);
 	    $('div.collection-player-resource-content-val').attr("data-collection-start-time",playTime);
 	    eventLoggingData.parentEventId = "";
+	    $('div.collection-player-resource-content-val').removeClass("collection-init");
 	  } else {
 	    eventLoggingData.eventName = 'collection.resource.play';
 	    eventLoggingData.activityType = "stop";
