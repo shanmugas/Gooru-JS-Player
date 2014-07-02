@@ -34,8 +34,8 @@ var resourcePreview = {
      $(window).blur(function() {
           resourcePreview.resourcePlayerActivityStop();
      });
-      resourcePreview.showResourcePreviewPopupBox(helper.getRequestParam());
-      
+     USER.gooruUid = helper.getGooruUidWithToken(USER.sessionToken);
+     resourcePreview.showResourcePreviewPopupBox(helper.getRequestParam());
     },
     showResourcePreview: function (previewValues) {
       previewValues.useScribd = false;
@@ -249,6 +249,38 @@ var resourcePreview = {
 		helper.previewToolTip('.standardExtraCount', 'bottom');
 	      }
 	      resourcePreview.handleResourcePreviewEvents();
+	      resourcePreview.sendResourceDataForEventLogging(previewValues); 
+  },
+  sendResourceDataForEventLogging: function(previewValues){
+    var eventLoggingData = {};
+    var urlParam = helper.getRequestParam();
+    eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
+    eventLoggingData.sessionToken = USER.sessionToken;
+    eventLoggingData.gooruUid = USER.gooruUid;
+    var resourceStartTime = helper.getTimeInMilliSecond();
+      with(previewValues){
+	var resourceSessionId = helper.getSessionIdForEvent(gooruOid,eventLoggingData.sessionToken);
+	eventLoggingData.contentGooruId = gooruOid;
+	eventLoggingData.activityType = "start";
+	eventLoggingData.eventId = generateGUID();
+	eventLoggingData.startTime = resourceStartTime;
+	eventLoggingData.stopTime = resourceStartTime;
+	eventLoggingData.eventId = generateGUID();
+	eventLoggingData.eventName = "resource.play";
+	eventLoggingData.sessionId = (resourceSessionId.length > 0) ? resourceSessionId : generateGUID();
+	eventLoggingData.questionType = (questionType != 'undefined') ? questionType : "RES";
+	eventLoggingData.resourceType = (type == 'assessment-question') ? "question" : "resource";
+	activityLog.generateEventLogData(eventLoggingData);
+      }
+      setInterval(function(){resourcePreview.triggerStopEventLoggingForResource(eventLoggingData)}, 5000);
+  },
+  
+  triggerStopEventLoggingForResource: function(eventLoggingData){
+    var resourceStopTime = helper.getTimeInMilliSecond();
+    eventLoggingData.activityType = "stop";
+    eventLoggingData.stopTime = resourceStopTime;
+    eventLoggingData.totalTimeSpent = 5000;
+    activityLog.generateEventLogData(eventLoggingData);
   },
    
 showResourceCollections : function(gooruOid) {

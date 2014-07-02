@@ -485,6 +485,27 @@ var helper = {
       }
     }
     return isCorrect;
+  },
+  getGooruUidWithToken : function(token) {
+    var gooruUid = "";
+    $.ajax({
+      url:GOORU_REST_ENDPOINT+"/v2/user/token/"+token+"?sessionToken="+token,
+      type:"GET",
+      dataType:"json",
+      async:false,
+      success:function(data) {
+	gooruUid = data.gooruUId;
+      }
+    });
+    return gooruUid;
+  },
+  getEventDataObject:function(){
+    var eventLoggingData = {};
+    var urlParameter = helper.getRequestParam();
+    eventLoggingData.apiKey = (typeof urlParameter.api_key != 'undefined') ? urlParameter.api_key : "";
+    eventLoggingData.sessionToken = USER.sessionToken;
+    eventLoggingData.gooruUid = USER.gooruUid;
+    return eventLoggingData;
   }
 }; 
 
@@ -529,7 +550,8 @@ var activityLog =  {
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
 	path: "",
-	pageLocation: "",
+	pageLocation: "home-search",
+	mode:"study"
       };
       var eventSessionData = {
 	apiKey:eventLoggingData.apiKey,
@@ -558,7 +580,7 @@ var activityLog =  {
 	payLoadObject:JSON.stringify(eventPayLoadObjectData),
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,
-	user: '{"gooruUId":"ANONYMOUS"}',
+	user: '{"gooruUId":"'+eventLoggingData.gooruUid+'"}',
 	version: '{"logApi":"0.1"}'
       };
       activityLog.pushActivityLogData(eventData);
