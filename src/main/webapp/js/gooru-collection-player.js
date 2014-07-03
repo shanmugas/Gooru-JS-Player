@@ -628,6 +628,7 @@ var collectionPlay = {
 	    $('div.collection-player-resource-content-val').attr("data-collection-start-time",playTime);
 	    eventLoggingData.parentEventId = "";
 	    $('div.collection-player-resource-content-val').removeClass("collection-init");
+	    eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId');
 	    activityLog.generateEventLogData(eventLoggingData);
 	  } else {
 	    collectionPlay.sendCollectionResourceStopEvent(eventLoggingData,previousPlayedElementId,playTime);
@@ -636,6 +637,7 @@ var collectionPlay = {
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-event-id', startEventId);
 	  eventLoggingData.eventId = startEventId;
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
+	  eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId') + "/" + $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
 	  eventLoggingData.activityType = "start";
 	  eventLoggingData.eventName = 'collection.resource.play';
 	  eventLoggingData.parentGooruId = $('div#gooru-collection-player-base-container').data('collectionId');
@@ -677,6 +679,7 @@ var collectionPlay = {
 	  eventLoggingData.answerObject = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-question-answer-object');
 	  eventLoggingData.eventId = $('div#collection-player-resource-content-val-'+previousPlayedElementId).attr('data-event-id');
 	  eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
+	  eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId') + "/" + $("div#collection-player-resource-content-val-"+previousPlayedElementId).data('gooru-oid');
 	  activityLog.generateEventLogData(eventLoggingData);
     },
     
@@ -758,6 +761,7 @@ var collectionPlay = {
       eventLoggingData.stopTime = collectionStopTime;
       eventLoggingData.totalTimeSpent = collectionStopTime - eventLoggingData.startTime;
       eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
+      eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId');
       $('div.collection-player-resource-content-val').removeAttr("data-session-id");
       $('div.collection-player-resource-content-val').removeData("session-id");
       activityLog.generateEventLogData(eventLoggingData);
