@@ -559,7 +559,7 @@ var activityLog =  {
 	type:eventLoggingData.activityType,
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
-	path: "",
+	path: eventLoggingData.path,
 	pageLocation: "home-search",
 	mode:"study"
       };
