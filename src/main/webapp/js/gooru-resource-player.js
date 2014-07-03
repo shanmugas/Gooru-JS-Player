@@ -318,6 +318,27 @@ var resourcePreview = {
 	eventLoggingData.answerTimestamp = answerTimestamp;
 	eventLoggingData.answerObject = answerObject;
     }
+    if(attemptQuestionType == 'FIB'){
+	var fillInBlankElement = $('input.fib-answer');
+	var answerStatus = 1;
+	var fibUserAnswers = ""
+	for(var blanks = 0 ; fillInBlankElement.length > blanks ; blanks++ ){
+	  attemptCount++;
+	  if($(fillInBlankElement[blanks]).css('background-color') == 'rgb(254, 232, 199)'){
+	    answerStatus = 0;
+	  }
+	  attemptTrySequence = "," + attemptCount;
+	  fibUserAnswers += "[" + $(fillInBlankElement[blanks]).val() + "],";
+	  answerTimestamp += "\"" + $(fillInBlankElement[blanks]).data('answer-fib-id') + "\":" + questionSubmitTime + ",";
+	  var isSkipped = ($(fillInBlankElement[blanks]).val().trim().length > 0) ? false : true;
+	  answerObject += '{"text":"'+$(fillInBlankElement[blanks]).val()+'","status":"'+answerStatus+'","order":"'+attemptCount+'","skip":'+isSkipped+',"answerId":'+$(fillInBlankElement[blanks]).data('answer-fib-id')+',"timeStamp":'+questionSubmitTime+'},';
+	}
+	eventLoggingData.answerText = fibUserAnswers;
+	eventLoggingData.questionAttemptData = "," + answerStatus;
+	eventLoggingData.questionAttemptSequence = attemptTrySequence;
+	eventLoggingData.answerTimestamp = answerTimestamp;
+	eventLoggingData.answerObject = '"attempt1":['+answerObject.substring(0,answerObject.length-1)+'],';
+      }
       activityLog.generateEventLogData(eventLoggingData);
     });
   },
