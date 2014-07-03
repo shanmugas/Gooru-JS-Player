@@ -97,6 +97,7 @@
 	$('input[name="gooru-mcq"]').not(':checked').each(function() {
 	  $('.multiple-choice-answer-marker-'+$(this).data("radio-option-value")).css("visibility","hidden");
 	});
+	$(this).attr("disabled","disabled");
     } else if ($(this).data("question-type") == "FIB" || $(this).data("question-type") == '4') {
 	var fibAnswerArray = [];
 	var fibUserAnswer = [];
@@ -140,6 +141,7 @@
 	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-correct-answer-marker');
 	  }  
 	});
+	$(this).attr("disabled","disabled");
     }
      $("input.gooru-answer-container").addClass("gooru-default-grey-disable-button");
     $("input.gooru-answer-container").removeClass("gooru-default-blue-button");
@@ -498,6 +500,21 @@ var helper = {
       }
     });
     return gooruUid;
+  },
+  getEventDataObject:function(){
+    var eventLoggingData = {};
+    var urlParameter = helper.getRequestParam();
+    eventLoggingData.apiKey = (typeof urlParameter.api_key != 'undefined') ? urlParameter.api_key : "";
+    eventLoggingData.sessionToken = USER.sessionToken;
+    eventLoggingData.gooruUid = USER.gooruUid;
+    return eventLoggingData;
+  },
+  getTotalCollectionScore:function(){
+    var collectionTotalScore = 0;
+    $('div.collection-player-resource-content-val').each(function(){
+      collectionTotalScore += (typeof $(this).data("last-score") != "undefined") ? $(this).data("last-score") : 0;
+    });
+    return collectionTotalScore;
   }
 }; 
 
@@ -527,6 +544,9 @@ var activityLog =  {
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
       score = (eventLoggingData.questionAttemptData.split(',').pop().length > 0) ? eventLoggingData.questionAttemptData.split(',').pop() : 0;
     }
+    if(eventLoggingData.eventName == 'collection.play' && eventLoggingData.activityType == 'stop'){
+      score = helper.getTotalCollectionScore();
+    }
     var questionAttemptSequence = (typeof eventLoggingData.questionAttemptSequence != 'undefined') ? eventLoggingData.questionAttemptSequence.substr(1) : "";
     var timeSpentOnResource = (typeof eventLoggingData.totalTimeSpent) != 'undefined' ? eventLoggingData.totalTimeSpent : 0;
     var explanationTimestamp = (typeof eventLoggingData.questionExplanationTimestamp != 'undefined' ) ? "{\"1\":"+eventLoggingData.questionExplanationTimestamp+"}" : '{}';
@@ -541,7 +561,7 @@ var activityLog =  {
 	type:eventLoggingData.activityType,
 	resourceType: eventLoggingData.resourceType,
 	clientSource: 'web',
-	path: "",
+	path: eventLoggingData.path,
 	pageLocation: "home-search",
 	mode:"study"
       };
