@@ -758,13 +758,14 @@ var collectionPlay = {
       eventLoggingData.activityType = "stop";
       eventLoggingData.resourceType = "";
       eventLoggingData.startTime = $('div.collection-player-resource-content-val').data("collection-start-time");
+      eventLoggingData.parentEventId = "";
       eventLoggingData.stopTime = collectionStopTime;
       eventLoggingData.totalTimeSpent = collectionStopTime - eventLoggingData.startTime;
       eventLoggingData.sessionId = $('div.collection-player-resource-content-val').data("session-id");
       eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId');
-      $('div.collection-player-resource-content-val').removeAttr("data-session-id");
-      $('div.collection-player-resource-content-val').removeData("session-id");
-      activityLog.generateEventLogData(eventLoggingData);
+      $('div.collection-player-resource-content-val').removeAttr("data-session-id data-parent-event-id");
+      $('div.collection-player-resource-content-val').removeData("session-id parent-event-id");
+      activityLog.generateEventLogData(eventLoggingData); 
     }
 };
 function resetResourcePreviewHeight() {
