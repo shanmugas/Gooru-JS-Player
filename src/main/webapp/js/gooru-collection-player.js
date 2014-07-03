@@ -581,12 +581,13 @@ var collectionPlay = {
 		    attemptSequenceText += "["+ $(maAnswerOptions[options]).data("radio-position") + "],";
 		    answerTimestamp += "\"" + $(maAnswerOptions[options]).attr('name') + "\":" + answerSubmitTime + ",";
 		    var maStatus = ($(maAnswerOptions[options]).val() == $(maAnswerOptions[options]).data('mc-is-correct').toString()) ? 1 : 0;
-		    maAnswerObject += '{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+answerSubmitTime+'}],';
+		    maAnswerObject += '[{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+answerSubmitTime+'}],';
 		  }
 		}
+		answerObject += '\"attempt'+attemptCount+'\":"'+maAnswerObject;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',attemptSequenceText);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
-		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object','"attempt1":['+maAnswerObject.substring(0,maAnswerObject.length-1)+'],');
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject);
 	      }
 	      var lastScore = (typeof attemptStatus[attemptStatus.length-1] != 'undefined' && attemptStatus[attemptStatus.length-1] != null) ? attemptStatus[attemptStatus.length-1] : 0;
 	      $('div#collection-player-resource-content-val-'+currentPlayingElementId).removeAttr("data-last-score");

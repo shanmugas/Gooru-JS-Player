@@ -97,6 +97,7 @@
 	$('input[name="gooru-mcq"]').not(':checked').each(function() {
 	  $('.multiple-choice-answer-marker-'+$(this).data("radio-option-value")).css("visibility","hidden");
 	});
+	$(this).attr("disabled","disabled");
     } else if ($(this).data("question-type") == "FIB" || $(this).data("question-type") == '4') {
 	var fibAnswerArray = [];
 	var fibUserAnswer = [];
@@ -140,6 +141,7 @@
 	    $('.multiple-choice-answer-marker-'+$(this).data('radio-option-value')).removeClass('question-correct-answer-marker');
 	  }  
 	});
+	$(this).attr("disabled","disabled");
     }
      $("input.gooru-answer-container").addClass("gooru-default-grey-disable-button");
     $("input.gooru-answer-container").removeClass("gooru-default-blue-button");
