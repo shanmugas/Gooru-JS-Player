@@ -339,6 +339,34 @@ var resourcePreview = {
 	eventLoggingData.answerTimestamp = answerTimestamp;
 	eventLoggingData.answerObject = '"attempt1":['+answerObject.substring(0,answerObject.length-1)+'],';
       }
+      if(attemptQuestionType == 'MA'){
+	var maAnswerOptions =  $("input.gooru-ma-radio-button");
+	attemptCount++;
+	var maAnswerObject = "";
+	var attemptSequenceText = "";
+	var sequence = 0;
+	attemptStatus += "," + helper.isAttemptAnswerCorrect();
+	for (var options = 0 ; maAnswerOptions.length > options ; options++) { 
+	  if($(maAnswerOptions[options]).is(':checked')) {
+	    sequence++;
+	    attemptSequenceText += "["+ $(maAnswerOptions[options]).data("radio-position") + "],";
+	    answerTimestamp += "\"" + $(maAnswerOptions[options]).attr('name') + "\":" + questionSubmitTime + ",";
+	    var maStatus = ($(maAnswerOptions[options]).val() == $(maAnswerOptions[options]).data('mc-is-correct').toString()) ? 1 : 0;
+	    maAnswerObject += '{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+questionSubmitTime+'}],';
+	  }
+	}
+	eventLoggingData.answerText = attemptSequenceText;
+	eventLoggingData.answerTimestamp = answerTimestamp;
+	eventLoggingData.answerObject = '"attempt1":['+maAnswerObject.substring(0,maAnswerObject.length-1)+'],';
+	eventLoggingData.questionAttemptSequence = ",1";
+	eventLoggingData.questionAttemptData = attemptStatus;
+      }
+      if(attemptQuestionType == 'OE'){
+	eventLoggingData.answerText = $("textarea#gooru-oe-answer-submit").val()+",";
+	eventLoggingData.questionAttemptData = ",";
+	$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
+	eventLoggingData.answerObject = '"attempt1":[{"text":"'+$("textarea#gooru-oe-answer-submit").val()+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+questionSubmitTime+'}]';
+      }
       activityLog.generateEventLogData(eventLoggingData);
     });
   },
