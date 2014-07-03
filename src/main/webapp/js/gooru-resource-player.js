@@ -268,11 +268,12 @@ var resourcePreview = {
 	eventLoggingData.eventId = generateGUID();
 	eventLoggingData.eventName = "resource.play";
 	eventLoggingData.sessionId = (resourceSessionId.length > 0) ? resourceSessionId : generateGUID();
-	eventLoggingData.questionType = (questionType != 'undefined') ? questionType : "RES";
+	eventLoggingData.questionType = (questionType != null) ? questionType : "RES";
 	eventLoggingData.resourceType = (type == 'assessment-question') ? "question" : "resource";
 	activityLog.generateEventLogData(eventLoggingData);
       }
       setInterval(function(){resourcePreview.triggerStopEventLoggingForResource(eventLoggingData)}, 5000);
+      resourcePreview.submitQuestionEventData(eventLoggingData);
   },
   
   triggerStopEventLoggingForResource: function(eventLoggingData){
@@ -281,6 +282,44 @@ var resourcePreview = {
     eventLoggingData.stopTime = resourceStopTime;
     eventLoggingData.totalTimeSpent = 5000;
     activityLog.generateEventLogData(eventLoggingData);
+  },
+  
+  submitQuestionEventData :function(eventLoggingData){
+    var attemptStatus = "";
+    var attemptTrySequence = "";
+    var attemptCount = 0;
+    var hintVisibleContainerId = 0;
+    var answerTimestamp = "";
+    var answerObject = "";
+    eventLoggingData.hintTimeStamp = "";
+    $("input#gooru-question-explanation-button").click(function(){
+	eventLoggingData.questionExplanationTimestamp = helper.getTimeInMilliSecond();
+    });
+    
+    $("input#gooru-question-hint-button").click(function(){
+	eventLoggingData.hintTimeStamp += "\""+$("div.gooru-question-hint-container-"+hintVisibleContainerId).data('hint-id')+"\":"+helper.getTimeInMilliSecond()+",";
+	hintVisibleContainerId++;
+    });
+    
+    $("input.gooru-answer-container").click(function(){
+      var attemptQuestionType = $(this).data('question-type');
+      var questionSubmitTime = helper.getTimeInMilliSecond();
+      eventLoggingData.activityType = "stop";
+      eventLoggingData.totalTimeSpent = questionSubmitTime - eventLoggingData.stopTime;
+      eventLoggingData.stopTime = questionSubmitTime;
+      if(attemptQuestionType == 'T/F' || attemptQuestionType == 'MC'){
+	attemptCount++;
+	attemptStatus += "," + helper.isAttemptAnswerCorrect();
+	attemptTrySequence += "," + $('input[name="gooru-mcq"]:checked').data('answer-sequence');
+	answerObject += '"attempt'+attemptCount+'":[{"text":"'+$("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+questionSubmitTime+'}],';
+	answerTimestamp += "\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +questionSubmitTime+",";
+	eventLoggingData.questionAttemptSequence = attemptTrySequence;
+	eventLoggingData.questionAttemptData = attemptStatus;
+	eventLoggingData.answerTimestamp = answerTimestamp;
+	eventLoggingData.answerObject = answerObject;
+    }
+      activityLog.generateEventLogData(eventLoggingData);
+    });
   },
    
 showResourceCollections : function(gooruOid) {
