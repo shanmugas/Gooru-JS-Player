@@ -608,7 +608,7 @@ var activityLog =  {
 	eventId : eventLoggingData.eventId,
 	eventName: eventLoggingData.eventName,
 	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":'+score+'}',
-	payLoadObject:JSON.stringify(eventPayLoadObjectData),
+	payLoadObject:(eventLoggingData.eventName == 'collection.play') ? "{}" : JSON.stringify(eventPayLoadObjectData),
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,
 	user: '{"gooruUId":"'+eventLoggingData.gooruUid+'"}',
