@@ -466,7 +466,7 @@ var helper = {
     } else if(id == 2) {
       return "SA";
     } else if(id == 3) {
-      return "T/F";
+      return "TF";
     } else if(id == 4) {
       return "FIB";
     } else if(id == 5) {
@@ -515,6 +515,25 @@ var helper = {
       collectionTotalScore += (typeof $(this).data("last-score") != "undefined") ? $(this).data("last-score") : 0;
     });
     return collectionTotalScore;
+  },
+  sendSaveEventForOEQuestionResource:function(gooruOid,text,data,answerObject,type,submitTime,sessionId){
+    var eventLoggingData = helper.getEventDataObject();
+    eventLoggingData.contentGooruId = gooruOid;
+    eventLoggingData.eventName = (type == 'collection') ? "collection.resource.save" : "resource.save";
+    eventLoggingData.answerText = text+",";
+    eventLoggingData.questionAttemptData = data;
+    eventLoggingData.answerObject = answerObject;
+    eventLoggingData.questionType = "OE";
+    eventLoggingData.resourceType = "question";
+    eventLoggingData.activityType = "";
+    eventLoggingData.eventId = generateGUID();
+    eventLoggingData.startTime = submitTime;
+    eventLoggingData.stopTime = submitTime;
+    eventLoggingData.parentGooruId = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') : "";
+    eventLoggingData.parentEventId = (type == "collection") ? $('div.collection-player-resource-content-val').data("parent-event-id") : "";
+    eventLoggingData.path = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') + "/" + gooruOid : gooruOid;
+    eventLoggingData.sessionId = sessionId;
+    activityLog.generateEventLogData(eventLoggingData)
   }
 }; 
 

@@ -265,7 +265,6 @@ var resourcePreview = {
 	eventLoggingData.eventId = generateGUID();
 	eventLoggingData.startTime = resourceStartTime;
 	eventLoggingData.stopTime = resourceStartTime;
-	eventLoggingData.eventId = generateGUID();
 	eventLoggingData.eventName = "resource.play";
 	eventLoggingData.sessionId = (resourceSessionId.length > 0) ? resourceSessionId : generateGUID();
 	eventLoggingData.questionType = (questionType != null) ? questionType : "RES";
@@ -364,8 +363,8 @@ var resourcePreview = {
       if(attemptQuestionType == 'OE'){
 	eventLoggingData.answerText = $("textarea#gooru-oe-answer-submit").val()+",";
 	eventLoggingData.questionAttemptData = ",";
-	$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
 	eventLoggingData.answerObject = '"attempt1":[{"text":"'+$("textarea#gooru-oe-answer-submit").val()+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+questionSubmitTime+'}]';
+	helper.sendSaveEventForOEQuestionResource(eventLoggingData.contentGooruId,eventLoggingData.answerText,eventLoggingData.questionAttemptData,eventLoggingData.answerObject,"resource",questionSubmitTime,eventLoggingData.sessionId);
       }
       activityLog.generateEventLogData(eventLoggingData);
     });
