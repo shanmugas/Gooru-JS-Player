@@ -525,11 +525,11 @@ var collectionPlay = {
 	    $('input.gooru-answer-container').click(function(){
 	      var attemptQuestionType = helper.getQuestionResourceType($(this).data('question-type'));
 	      var answerSubmitTime = helper.getTimeInMilliSecond();
-	      if(attemptQuestionType == 'T/F' || attemptQuestionType == 'MC'){
+	      if(attemptQuestionType == 'TF' || attemptQuestionType == 'MC'){
 		attemptCount++;
 		attemptStatus[attemptCount] = helper.isAttemptAnswerCorrect();
 		attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
-		answerObject += '"attempt'+attemptCount+'":[{"text":"'+$("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+answerSubmitTime+'}],';
+		answerObject += '"attempt'+attemptCount+'":[{"text":"'+helper.encodeTextForQuestionResource( $("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML)+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+answerSubmitTime+'}],';
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
 		answerTimestamp += "\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +answerSubmitTime+",";
@@ -549,9 +549,9 @@ var collectionPlay = {
 		  fibUserAnswers += "[" + $(fillInBlankElement[blanks]).val() + "],";
 		  answerTimestamp += "\"" + $(fillInBlankElement[blanks]).data('answer-fib-id') + "\":" + answerSubmitTime + ",";
 		  var isSkipped = ($(fillInBlankElement[blanks]).val().trim().length > 0) ? false : true;
-		  answerObject += '{"text":"'+$(fillInBlankElement[blanks]).val()+'","status":"'+answerStatus+'","order":"'+attemptCount+'","skip":'+isSkipped+',"answerId":'+$(fillInBlankElement[blanks]).data('answer-fib-id')+',"timeStamp":'+answerSubmitTime+'},';
+		  answerObject += '{"text":"'+helper.encodeTextForQuestionResource($(fillInBlankElement[blanks]).val())+'","status":"'+answerStatus+'","order":"'+attemptCount+'","skip":'+isSkipped+',"answerId":'+$(fillInBlankElement[blanks]).data('answer-fib-id')+',"timeStamp":'+answerSubmitTime+'},';
 		}
-		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',fibUserAnswers);
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',helper.encodeTextForQuestionResource(fibUserAnswers));
 		attemptStatus[1] = answerStatus;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-try-sequence',attemptTrySequence);
@@ -559,11 +559,12 @@ var collectionPlay = {
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object','"attempt1":['+answerObject.substring(0,answerObject.length-1)+'],');
 	      }
 	      if(attemptQuestionType == 'OE'){
-		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',$("textarea#gooru-oe-answer-submit").val()+",");
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+",");
 		attemptStatus[1] = null;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
-		answerObject = '"attempt1":[{"text":"'+$("textarea#gooru-oe-answer-submit").val()+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+answerSubmitTime+'}]';
+		answerObject = '"attempt1":[{"text":"'+helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+answerSubmitTime+'}]';
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject+",");
+		helper.sendSaveEventForOEQuestionResource(gooruOid,helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val()),",",answerObject,"collection",answerSubmitTime,$('div.collection-player-resource-content-val').data("session-id"));
 	      }
 	      if(attemptQuestionType == 'MA'){
 		var maAnswerOptions =  $("input.gooru-ma-radio-button");
@@ -766,7 +767,9 @@ var collectionPlay = {
       eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId');
       $('div.collection-player-resource-content-val').removeAttr("data-session-id data-parent-event-id");
       $('div.collection-player-resource-content-val').removeData("session-id parent-event-id");
-      activityLog.generateEventLogData(eventLoggingData); 
+      activityLog.generateEventLogData(eventLoggingData);
+      $('div.collection-player-resource-content-val').removeAttr("data-last-score");
+      $('div.collection-player-resource-content-val').removeData("last-score");
     }
 };
 function resetResourcePreviewHeight() {
