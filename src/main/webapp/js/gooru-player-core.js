@@ -534,6 +534,9 @@ var helper = {
     eventLoggingData.path = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') + "/" + gooruOid : gooruOid;
     eventLoggingData.sessionId = sessionId;
     activityLog.generateEventLogData(eventLoggingData)
+  },
+  encodeTextForQuestionResource:function(text){
+    return text.replace(/%/g, '%25').replace(/"/g, '%22').replace(/'/g, '%27').replace(/</g, '%3C').replace(/>/g, '%3E');
   }
 }; 
 
