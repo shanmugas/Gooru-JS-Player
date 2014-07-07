@@ -265,7 +265,6 @@ var resourcePreview = {
 	eventLoggingData.eventId = generateGUID();
 	eventLoggingData.startTime = resourceStartTime;
 	eventLoggingData.stopTime = resourceStartTime;
-	eventLoggingData.eventId = generateGUID();
 	eventLoggingData.eventName = "resource.play";
 	eventLoggingData.sessionId = (resourceSessionId.length > 0) ? resourceSessionId : generateGUID();
 	eventLoggingData.questionType = (questionType != null) ? questionType : "RES";
@@ -311,7 +310,7 @@ var resourcePreview = {
 	attemptCount++;
 	attemptStatus += "," + helper.isAttemptAnswerCorrect();
 	attemptTrySequence += "," + $('input[name="gooru-mcq"]:checked').data('answer-sequence');
-	answerObject += '"attempt'+attemptCount+'":[{"text":"'+$("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+questionSubmitTime+'}],';
+	answerObject += '"attempt'+attemptCount+'":[{"text":"'+helper.encodeTextForQuestionResource($("div.multiple-choice-answer-text-"+$('input[name="gooru-mcq"]:checked').data('answer-sequence'))[0].innerHTML)+'","status":"'+helper.isAttemptAnswerCorrect()+'","order":"'+$('input[name="gooru-mcq"]:checked').data("answer-sequence")+'","skip":false,"answerId":'+$('input[name="gooru-mcq"]:checked').data('answer-id')+',"timeStamp":'+questionSubmitTime+'}],';
 	answerTimestamp += "\""+ $('input[name="gooru-mcq"]:checked').data('answer-id') + "\":" +questionSubmitTime+",";
 	eventLoggingData.questionAttemptSequence = attemptTrySequence;
 	eventLoggingData.questionAttemptData = attemptStatus;
@@ -331,9 +330,9 @@ var resourcePreview = {
 	  fibUserAnswers += "[" + $(fillInBlankElement[blanks]).val() + "],";
 	  answerTimestamp += "\"" + $(fillInBlankElement[blanks]).data('answer-fib-id') + "\":" + questionSubmitTime + ",";
 	  var isSkipped = ($(fillInBlankElement[blanks]).val().trim().length > 0) ? false : true;
-	  answerObject += '{"text":"'+$(fillInBlankElement[blanks]).val()+'","status":"'+answerStatus+'","order":"'+attemptCount+'","skip":'+isSkipped+',"answerId":'+$(fillInBlankElement[blanks]).data('answer-fib-id')+',"timeStamp":'+questionSubmitTime+'},';
+	  answerObject += '{"text":"'+helper.encodeTextForQuestionResource($(fillInBlankElement[blanks]).val())+'","status":"'+answerStatus+'","order":"'+attemptCount+'","skip":'+isSkipped+',"answerId":'+$(fillInBlankElement[blanks]).data('answer-fib-id')+',"timeStamp":'+questionSubmitTime+'},';
 	}
-	eventLoggingData.answerText = fibUserAnswers;
+	eventLoggingData.answerText = helper.encodeTextForQuestionResource(fibUserAnswers);
 	eventLoggingData.questionAttemptData = "," + answerStatus;
 	eventLoggingData.questionAttemptSequence = attemptTrySequence;
 	eventLoggingData.answerTimestamp = answerTimestamp;
@@ -362,10 +361,10 @@ var resourcePreview = {
 	eventLoggingData.questionAttemptData = attemptStatus;
       }
       if(attemptQuestionType == 'OE'){
-	eventLoggingData.answerText = $("textarea#gooru-oe-answer-submit").val()+",";
+	eventLoggingData.answerText = helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+",";
 	eventLoggingData.questionAttemptData = ",";
-	$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
-	eventLoggingData.answerObject = '"attempt1":[{"text":"'+$("textarea#gooru-oe-answer-submit").val()+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+questionSubmitTime+'}]';
+	eventLoggingData.answerObject = '"attempt1":[{"text":"'+helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+questionSubmitTime+'}]';
+	helper.sendSaveEventForOEQuestionResource(eventLoggingData.contentGooruId,eventLoggingData.answerText,eventLoggingData.questionAttemptData,eventLoggingData.answerObject,"resource",questionSubmitTime,eventLoggingData.sessionId);
       }
       activityLog.generateEventLogData(eventLoggingData);
     });
