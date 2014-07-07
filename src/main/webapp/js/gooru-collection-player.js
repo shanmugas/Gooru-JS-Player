@@ -525,7 +525,7 @@ var collectionPlay = {
 	    $('input.gooru-answer-container').click(function(){
 	      var attemptQuestionType = helper.getQuestionResourceType($(this).data('question-type'));
 	      var answerSubmitTime = helper.getTimeInMilliSecond();
-	      if(attemptQuestionType == 'T/F' || attemptQuestionType == 'MC'){
+	      if(attemptQuestionType == 'TF' || attemptQuestionType == 'MC'){
 		attemptCount++;
 		attemptStatus[attemptCount] = helper.isAttemptAnswerCorrect();
 		attemptTrySequence[attemptCount] = $('input[name="gooru-mcq"]:checked').data('answer-sequence');
@@ -767,7 +767,9 @@ var collectionPlay = {
       eventLoggingData.path = $('div#gooru-collection-player-base-container').data('collectionId');
       $('div.collection-player-resource-content-val').removeAttr("data-session-id data-parent-event-id");
       $('div.collection-player-resource-content-val').removeData("session-id parent-event-id");
-      activityLog.generateEventLogData(eventLoggingData); 
+      activityLog.generateEventLogData(eventLoggingData);
+      $('div.collection-player-resource-content-val').removeAttr("data-last-score");
+      $('div.collection-player-resource-content-val').removeData("last-score");
     }
 };
 function resetResourcePreviewHeight() {
