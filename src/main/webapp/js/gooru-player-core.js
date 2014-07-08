@@ -526,7 +526,7 @@ var helper = {
     eventLoggingData.questionType = "OE";
     eventLoggingData.resourceType = "question";
     eventLoggingData.activityType = "";
-    eventLoggingData.eventId = generateGUID();
+    eventLoggingData.eventId = generateGUID().toUpperCase();
     eventLoggingData.startTime = submitTime;
     eventLoggingData.stopTime = submitTime;
     eventLoggingData.parentGooruId = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') : "";

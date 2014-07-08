@@ -609,7 +609,7 @@ var collectionPlay = {
 	    eventLoggingData.resourceType = "resource";
 	  }
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-resource-type', eventLoggingData.resourceType);
-	  var initialEventId = generateGUID();
+	  var initialEventId = generateGUID().toUpperCase();
 	  eventLoggingData.eventId = initialEventId;
 	  eventLoggingData.startTime = playTime;
 	  eventLoggingData.stopTime = playTime;
@@ -635,7 +635,7 @@ var collectionPlay = {
 	  } else {
 	    collectionPlay.sendCollectionResourceStopEvent(eventLoggingData,previousPlayedElementId,playTime);
 	  }
-	  var startEventId = generateGUID();
+	  var startEventId = generateGUID().toUpperCase();
 	  $('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-event-id', startEventId);
 	  eventLoggingData.eventId = startEventId;
 	  eventLoggingData.contentGooruId = $("div#collection-player-resource-content-val-"+currentPlayingElementId).data("gooru-oid");
