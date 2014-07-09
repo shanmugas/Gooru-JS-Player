@@ -545,6 +545,8 @@ var helper = {
     eventLoggingData.startTime = loadTime;
     eventLoggingData.stopTime = loadTime;
     eventLoggingData.sessionId = sessionId;
+    eventLoggingData.eventId = generateGUID().toUpperCase();
+    eventLoggingData.parentEventId = "";
     activityLog.generateEventLogData(eventLoggingData);
   }
 }; 
