@@ -566,8 +566,8 @@ var collectionPlay = {
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+",");
 		attemptStatus[1] = null;
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-attempt-status',attemptStatus);
-		answerObject = '"attempt1":[{"text":"'+helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+answerSubmitTime+'}]';
-		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject+",");
+		answerObject = '"attempt1":[{"text":"'+helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val())+'","status":"1","order":"","skip":false,"answerId":'+0+',"timeStamp":'+answerSubmitTime+'}],';
+		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject);
 		helper.sendSaveEventForOEQuestionResource(gooruOid,helper.encodeTextForQuestionResource($("textarea#gooru-oe-answer-submit").val()),",",answerObject,"collection",answerSubmitTime,$('div.collection-player-resource-content-val').data("session-id"));
 	      }
 	      if(attemptQuestionType == 'MA'){
@@ -586,10 +586,10 @@ var collectionPlay = {
 		    attemptSequenceText += "["+ $(maAnswerOptions[options]).data("radio-position") + "],";
 		    answerTimestamp += "\"" + $(maAnswerOptions[options]).attr('name') + "\":" + answerSubmitTime + ",";
 		    var maStatus = ($(maAnswerOptions[options]).val() == $(maAnswerOptions[options]).data('mc-is-correct').toString()) ? 1 : 0;
-		    maAnswerObject += '[{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+answerSubmitTime+'}],';
+		    maAnswerObject += '{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+answerSubmitTime+'},';
 		  }
 		}
-		answerObject += '\"attempt'+attemptCount+'\":"'+maAnswerObject;
+		answerObject += '\"attempt'+attemptCount+'\":['+maAnswerObject.substring(0,maAnswerObject.length-1)+'],';
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-user-text',attemptSequenceText);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-time',answerTimestamp);
 		$('div#collection-player-resource-content-val-'+currentPlayingElementId).attr('data-question-answer-object',answerObject);
