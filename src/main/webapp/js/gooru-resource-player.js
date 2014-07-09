@@ -453,9 +453,6 @@ showResourceCollections : function(gooruOid) {
 	imageURL = (jqXHR.status == 200) ? url : null;
     }});
     return imageURL;
-  },
-  questionResourcePlayEvents : function(){
-    
   }
 };
 
