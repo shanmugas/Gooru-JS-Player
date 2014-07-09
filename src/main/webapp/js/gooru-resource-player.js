@@ -42,7 +42,6 @@ var resourcePreview = {
       if (previewValues.documentId != null && previewValues.documentId != '' && previewValues.documentKey != null && previewValues.documentKey != '') {
         previewValues.useScribd = true;
       }
-      previewValues.GOORU_REST_ENDPOINT = ('https:' == document.location.protocol ? 'https://' : 'http://') + GOORU_REST_ENDPOINT;
       previewValues.DOC_HOME = DOC_HOME;
       previewValues.DOC_CACHE = DOC_CACHE;
       previewValues.TOKEN = USER.sessionToken;
@@ -64,7 +63,6 @@ var resourcePreview = {
 	$('#meta-data-description').attr('content', publicMetaData);
         var signedBaseUrl = GOORU_REST_ENDPOINT + '/signed/resource/url/' + gooruOid;
         $('div#gooru-resource-player-container').html(previewTemplate);
-	
         switch (type) {
 	  case 'video/youtube':
 	    var videoId = helper.getYoutubeVideoId(resourceUrl);
@@ -79,7 +77,7 @@ var resourcePreview = {
 	      resourcePlayers.flvPlayer('../swf/flowplayer-3.2.11.swf', 'resourcePreviewFlashContainer');
 	    }
 	    else {
-	      resourcePlayers.animation((signedBaseUrl + '?file='+ resourceUrl),  'resourcePreviewFlashContainer');
+	      resourcePlayers.animation((signedBaseUrl + '?file='+ resourceUrl+'&sessionToken='+USER.sessionToken),  'resourcePreviewFlashContainer');
 	    }
 	  break;
 	  case 'textbook/scribd':
