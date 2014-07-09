@@ -22,8 +22,7 @@
 		  if (isWebResource) { 
 		    imageUrl = resourceUrl;
 		  } else {
-		    var gooruImageURL = signedBaseUrl + "?file="+ resourceUrl+"&sessionToken="+TOKEN;
-		    imageUrl = "//"+ gooruImageURL.split("//").pop();
+		    var imageUrl = signedBaseUrl + "?file="+ resourceUrl+"&sessionToken="+TOKEN;
 		  }
 		%>
 	      <img class="popUpFaceBoxImage" onerror="this.src='../images/study-default-image.jpg';" src="<%= imageUrl %>" style="min-height:400px; height:auto; width:100%; background: none repeat scroll 0% 0% #FFFFFF;">

@@ -487,7 +487,7 @@ var collectionPlay = {
 		resourcePlayers.flvPlayer('../swf/flowplayer-3.2.11.swf', 'collectionResourcePreviewFlashContainer');
 	      }
 	      else {
-		resourcePlayers.animation((signedBaseUrl + '?file='+ resourceUrl),  'collectionResourcePreviewFlashContainer');
+		resourcePlayers.animation((signedBaseUrl + '?file='+ resourceUrl+'&sessionToken='+USER.sessionToken),  'collectionResourcePreviewFlashContainer');
 	      }
 	    break;
 	    case 'textbook/scribd':
