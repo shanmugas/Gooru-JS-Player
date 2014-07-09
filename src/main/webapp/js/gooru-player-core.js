@@ -520,23 +520,34 @@ var helper = {
     var eventLoggingData = helper.getEventDataObject();
     eventLoggingData.contentGooruId = gooruOid;
     eventLoggingData.eventName = (type == 'collection') ? "collection.resource.save" : "resource.save";
-    eventLoggingData.answerText = text+",";
+    eventLoggingData.answerText = text;
     eventLoggingData.questionAttemptData = data;
     eventLoggingData.answerObject = answerObject;
     eventLoggingData.questionType = "OE";
     eventLoggingData.resourceType = "question";
     eventLoggingData.activityType = "";
-    eventLoggingData.eventId = generateGUID();
+    eventLoggingData.eventId = generateGUID().toUpperCase();
     eventLoggingData.startTime = submitTime;
     eventLoggingData.stopTime = submitTime;
     eventLoggingData.parentGooruId = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') : "";
     eventLoggingData.parentEventId = (type == "collection") ? $('div.collection-player-resource-content-val').data("parent-event-id") : "";
     eventLoggingData.path = (type == "collection") ? $('div#gooru-collection-player-base-container').data('collectionId') + "/" + gooruOid : gooruOid;
     eventLoggingData.sessionId = sessionId;
-    activityLog.generateEventLogData(eventLoggingData)
+    activityLog.generateEventLogData(eventLoggingData);
   },
   encodeTextForQuestionResource:function(text){
     return text.replace(/%/g, '%25').replace(/"/g, '%22').replace(/'/g, '%27').replace(/</g, '%3C').replace(/>/g, '%3E');
+  },
+  sendCollectionLoadEventData:function(gooruOid,eventLoggingData,loadTime,sessionId){
+    eventLoggingData.contentGooruId = gooruOid;
+    eventLoggingData.eventName = "item.load";
+    eventLoggingData.path = gooruOid;
+    eventLoggingData.startTime = loadTime;
+    eventLoggingData.stopTime = loadTime;
+    eventLoggingData.sessionId = sessionId;
+    eventLoggingData.eventId = generateGUID().toUpperCase();
+    eventLoggingData.parentEventId = "";
+    activityLog.generateEventLogData(eventLoggingData);
   }
 }; 
 
@@ -561,6 +572,7 @@ var activityLog =  {
     var questionAttemptStatus = "";
     var questionAttemptCount = 0;
     var score = 0;
+    var payLoadData = "";
     if(typeof eventLoggingData.questionAttemptData != 'undefined'){
       questionAttemptCount = eventLoggingData.questionAttemptData.split(",").length - 1;
       questionAttemptStatus = eventLoggingData.questionAttemptData.substr(1);
@@ -605,13 +617,23 @@ var activityLog =  {
 	explanation:explanationTimestamp,
 	answerObject:answerObject
       };
+      if(eventLoggingData.eventName == 'collection.play'){
+	payLoadData = "{}";
+      } else if(eventLoggingData.eventName == "item.load") {
+	payLoadData = JSON.stringify({itemType:"collection"});
+	eventContextData.contentItemId = "";
+	eventContextData.parentItemId = "";
+	eventContextData.url = "/collection/load";
+      } else {
+	payLoadData = JSON.stringify(eventPayLoadObjectData);
+      }
       var eventData = {
 	context : JSON.stringify(eventContextData),
 	endTime: eventLoggingData.stopTime,
 	eventId : eventLoggingData.eventId,
 	eventName: eventLoggingData.eventName,
-	metrics:'{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":'+score+'}',
-	payLoadObject:(eventLoggingData.eventName == 'collection.play') ? "{}" : JSON.stringify(eventPayLoadObjectData),
+	metrics:(eventLoggingData.eventName != "item.load") ? '{"totalTimeSpentInMs":'+ timeSpentOnResource +',"score":'+score+'}' : '{"totalTimeSpentInMs":0}',
+	payLoadObject:payLoadData,
 	session:JSON.stringify(eventSessionData),
 	startTime:eventLoggingData.startTime,
 	user: '{"gooruUId":"'+eventLoggingData.gooruUid+'"}',
