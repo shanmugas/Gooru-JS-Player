@@ -351,7 +351,7 @@ var resourcePreview = {
 	    attemptSequenceText += "["+ $(maAnswerOptions[options]).data("radio-position") + "],";
 	    answerTimestamp += "\"" + $(maAnswerOptions[options]).attr('name') + "\":" + questionSubmitTime + ",";
 	    var maStatus = ($(maAnswerOptions[options]).val() == $(maAnswerOptions[options]).data('mc-is-correct').toString()) ? 1 : 0;
-	    maAnswerObject += '{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+questionSubmitTime+'}],';
+	    maAnswerObject += '{"text":"'+$(maAnswerOptions[options]).data("radio-position")+'","status":"'+maStatus+'","order":"'+sequence+'","skip":false,"answerId":'+$(maAnswerOptions[options]).attr('name')+',"timeStamp":'+questionSubmitTime+'},';
 	  }
 	}
 	eventLoggingData.answerText = attemptSequenceText;

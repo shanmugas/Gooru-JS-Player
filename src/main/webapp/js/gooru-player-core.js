@@ -520,7 +520,7 @@ var helper = {
     var eventLoggingData = helper.getEventDataObject();
     eventLoggingData.contentGooruId = gooruOid;
     eventLoggingData.eventName = (type == 'collection') ? "collection.resource.save" : "resource.save";
-    eventLoggingData.answerText = text+",";
+    eventLoggingData.answerText = text;
     eventLoggingData.questionAttemptData = data;
     eventLoggingData.answerObject = answerObject;
     eventLoggingData.questionType = "OE";
