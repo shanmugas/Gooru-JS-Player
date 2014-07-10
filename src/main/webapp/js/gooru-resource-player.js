@@ -250,11 +250,7 @@ var resourcePreview = {
 	      resourcePreview.sendResourceDataForEventLogging(previewValues); 
   },
   sendResourceDataForEventLogging: function(previewValues){
-    var eventLoggingData = {};
-    var urlParam = helper.getRequestParam();
-    eventLoggingData.apiKey = (typeof urlParam.api_key != 'undefined') ? urlParam.api_key : "";
-    eventLoggingData.sessionToken = USER.sessionToken;
-    eventLoggingData.gooruUid = USER.gooruUid;
+    var eventLoggingData = helper.getEventDataObject();
     var resourceStartTime = helper.getTimeInMilliSecond();
       with(previewValues){
 	var resourceSessionId = helper.getSessionIdForEvent(gooruOid,eventLoggingData.sessionToken);
