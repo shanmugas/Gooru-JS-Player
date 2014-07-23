@@ -63,13 +63,14 @@ var resourcePreview = {
 	 });
     },
     
+    
    renderCollectionDetails: function(rData,resourceId,sessionToken){
 	 var collectionURL = '';
 	
 	 if(checkLocalHost()){
 	    collectionURL = HOME_URL+"/json/collection.json";
 	 } else {
-	    collectionURL = GOORU_SEARCH_ENDPOINT+"/search/scollection?sessionToken="+sessionToken+"&pageNum=1&pageSize=5&flt.resourceGooruOIds="+resourceId+"&boostField.hasNoThumbnail=0";
+	    collectionURL = 'http://qa.goorulearning.org/gooru-search/rest/search/scollection?sessionToken='+sessionToken+'&pageNum=1&pageSize=5&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
 	 }
 	 $.ajax({
 	      type: "GET",
