@@ -69,8 +69,9 @@ var resourcePreview = {
 	
 	 if(checkLocalHost()){
 	    collectionURL = HOME_URL+"/json/collection.json";
+	  
 	 } else {
-	    collectionURL = 'http://qa.goorulearning.org/gooru-search/rest/search/scollection?sessionToken='+sessionToken+'&pageNum=1&pageSize=5&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
+	    collectionURL = GOORU_SEARCH_ENDPOINT+'/search/scollection?sessionToken='+sessionToken+'&pageNum=1&pageSize=5&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
 	 }
 	 $.ajax({
 	      type: "GET",
