@@ -283,8 +283,13 @@
 	     <div id="profile-activity-part2">
 		  
 		     <div id="profile-right-content">
-			  
-			<label>	Collections with this resource (3)</label>
+			  <%
+			      var collectionCount = '';
+			      if((typeof cdata.resultCount != "undefined") && (cdata.resultCount != "null") && (cdata.resultCount != '')) {
+				  collectionCount = cdata.resultCount;
+			      }
+			  %>
+			<label>	Collections with this resource (<%=collectionCount%>)</label>
 		     </div>
 		     
 			 

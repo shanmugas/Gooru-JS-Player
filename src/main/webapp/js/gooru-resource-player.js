@@ -82,6 +82,7 @@ var resourcePreview = {
 		      url: '/templates/resources/resourceMetaData.template'
 		      }).render({
 			    "data":rData,
+			    "cdata":cData,
 			    "collection" : collectionData
 		      });
 		  $('.gooru-resource-player-meta-container').html(resourceMetaData);   
