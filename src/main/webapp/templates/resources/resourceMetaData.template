@@ -1,79 +1,379 @@
+
+
+
+
+
 <div id="gooru-resource-player-about-container" class="gooru-resource-player-menu-container">
-<div id="gooru-resource-player-about-container-left">
-  <div id="gooru-resource-player-about-content-left">
-    <div id="gooru-resource-player-type-container">
-	<div id="gooru-resource-player-type-header">Type: </div>
-	<div id="gooru-resource-player-type-content"><%= resourceFormatType %></div>
-    </div>
-    <div id="gooru-resource-player-desc-container">
-	<div id="gooru-resource-player-desc-header">Description: </div>
-	<div id="gooru-resource-player-desc-content"><%= description %></div>
-    </div>
-    <div id="gooru-resource-player-standards-container">
-	<div id="gooru-resource-player-standards-header">Standards: </div>
-	<div id="gooru-resource-player-standards-content">
-	    <% if(standards.length > 0){%>
-		<% for(var i=0; i< 3; i++) { 
-		  if(typeof standardDescriptions[i] != "undefined") {
-		    var description = (standardDescriptions[i].length > 400) ? standardDescriptions[i].substr(0, 399) : standardDescriptions[i];
-		} %>
-		<% if (typeof standards[i] != "undefined" && standards[i] != null && standards[i].length > 0) { %>
-		  <span class="standardsDescription  resourcePreviewTooltip resourceBottomPreviewTooltip" description="<%= description %>" data-code="<%=standards[i]%>"><%=standards[i]%></span>
-		<% } %>  
-	      <% } %>
-	    <% if(standards.length > 3) { %>
-	      <% var overFlowCode = ""; for(var standard = 3; standard < standards.length ; standard++) { %>
-		<% overFlowCode += '<span>'+ standards[standard] +'</span></br>'; %>
-	      <% } %>
-	      <span description = "" class = "standardExtraCount" data-code = "<%= overFlowCode %>">+<%= standards.length -3 %></span>
-	    <% } %>
-	    <%} else {%>
-		<div class="noStandardsAvailable">No Standards Available.</div>
-	    <% } %>
-	</div>
-    </div>
-   </div>
-  </div>
-  <div id="gooru-resource-player-about-container-right">
-     <div id="gooru-resource-player-about-content-right">
-      <div id="gooru-resource-player-source-container">
 
-	<div id="gooru-resource-player-source-header">Source: </div>
 
-	  <% if((type == "video/youtube" || type == "resource/url") && resourceSource != null && typeof(resourceSource) != 'undefined' && resourceSource.attribution != null && typeof(resourceSource.attribution) != 'undefined'){%>
-	    <% var resourceAttribution = (resourceSource.attribution.trim().length > 0) ? resourceSource.attribution : resourceUrl.split('.')[1]; %>
-		    <div class="resourceOriginalSource"><a href="<%=resourceUrl%>" target="_blank"><%= resourceAttribution %></a></div>
-	  <%} else {%>
-	      <div id="gooru-resource-player-type-content">No source available.</div>
-	  <% } %>
+	      <%	
+		     var getGradeVal = '';
+		     var reduceByTwo = '';
+		     var grade = '';
+		     var title = '';
+		     var views = '';
+		     var description = '';
+		     var attrValue ='';
+		     
+		     var course = '';
+		     var courseReducedByTwo = '';
+		     var resourceFormat = '';
+		     var resourceFormatImage = '';
+		     
+		     if((typeof data.resourceFormat.value != "undefined") && (data.resourceFormat.value != "null") && (data.resourceFormat.value != '')) {
+			resourceFormat = data.resourceFormat.value;
+			if(resourceFormat=="webpage"){
+			    resourceFormatImage = "category-webpage";
+			}
+			if(resourceFormat=="video"){
+			    resourceFormatImage = "category-video";
+			}
+			if(resourceFormat=="interactive"){
+			    resourceFormatImage = "category-interactive";
+			}
+			if(resourceFormat=="question"){
+			    resourceFormatImage = "category-question";
+			}
+			if(resourceFormat=="image"){
+			    resourceFormatImage = "category-image";
+			}
+			if(resourceFormat=="text"){
+			    resourceFormatImage = "category-text";
+			}
+			if(resourceFormat=="audio"){
+			    resourceFormatImage = "category-audio";
+			}
+		      }
+		      
+		     
+		      if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != '')) {
+			grade = data.grade;
+			var split = grade.split(",");
+			
+			maxLength = 2;
+			if(split<=2){
+			  maxLength = split.length;
+			}else{
+			  reduceByTwo = split.length - 2;
+			}
+			
+			for(var i=0; i<maxLength;i++){
+			  
+			  getGradeVal += split[i];
+			  if(i!=maxLength-1){
+			    getGradeVal += ',';
+			  }
+			    
+			}
+			
+			
+		      }
+		    
+		      if((typeof data.title != "undefined") && (data.title != "null") && (data.title != '')) {
+			title = data.title;
+		      }
+		      
+		      
+		      
+		      if((typeof data.views != "undefined") && (data.views != "null") && (data.views != '')) {
+			views = data.views;
+		      }
+		      
+		       if((typeof data.description != "undefined") && (data.description != "null") && (data.description != '')) {
+			description = data.description;
+		      }
+	      %>
 
+
+	       <div id="dashboard-profile-activity-overview">
+      
+	 <div id="profile-activity-overflow-search-for">
+	      
+	      <div id="profile-activity-part1">
+		    <div id="profile-activity-label-content" style="width: 100%;clear: both;">
+			<div id="profile-header-details-major" style="width: 100%;float: left;margin-top: 2%;">
+			  <span class="gooru-resource-type <%=resourceFormatImage%>" style="background: url(../images/resource-type-icons.png) no-repeat;width: 28px;height: 20px;float:left;padding-right:4%;"></span>
+			  <span><%=title%></span>
+			</div>
+			
+		    </div>
+		    <div id="profile-title" style="width: 100%;float: left;clear: both;font-weight: bold;margin-bottom: 1%;margin-top: 2%;">
+			<div style="font-size: 12px;width: 20%;float: left;">Webpage </div>
+			<div style="width: 5px;height: 5px;float: left;background-color: #0d0e0d;margin-top: 4px;" class="org-ednovo-gooru-client-uc-PlayerBundle-PlayerStyle-resoruce-info-separator-bulletBlack"></div>
+			<div id="profile-total-resource-views" style="width: 70%;float: left;margin-left: 5%;font-size: 12px;"><%=views%> Views</div>
+			 
+		    </div>
+		    <div id="profile-description-content">
+			<p><%=description%></p>
+		    </div>
+		    
+		    <div id="profile-subcontent-header-content">
+			<label>GENERAL INFO</label>
+		    </div>
+		    
+		    <div id="profile-horizondal-line"></div>
+		    
+		    <div id="profile-content-list">
+			      <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			      <%
+				   if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != '')) {
+				   
+				   %>
+				<div id="profile-half-content-label">Grade:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getGradeVal%></div>
+				<%}%>
+				<%
+				    if(reduceByTwo!=''){
+				%>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=grade%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=reduceByTwo%></div>
+				<% } %>
+			      </div>
+			      
+			      <div>
+				
+			      <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			      
+				<%
+				      var getcourseVal = '';
+				      if((typeof data.course != "undefined") && (data.course != "null") && (data.course != '')) {
+				      course = data.course;
+				      var courseSplit = course.split(",");
+				      var courseMaxLength = 2;
+				      
+				      if(courseSplit<=2){
+					courseMaxLength = courseSplit.length;
+				      }else{
+					courseReducedByTwo = courseSplit.length - 2;
+				      }
+				      
+				      for(var j=0; j<courseMaxLength; j++){
+					getcourseVal += courseSplit[j];
+					if(j!=courseMaxLength-1){
+					  getcourseVal += ',';
+					}
+				      }
+				%>
+				
+				<div id="profile-half-content-label">Course:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getcourseVal%></div>
+				    <%
+					if(courseReducedByTwo != '') {
+				    %>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=course%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=courseReducedByTwo%></div>
+				    <%}%>
+				<%}%>
+			      </div>
+				
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+				
+				
+				
+				<div id="profile-half-content-label" style="width: 100%;height: 14px;">Standards:</div>
+				
+				<%	
+					var curriculumData = '';
+				
+					if((typeof data.resourceTaxonomyData.curriculum.curriculumDesc != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumDesc != "null") && (data.resourceTaxonomyData.curriculum.curriculumDesc != '')) {
+					
+					    curricumDetail = data.resourceTaxonomyData.curriculum.curriculumDesc;
+					}
+				     
+					if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
+					  curriculum = data.resourceTaxonomyData.curriculum.curriculumCode;
+					  var curriculamLength = curriculum.length;
+					 
+					  var maxCurriculum = 2;
+					  var curriculumReducedByTwo = '';
+					  
+					  if(curriculamLength<=2){
+					    maxCurriculum = curriculamLength;
+					  }else{
+					    curriculumReducedByTwo = curriculamLength - 2;
+					  }
+					  
+					  for(var i=0; i<maxCurriculum; i++){
+					    curriculumData = curriculum[i];
+					   
+					 
+				%>	
+				
+				
+				  <div tabindex="0"  class="org-ednovo-gooru-client-uc-PlayerBundle-PlayerStyle-info-style-Standard " style="background: -moz-linear-gradient(center top, #666, #515151) repeat scroll 0 0 transparent;background: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#515151));background: -webkit-linear-gradient(top, #666, #515151);background-image: -ms-linear-gradient(top, #666, #515151);background: -o-linear-gradient(top, #666, #515151);background-color: #515151;border-radius: 3px 3px 3px 3px;-webkit-border-radius: 3px 3px 3px 3px;-moz-border-radius: 3px 3px 3px 3px;-ms-border-radius: 3px 3px 3px 3px;-khtml-border-radius: 3px 3px 3px 3px;-o-border-radius: 3px 3px 3px 3px;color: white;float: left;font-size: 10px;font-weight: normal;margin-right: 5px;margin-bottom: 5px;padding: 3px;cursor: default !important;">
+				      <input type="text" tabindex="-1" role="presentation" style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
+					<div class="gwt-Label dashboard-description-tipsy" title="Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need."><%=curriculumData%></div>
+				  </div>
+				  
+				<%}}%>
+				    
+				    <%
+					if(curriculumReducedByTwo != '') {
+				    %>
+				    
+				    <div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=curriculum%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=curriculumReducedByTwo%></div>
+				    <%}%>
+			      </div>
+			 </div>    
+			      
+			      <%
+				    var url = '';
+				    if((typeof data.url != "undefined") && (data.url != "null") && (data.url != '')) {
+				      url=data.url
+			      %>
+			      
+			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+				<div id="profile-half-content-label">URL:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><a href="<%=url%>" target="_blank" style="color: #1076BB;"><%=url%></a></div>
+			</div>
+			      <%}%>
+			      
+			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+				<%
+				    var publisher = '';
+				    if((typeof data.publisher != "undefined") && (data.publisher != "null") && (data.publisher != '')) {
+				    publisher = data.publisher;
+				    
+				%>
+				<div id="profile-half-content-label">Publisher:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=publisher%></div>
+				<%}%>
+			      </div>
+			      
+			      
+			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+				<div id="profile-half-content-label">Host:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;">Hippocampus</div>
+			      </div>
+			      
+			      
+			      
+			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			      <%
+				     
+				     var licenseText = '';
+				     
+				     if((typeof data.license.code != "undefined") && (data.license.code != "null") && (data.license.code != '')) {
+					
+					licenseText = data.license.code;
+					licenseText += '<br /><br />';
+				     }
+				     
+				    if((typeof data.license.name != "undefined") && (data.license.name != "null") && (data.license.name != '')) {
+				    licenseText += data.license.name;
+				    
+				    }
+				    
+				    if((typeof data.license.icon == "undefined") && (data.license.icon == "null") && (data.license.icon == '')) {
+			      %>
+			      
+			    
+				<div id="profile-half-content-label">License:</div>
+				<div id="grade-content" class="dashboard-description-tipsy"  title="<%=licenseText%>" style="float:left;font-size:12px;margin-left: 1%;" ><img src="../images/license.png"></div>
+				<%}%>
+			      </div>
+			      
+			      
+		    </div>
+		    
+	      </div>
+	      
+	      <!--<div id="profile-vertical-line"> </div>-->
+	      
+	     <div id="profile-activity-part2">
+		  
+		     <div id="profile-right-content">
+			  
+			<label>	Collections with this resource (3)</label>
+		     </div>
+		     
+			 
+		     <div id="profile-right-content-scroll-details" style="height: 300px;overflow: auto;margin-left:4%;">
+			  
+			<%
+			      var resourceTitle = '';
+			      var creatorFirstname = '';
+			      var viewCount = '';
+			      var resourceCount = '';
+			      var url = '';
+			      var courseDet = '';
+			      var gooruOid = '';
+			      
+			      for(var index in collection){
+			      
+				  var collectionDataValue = collection[index];
+				  
+				  if((typeof collectionDataValue.title != "undefined") && (collectionDataValue.title != "null") && (collectionDataValue.title != '')) {
+				      resourceTitle = collectionDataValue.title;
+				  }
+				  
+				  if((typeof collectionDataValue.creatorFirstname != "undefined") && (collectionDataValue.creatorFirstname != "null") && (collectionDataValue.creatorFirstname != '')) {
+				      creatorFirstname = collectionDataValue.creatorFirstname;
+				  }
+			          
+			          if((typeof collectionDataValue.viewCount != "undefined") && (collectionDataValue.viewCount != "null") && (collectionDataValue.viewCount != '')) {
+				      viewCount = collectionDataValue.viewCount;
+				  }
+				  
+				   if((typeof collectionDataValue.resourceCount != "undefined") && (collectionDataValue.resourceCount != "null") && (collectionDataValue.resourceCount != '')) {
+				      resourceCount = collectionDataValue.resourceCount;
+				  }
+				  
+				  
+				  if((typeof collectionDataValue.thumbnails.url != "undefined") && (collectionDataValue.thumbnails.url != "null") && (collectionDataValue.thumbnails.url != '')) {
+				      url = collectionDataValue.thumbnails.url;
+				      
+				  }
+				  
+				  if((typeof collectionDataValue.id != "undefined") && (collectionDataValue.id != "null") && (collectionDataValue.id != '')) {
+				      gooruOid = collectionDataValue.id;
+				      
+				  }
+				  
+				  var parser = collectionDataValue.taxonomyDataSet;
+				  var parserVal = $.parseJSON(parser);
+				  
+				  if((typeof parserVal.course != "undefined") && (parserVal.course != "null") && (parserVal.course != '')) {
+				      courseDet = parserVal.course;
+				  }
+			  %>
+			  
+			  <div id="profile-right-side-content" style="height:25%;margin-bottom:6%;">   
+			      <div id="right" style="position:relative">
+				      <div id="profile-widget">
+					<div id="profile-right-content-image-structure" style="height: 80px;border-left: 7px solid #1076bb;float: left;"> 
+					    <img src="<%=url%>"  onerror="this.onerror=null;this.src='../images/default-collection-image.png';" width="120" height="80" data-gooruOid="<%=gooruOid%>" style="cursor:pointer" class="gooru-collection-img" title="<%=resourceTitle%>" />
+					</div>
+					
+					<div id="profile-image-right-title">
+					    <%=resourceTitle%>
+					</div>
+					
+					<div id="profile-secondary-topic">
+					    Created by <span style="color:#1076BB"><%=creatorFirstname%></span>
+					    <p><%=courseDet%></p>
+					    <span >• <%=viewCount%> Views </span> <span style="color:#4E9746"> • <%=resourceCount%> Resources</span>
+					</div>
+				      </div>
+				</div>
+			  </div>
+			   <% } %>
+			
+		      </div>
+	      </div>
+        
+	      
+	      
+	      
+	 </div>
+        
+	      
       </div>
-      <div id="gooru-resource-player-right-container">
-	<div id="gooru-resource-player-right-header">Rights: </div>
-	<div id="gooru-resource-player-right-content">
-	    <span class="resourcePreviewTooltipLicense resourcePreviewLicense"  description="<%= resourceLicense.definition %>" licenseCode="<%= resourceLicense.code %>" licenseUrl = "<%= resourceLicense.url %>" licenseName = "<%= resourceLicense.name %> " >
-	    <% if(resourceLicense.icon != null && typeof(resourceLicense.icon) != 'undefined' && resourceLicense.icon != '') {  %>   
-		    <span> <img  src="<%= assetURI +'/'+resourceLicense.icon %>"  /> </span>
-	    <% } else if($.trim(resourceLicense.name) == 'Other' || resourceLicense.name == ''){ %>
-	      <span class="rightsLicenseName">Not Available</span>
-	    <%}else{%>
-	    <span class="rightsLicenseName"> <%= resourceLicense.name %> </span>
-	      <% } %>
-		    </span>
-	  <% if($.trim(resourceLicense.tag) == 'OER' || (resourceUrl != null && typeof(resourceUrl) != 'undefined' && resourceUrl.indexOf('oercommons.org') >= 0)) { %>
-	  <span class="resourcePreviewTooltipOER resourcePreviewLicenseTagOER resourceBottomPreviewTooltipOER" description="The term Open Educational Resources (OER) refers to educational materials that are freely available and licensed in a way that gives users the legal permission to reuse, revise, remix, and redistribute." oerTitle="Open Education Resources">
-		      <span><img class="oerimage"  src="../images/OER_small.png"/>  </span>
-		</span>
-	  <%} %>
-	</div>
-    </div>
-    <div id="gooru-resource-player-social-container">
-	<div id="gooru-resource-player-social-header">Social: </div> 
-	<div id="gooru-resource-player-social-content">
-	      <div id="gooru-resource-player-social-views"><%= resourceViews %> View<% if(resourceViews > 1){  %>s <% } %></div>
-	</div>
-    </div>
-  </div>
-</div>	
+
+
+
+
+
+
 </div>
-<div id="gooru-resource-player-learn-more-container" class="gooru-resource-player-menu-container"></div>
+
+
+

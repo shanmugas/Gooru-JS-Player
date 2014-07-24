@@ -20,5 +20,5 @@
         </div>
     </div>
 </div>
-<div id="gooru-resource-player-meta-container"></div>
+<div id="gooru-resource-player-meta-container" class="gooru-resource-player-meta-container"></div>
 <div id="gooru-resource-player-container"></div>

@@ -19,6 +19,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 var GOORU_REST_ENDPOINT = ('https:' == document.location.protocol ? 'https://' : 'http://') + '${gooru.player.rest.point}';
+var GOORU_SEARCH_ENDPOINT = ('https:' == document.location.protocol ? 'https://' : 'http://') + '${gooru.player.search.endpoint}';
+var GOORU_PLAYER = ('https:' == document.location.protocol ? 'https://' : 'http://') + '${gooru.player}';
 var DOC_HOME = ('https:' == document.location.protocol ? 'https://' : 'http://') + '${gooru.player.doc.home}';
 var DOC_CACHE = '${gooru.player.doc.cache}';
 var HOME_URL = '${gooru.player.home}'
