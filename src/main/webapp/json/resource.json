@@ -1,0 +1,415 @@
+{
+"resourceInfo":{
+"tags":"",
+"numOfPages":null,
+"lastUpdated":1362752827000
+},
+"contentPermissions":[
+{
+"partyUid":"2e9112d2-689b-44d3-8e61-29f64fef98e8"
+}
+],
+"statusType":null,
+"batchId":"RESOURCE-000080",
+"contentType":{
+"description":"resource",
+"name":"resource"
+},
+"entryId":"22038",
+"collaboratorCount":null,
+"indexType":"resource",
+"vocaularyString":null,
+"social":{
+"contentRating":{
+"point":null,
+"voteUp":2,
+"count":0,
+"previousContentUserRating":null,
+"score":null,
+"votes":null,
+"votesDown":0,
+"type":null,
+"votesUp":2,
+"average":0
+},
+"contentUserRating":0,
+"subscriptionCount":5,
+"isContentAlreadySubscribed":false,
+"subscriptionsList":[
+{
+"cont_firstname":"Senthil",
+"cont_lastname":"Basuva Raj A S",
+"subscribedOn":"2012-03-12 09:47:00.0",
+"cont_userId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"scb_userId":"338f52c5-dc80-461d-b840-4b385c167d89"
+},
+{
+"cont_firstname":"Timothy",
+"cont_lastname":"Bayless",
+"subscribedOn":"2012-07-14 12:15:50.0",
+"cont_userId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"scb_userId":"f5393694-3e85-4097-ae2d-58ad34bae74d"
+},
+{
+"cont_firstname":"Mallory",
+"cont_lastname":"Moser",
+"subscribedOn":"2012-01-05 18:47:40.0",
+"cont_userId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"scb_userId":"7ad9124a-8da3-4930-8e51-03beacc627b3"
+},
+{
+"cont_firstname":"Alicia",
+"cont_lastname":"GL",
+"subscribedOn":"2012-02-06 18:38:57.0",
+"cont_userId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"scb_userId":"4e6f39a4-0c8b-4434-82c0-daf299c52c49"
+},
+{
+"cont_firstname":"Ian",
+"cont_lastname":"Davey",
+"subscribedOn":"2012-02-10 22:57:12.0",
+"cont_userId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"scb_userId":"bcbdb6cf-0667-4c39-b9da-967f6a7383d7"
+}
+]
+},
+"description":"Use this quiz to test students' knowledge of the water cycle. They will have to name the process that either transforms or transports water from place-to-place. Click on the correct answer.",
+"votesDown":null,
+"parentUrl":null,
+"votesUp":null,
+"taxonomyDataSet":null,
+"lastModifiedString":null,
+"tagSet":null,
+"resourceSource":{
+"hasHttpsSupport":0,
+"resourceSourceId":435,
+"resourceSource":null,
+"frameBreaker":0,
+"sourceName":"Scripps Institution of Oceanography",
+"activeStatus":1,
+"protocolSupported":1,
+"domainName":"earthguide.ucsd.edu",
+"type":"normalDomain",
+"attribution":"Scripps Institution of Oceanography",
+"isBlacklisted":0
+},
+"publicMetaData":" Water Cycle Animation , ",
+"resourceTaxonomyData":{
+"topic":[
+],
+"course":[
+],
+"lesson":[
+],
+"unit":[
+],
+"subject":[
+],
+"curriculum":{
+"curriculumName":[
+"California State Standards - Science 6-12"
+],
+"curriculumCode":[
+"CA.SCI.9-12.ES.9c","CA.SCI.9-12.ES.9c","CA.SCI.9-12.ES.9c","CA.SCI.9-12.ES.9c","CA.SCI.9-12.ES.9c"
+],
+"curriculumDesc":[
+"Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need.",
+"Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need.",
+"Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need.",
+"Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need.",
+"Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need."
+]
+}
+},
+"isNew":false,
+"scollectionCount":null,
+"revisionHistoryUid":null,
+"customFieldValues":{
+"cfAge":"",
+"cfCountryCode":"US",
+"cfContent":"Open",
+"cfDataType":"HTML",
+"cfTags":"",
+"cfStandardsCode":"",
+"cfEndUser":"Student",
+"cfGooruTopic":"",
+"cfUrl":"http://earthguide.ucsd.edu/earthguide/diagrams/watercycle/watercycleq.html",
+"cfStandards":"",
+"cfKeywords":"",
+"cfCrawlOrigin":"NextWealth",
+"cfCopyrightHolder":"© 2013 University of California.",
+"cfAggregateAbbreviation":"",
+"cfTitle":" Water Cycle Animation",
+"cfGooruConcept":"",
+"cfLanguageCode":"eng",
+"cfGooruLesson":"",
+"cfBrandAttribution":"University of California San Diego",
+"cfDescription":"Use this quiz to test students' knowledge of the water cycle. They will have to name the process that either transforms or transports water from place-to-place. Click on the correct answer.",
+"cfLicenseTag":"",
+"cfLicenseCode":"",
+"cfThumbnail":"slides/thumbnail.jpg",
+"cfGooruSubject":"Science",
+"cfGradeLevel":"",
+"cfParentAttribution":"University of California",
+"cfSeriesTitle":"",
+"cfGooruCourse":"Chemistry",
+"cfAggregator":"",
+"cfDuration":"",
+"cfCrawlMethod":"Mozenda",
+"cfChildAttribution":"",
+"cfAuthor":"",
+"cfSize":"",
+"cfFileCode":"20130302_ExistingResources1",
+"cfParentAbbreviation":"",
+"cfLearningMode":"Expositive",
+"cfCourseNumber":"",
+"cfSchoolLevel":"",
+"cfChildAbbreviation":"",
+"cfUrlAlternate":"",
+"cfCrawledSubject":"Science",
+"cfDateCreated":"2013-03-04 00:00:00",
+"cfImportMode":"Update",
+"cfScriptCode":"Latn",
+"cfLicense":"",
+"cfResourceType":"Exam",
+"cfGooruUnit":""
+},
+"assetURI":"http://d2evc3ksyfg5cd.cloudfront.net/qalive/",
+"url":"http://earthguide.ucsd.edu/earthguide/diagrams/watercycle/watercycleq.html",
+"numberOfSubcribers":0,
+"createdOn":1362752827000,
+"resourceViews":397,
+"category":"Exam",
+"thumbnail":"3621e625-96bd-40be-863a-3fe4c2f6b26d_6336c1af-a32d-4a2e-bc06-26e3437e072e.png",
+"resourceFormat":{
+"selected":null,
+"customTableValueId":102,
+"value":"audio",
+"customTable":{
+"description":null,
+"customTableId":23,
+"name":"resource_category_format",
+"displayName":"Resource Category Format"
+},
+"displayName":"Webpage",
+"keyValue":"resource_category_format_webpage"
+},
+"taxonomyMapByCode":null,
+"distinguish":0,
+"scollectionIds":null,
+"hasAdvertisement":null,
+"brokenStatus":0,
+"viewCount":null,
+"ratings":{
+"scores":{
+"5":2
+},
+"count":2,
+"average":5
+},
+"numOfPages":null,
+"aggregator":[
+],
+"userRating":null,
+"sourceReference":null,
+"resultUId":null,
+"isFeatured":0,
+"copiedResourceId":"3325e4fd-b1a4-4783-9ffd-3ee3be9449de",
+"contentId":22038,
+"mediaType":"not_ipad_friendly",
+"meta":null,
+"publisher":[
+"University of California San Diego"
+],
+"creator":{
+"lastName":"Shore",
+"parentUser":null,
+"partyUid":"ee410cef-2a44-46ef-878d-172511e54e07",
+"organizationName":"Gooru",
+"accountCreatedType":null,
+"gooruUId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"profileImageUrl":"http://profile-demo.s3.amazonaws.com/profile-prod/ee410cef-2a44-46ef-878d-172511e54e07.png",
+"usernameDisplay":"Rocky",
+"isDeleted":false,
+"meta":null,
+"loginType":"Credential",
+"entryId":"12",
+"createdOn":"2013-03-14 07:37:15.0",
+"username":"Rocky",
+"confirmStatus":1,
+"emailId":"",
+"viewFlag":1,
+"userId":12,
+"active":1,
+"registerToken":null,
+"userRoleSetString":"Content_Admin,User",
+"firstName":"Rocky",
+"accountTypeId":3
+},
+"title":" Water Cycle Animation",
+"sharing":"public",
+"lessonsString":null,
+"resourceTypeByString":null,
+"depthOfKnowledges":null,
+"grade":"1,2,3,4,5,6,7,8",
+"course":"Environmental Science,Agriculture Science,Environmental Science,Agriculture Science,Environmental Science,Agriculture Science,Environmental Science,Agriculture Science",
+"isOer":null,
+"addDate":null,
+"subscriptionCount":null,
+"averageTime":null,
+"license": {
+"icon": null,
+"definition": null,
+"tag": null,
+"name": "Creative Commons Attribution 1.0",
+"code": "CC BY",
+"url": "http://creativecommons.org/licenses/by/3.0/"
+},
+"siteName":null,
+"tags":"",
+"recordSource":"goorucrawled",
+"instructional":{
+"selected":null,
+"customTableValueId":98,
+"value":"quiz",
+"customTable":{
+"description":null,
+"customTableId":22,
+"name":"resource_instructional_use",
+"displayName":"Resource Instructional Use"
+},
+"displayName":"Quiz",
+"keyValue":"resource_instructional_use_quiz"
+},
+"fileHash":null,
+"momentsOfLearning":[
+{
+"selected":false,
+"value":"Extending Understanding"
+},
+{
+"selected":false,
+"value":"Interacting with the Text"
+},
+{
+"selected":false,
+"value":"Preparing the Learning"
+}
+],
+"scollectionTitles":null,
+"collectionCount":null,
+"lastModified":1404855052000,
+"vocabulary":null,
+"durationInSec":null,
+"customFields":null,
+"metaInfo":null,
+"lastUpdatedUserUid":"ANONYMOUS",
+"hasFrameBreaker":false,
+"thumbnails":{
+"dimensions":"80x60,160x120",
+"defaultImage":false,
+"url":"http://d2evc3ksyfg5cd.cloudfront.net/qalive/0002/2038/3621e625-96bd-40be-863a-3fe4c2f6b26d_6336c1af-a32d-4a2e-bc06-26e3437e072e.png"
+},
+"isDeleted":false,
+"resourceType":{
+"description":"web resource",
+"name":"resource/url"
+},
+"folder":"0002/2038/",
+"goals":null,
+"new":null,
+"gooruOid":"3621e625-96bd-40be-863a-3fe4c2f6b26d",
+"indexId":"22038",
+"views":397,
+"attach":null,
+"s3UploadFlag":1,
+"isFeaturedBoolean":false,
+"user":{
+"lastName":"Shore",
+"parentUser":null,
+"partyUid":"ee410cef-2a44-46ef-878d-172511e54e07",
+"organizationName":"Gooru",
+"accountCreatedType":null,
+"gooruUId":"ee410cef-2a44-46ef-878d-172511e54e07",
+"profileImageUrl":"http://profile-demo.s3.amazonaws.com/profile-prod/ee410cef-2a44-46ef-878d-172511e54e07.png",
+"usernameDisplay":"Rocky",
+"isDeleted":false,
+"meta":null,
+"loginType":"Credential",
+"entryId":"12",
+"createdOn":"2013-03-14 07:37:15.0",
+"username":"Rocky",
+"confirmStatus":1,
+"emailId":"",
+"viewFlag":1,
+"userId":12,
+"active":1,
+"registerToken":null,
+"userRoleSetString":"Content_Admin,User",
+"firstName":"Rocky",
+"accountTypeId":3
+},
+"trackActivity":null,
+"educationalUse":[
+{
+"selected":false,
+"value":"Activity"
+},
+{
+"selected":false,
+"value":"Article"
+},
+{
+"selected":false,
+"value":"Book"
+},
+{
+"selected":false,
+"value":"Curriculum Plan"
+},
+{
+"selected":false,
+"value":"Game"
+},
+{
+"selected":false,
+"value":"Handout"
+},
+{
+"selected":false,
+"value":"Homework"
+},
+{
+"selected":false,
+"value":"Lesson Plan"
+},
+{
+"selected":false,
+"value":"Presentation"
+},
+{
+"selected":false,
+"value":"Project Plan"
+},
+{
+"selected":false,
+"value":"Quiz"
+},
+{
+"selected":false,
+"value":"Reading"
+},
+{
+"selected":false,
+"value":"Reference Material"
+},
+{
+"selected":false,
+"value":"Textbook"
+},
+{
+"selected":false,
+"value":"Unit Plan"
+}
+]
+}
