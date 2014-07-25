@@ -22,7 +22,7 @@
 		     
 		     var curriculum = '';
 		     
-		     if((typeof data.resourceFormat.value != "undefined") && (data.resourceFormat.value != "null") && (data.resourceFormat.value != '')) {
+		     if((typeof data.resourceFormat.value != "undefined") && (data.resourceFormat.value != "null") && (data.resourceFormat.value != null) && (data.resourceFormat.value != '')) {
 			resourceFormat = data.resourceFormat.value;
 			if(resourceFormat=="webpage"){
 			    resourceFormatImage = "category-webpage";
@@ -47,8 +47,9 @@
 			}
 		      }
 		      
-		     
-		      if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != '')) {
+		    
+		      if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != null) && (data.grade != '')) {
+		      
 			grade = data.grade;
 			var split = grade.split(",");
 			
@@ -71,17 +72,17 @@
 			
 		      }
 		    
-		      if((typeof data.title != "undefined") && (data.title != "null") && (data.title != '')) {
+		      if((typeof data.title != "undefined") && (data.title != "null") && (data.title != null) && (data.title != '')) {
 			title = data.title;
 		      }
 		      
 		      
 		      
-		      if((typeof data.views != "undefined") && (data.views != "null") && (data.views != '')) {
+		      if((typeof data.views != "undefined") && (data.views != "null") && (data.views != null) && (data.views != '')) {
 			views = data.views;
 		      }
 		      
-		       if((typeof data.description != "undefined") && (data.description != "null") && (data.description != '')) {
+		       if((typeof data.description != "undefined") && (data.description != "null") && (data.description != null) && (data.description != '')) {
 			description = data.description;
 		      }
 	      %>
@@ -118,7 +119,7 @@
 		    <div id="profile-content-list">
 			      <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 			      <%
-				   if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != '')) {
+				   if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != null) && (data.grade != '')) {
 				   
 				   %>
 				<div id="profile-half-content-label">Grade:</div>
@@ -137,7 +138,7 @@
 			      
 				<%
 				      var getcourseVal = '';
-				      if((typeof data.course != "undefined") && (data.course != "null") && (data.course != '')) {
+				      if((typeof data.course != "undefined") && (data.course != "null") && (data.course != null) && (data.course != '')) {
 				      course = data.course;
 				      var courseSplit = course.split(",");
 				      var courseMaxLength = 2;
@@ -168,7 +169,7 @@
 				
 			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 				<%
-				      if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
+				      if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != null) &&  (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
 				%>
 				
 				<div id="profile-half-content-label" style="width: 100%;height: 14px;">Standards:</div>
@@ -177,12 +178,12 @@
 				<%	
 					var curriculumData = '';
 					
-					if((typeof data.resourceTaxonomyData.curriculum.curriculumDesc != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumDesc != "null") && (data.resourceTaxonomyData.curriculum.curriculumDesc != '')) {
+					if((typeof data.resourceTaxonomyData.curriculum.curriculumDesc != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumDesc != "null") && (data.resourceTaxonomyData.curriculum.curriculumDesc != null) && (data.resourceTaxonomyData.curriculum.curriculumDesc != '')) {
 					
 					    curricumDetail = data.resourceTaxonomyData.curriculum.curriculumDesc;
 					}
 				     
-					if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
+					if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != null) &&  (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
 					  curriculum = data.resourceTaxonomyData.curriculum.curriculumCode;
 					  var curriculamLength = curriculum.length;
 					 
@@ -218,7 +219,7 @@
 			      
 			      <%
 				    var url = '';
-				    if((typeof data.url != "undefined") && (data.url != "null") && (data.url != '')) {
+				    if((typeof data.url != "undefined") && (data.url != "null") && (data.url != null) && (data.url != '')) {
 				      url=data.url
 			      %>
 			      
@@ -231,7 +232,7 @@
 			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 				<%
 				    var publisher = '';
-				    if((typeof data.publisher != "undefined") && (data.publisher != "null") && (data.publisher != '')) {
+				    if((typeof data.publisher != "undefined") && (data.publisher != "null") && (data.publisher != null) && (data.publisher != '')) {
 				    publisher = data.publisher;
 				    
 				%>
@@ -253,18 +254,18 @@
 				     
 				     var licenseText = '';
 				     
-				     if((typeof data.license.code != "undefined") && (data.license.code != "null") && (data.license.code != '')) {
+				     if((typeof data.license.code != "undefined") && (data.license.code != "null") && (data.license.code != null) && (data.license.code != '')) {
 					
 					licenseText = data.license.code;
 					licenseText += '<br /><br />';
 				     }
 				     
-				    if((typeof data.license.name != "undefined") && (data.license.name != "null") && (data.license.name != '')) {
+				    if((typeof data.license.name != "undefined") && (data.license.name != "null") && (data.license.name != null) && (data.license.name != '')) {
 				    licenseText += data.license.name;
 				    
 				    }
 				    
-				    if((typeof data.license.icon == "undefined") && (data.license.icon == "null") && (data.license.icon == '')) {
+				    if((typeof data.license.icon != "undefined") && (data.license.icon != "null") && (data.license.icon != null) && (data.license.icon != '')) {
 			      %>
 			      
 			    
@@ -285,7 +286,7 @@
 		     <div id="profile-right-content">
 			  <%
 			      var collectionCount = '';
-			      if((typeof cdata.resultCount != "undefined") && (cdata.resultCount != "null") && (cdata.resultCount != '')) {
+			      if((typeof cdata.resultCount != "undefined") && (cdata.resultCount != "null") && (cdata.resultCount != null) && (cdata.resultCount != '')) {
 				  collectionCount = cdata.resultCount;
 			      }
 			  %>
@@ -303,44 +304,50 @@
 			      var url = '';
 			      var courseDet = '';
 			      var gooruOid = '';
+			      var parserVal = '';
 			      
 			      for(var index in collection){
 			      
 				  var collectionDataValue = collection[index];
 				  
-				  if((typeof collectionDataValue.title != "undefined") && (collectionDataValue.title != "null") && (collectionDataValue.title != '')) {
+				  if((typeof collectionDataValue.title != "undefined") && (collectionDataValue.title != "null") && (collectionDataValue.title != null) && (collectionDataValue.title != '')) {
 				      resourceTitle = collectionDataValue.title;
 				  }
 				  
-				  if((typeof collectionDataValue.creatorFirstname != "undefined") && (collectionDataValue.creatorFirstname != "null") && (collectionDataValue.creatorFirstname != '')) {
+				  if((typeof collectionDataValue.creatorFirstname != "undefined") && (collectionDataValue.creatorFirstname != "null") && (collectionDataValue.creatorFirstname != null) && (collectionDataValue.creatorFirstname != '')) {
 				      creatorFirstname = collectionDataValue.creatorFirstname;
 				  }
 			          
-			          if((typeof collectionDataValue.viewCount != "undefined") && (collectionDataValue.viewCount != "null") && (collectionDataValue.viewCount != '')) {
+			          if((typeof collectionDataValue.viewCount != "undefined") && (collectionDataValue.viewCount != "null") && (collectionDataValue.viewCount != null) && (collectionDataValue.viewCount != '')) {
 				      viewCount = collectionDataValue.viewCount;
 				  }
 				  
-				   if((typeof collectionDataValue.resourceCount != "undefined") && (collectionDataValue.resourceCount != "null") && (collectionDataValue.resourceCount != '')) {
+				   if((typeof collectionDataValue.resourceCount != "undefined") && (collectionDataValue.resourceCount != "null") && (collectionDataValue.resourceCount != null) && (collectionDataValue.resourceCount != '')) {
 				      resourceCount = collectionDataValue.resourceCount;
 				  }
 				  
 				  
-				  if((typeof collectionDataValue.thumbnails.url != "undefined") && (collectionDataValue.thumbnails.url != "null") && (collectionDataValue.thumbnails.url != '')) {
+				  if((typeof collectionDataValue.thumbnails.url != "undefined") && (collectionDataValue.thumbnails.url != "null") && (collectionDataValue.thumbnails.url != null) && (collectionDataValue.thumbnails.url != '')) {
 				      url = collectionDataValue.thumbnails.url;
 				      
 				  }
 				  
-				  if((typeof collectionDataValue.id != "undefined") && (collectionDataValue.id != "null") && (collectionDataValue.id != '')) {
+				  if((typeof collectionDataValue.id != "undefined") && (collectionDataValue.id != "null") && (collectionDataValue.id != null) && (collectionDataValue.id != '')) {
 				      gooruOid = collectionDataValue.id;
 				      
 				  }
 				  
-				  var parser = collectionDataValue.taxonomyDataSet;
-				  var parserVal = $.parseJSON(parser);
-				  
-				  if((typeof parserVal.course != "undefined") && (parserVal.course != "null") && (parserVal.course != '')) {
+				  if((typeof collectionDataValue.taxonomyDataSet != "undefined") && (collectionDataValue.taxonomyDataSet != "null") && (collectionDataValue.taxonomyDataSet != null) &&  (collectionDataValue.taxonomyDataSet != '')) {
+				      var parser = collectionDataValue.taxonomyDataSet;
+				      parserVal = $.parseJSON(parser);
+				      
+				      if((typeof parserVal.course != "undefined") && (parserVal.course != "null") && (parserVal.course != null) &&  (parserVal.course != '')) {
 				      courseDet = parserVal.course;
+				      }
+				      
 				  }
+				  
+				  
 			  %>
 			  
 			  <div id="profile-right-side-content" style="height:25%;margin-bottom:6%;">   
