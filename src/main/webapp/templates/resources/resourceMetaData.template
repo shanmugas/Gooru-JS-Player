@@ -225,7 +225,7 @@
 			      
 			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 				<div id="profile-half-content-label">URL:</div>
-				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><a href="<%=url%>" target="_blank" style="color: #1076BB;"><%=url%></a></div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;margin-top: -2%;margin-bottom: 2%;"><a href="<%=url%>" target="_blank" style="color: #1076BB;"><%=url%></a></div>
 			</div>
 			      <%}%>
 			      
@@ -285,7 +285,7 @@
 		  
 		     <div id="profile-right-content">
 			  <%
-			      var collectionCount = '';
+			      var collectionCount = "0";
 			      if((typeof cdata.resultCount != "undefined") && (cdata.resultCount != "null") && (cdata.resultCount != null) && (cdata.resultCount != '')) {
 				  collectionCount = cdata.resultCount;
 			      }
@@ -294,7 +294,7 @@
 		     </div>
 		     
 			 
-		     <div id="profile-right-content-scroll-details" style="height: 300px;overflow: auto;margin-left:4%;">
+		     <div id="profile-right-content-scroll-details" style="height: 240px;overflow: auto;margin-left:4%;">
 			  
 			<%
 			      var resourceTitle = '';
@@ -350,7 +350,7 @@
 				  
 			  %>
 			  
-			  <div id="profile-right-side-content" style="height:25%;margin-bottom:6%;">   
+			  <div id="profile-right-side-content" style="height:25%;margin-bottom:10%;">   
 			      <div id="right" style="position:relative">
 				      <div id="profile-widget">
 					<div id="profile-right-content-image-structure" style="height: 80px;border-left: 7px solid #1076bb;float: left;"> 
