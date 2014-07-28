@@ -71,7 +71,7 @@ var resourcePreview = {
 	    collectionURL = HOME_URL+"/json/collection.json";
 	  
 	 } else {
-	    collectionURL = GOORU_SEARCH_ENDPOINT+'/search/scollection?sessionToken='+sessionToken+'&pageNum=1&pageSize=5&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
+	    collectionURL = GOORU_SEARCH_ENDPOINT+'/search/scollection?sessionToken='+sessionToken+'&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
 	 }
 	 $.ajax({
 	      type: "GET",
@@ -571,6 +571,7 @@ $(document).ready(function () {
 					var questionHeader = $(this).attr('original-title');
 					
 					var splitQues = questionHeader.split(",");
+					
 					var text = '<ul style="width:auto;padding-right:20px;text-align:left;">';
 					for(var i=2; i< splitQues.length; i++){
 					  
