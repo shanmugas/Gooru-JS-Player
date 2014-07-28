@@ -294,7 +294,7 @@
 		     </div>
 		     
 			 
-		     <div id="profile-right-content-scroll-details" style="height: 240px;overflow: auto;margin-left:4%;">
+		     <div id="profile-right-content-scroll-details" style="height: 207px;overflow: auto;margin-left:4%;">
 			  
 			<%
 			      var resourceTitle = '';
@@ -350,7 +350,7 @@
 				  
 			  %>
 			  
-			  <div id="profile-right-side-content" style="height:25%;margin-bottom:10%;">   
+			  <div id="profile-right-side-content" style="height:25%;margin-bottom:12%;">   
 			      <div id="right" style="position:relative">
 				      <div id="profile-widget">
 					<div id="profile-right-content-image-structure" style="height: 80px;border-left: 7px solid #1076bb;float: left;"> 
