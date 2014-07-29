@@ -101,7 +101,7 @@
 			
 		    </div>
 		    <div id="profile-title" style="width: 100%;float: left;clear: both;font-weight: bold;margin-bottom: 1%;margin-top: 2%;">
-			<div style="font-size: 12px;width: 20%;float: left;">Webpage </div>
+			<div style="font-size: 12px;width: 20%;float: left;"><%=resourceFormat%> </div>
 			<div style="width: 5px;height: 5px;float: left;background-color: #0d0e0d;margin-top: 4px;" class="org-ednovo-gooru-client-uc-PlayerBundle-PlayerStyle-resoruce-info-separator-bulletBlack"></div>
 			<div id="profile-total-resource-views" style="width: 70%;float: left;margin-left: 5%;font-size: 12px;"><%=views%> Views</div>
 			 
@@ -138,19 +138,19 @@
 			      
 				<%
 				      var getcourseVal = '';
-				      if((typeof data.course != "undefined") && (data.course != "null") && (data.course != null) && (data.course != '')) {
-				      course = data.course;
-				      var courseSplit = course.split(",");
+				      if((typeof data.resourceTaxonomyData.course != "undefined") && (data.resourceTaxonomyData.course != "null") && (data.resourceTaxonomyData.course != null) && (data.resourceTaxonomyData.course != '')) {
+				      course = data.resourceTaxonomyData.course;
+				      var courseSplit = course.length;
 				      var courseMaxLength = 2;
 				      
 				      if(courseSplit<=2){
-					courseMaxLength = courseSplit.length;
+					courseMaxLength = courseSplit;
 				      }else{
-					courseReducedByTwo = courseSplit.length - 2;
+					courseReducedByTwo = courseSplit - 2;
 				      }
 				      
 				      for(var j=0; j<courseMaxLength; j++){
-					getcourseVal += courseSplit[j];
+					getcourseVal += course[j];
 					if(j!=courseMaxLength-1){
 					  getcourseVal += ',';
 					}
@@ -211,8 +211,12 @@
 				<%}}%>
 				    
 				   
-				    
+					<%
+					  if(curriculumReducedByTwo != ''){
+				      %>
+				      
 				    <div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=curriculum%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=curriculumReducedByTwo%></div>
+				    <%}%>
 				    <%}%>
 			      </div>
 			 </div>    
@@ -314,8 +318,8 @@
 				      resourceTitle = collectionDataValue.title;
 				  }
 				  
-				  if((typeof collectionDataValue.creatorFirstname != "undefined") && (collectionDataValue.creatorFirstname != "null") && (collectionDataValue.creatorFirstname != null) && (collectionDataValue.creatorFirstname != '')) {
-				      creatorFirstname = collectionDataValue.creatorFirstname;
+				  if((typeof collectionDataValue.usernameDisplay != "undefined") && (collectionDataValue.usernameDisplay != "null") && (collectionDataValue.usernameDisplay != null) && (collectionDataValue.usernameDisplay != '')) {
+				      creatorFirstname = collectionDataValue.usernameDisplay;
 				  }
 			          
 			          if((typeof collectionDataValue.viewCount != "undefined") && (collectionDataValue.viewCount != "null") && (collectionDataValue.viewCount != null) && (collectionDataValue.viewCount != '')) {
