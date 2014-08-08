@@ -7,6 +7,11 @@
 
 
 	      <%	
+		     var isHeaderGeneral = false;
+		     var isHeaderEducational = false;
+		     var isHeaderResource = false;
+		     var isHeaderAccess = false;
+		     	      
 		     var getGradeVal = '';
 		     var reduceByTwo = '';
 		     var grade = '';
@@ -54,7 +59,7 @@
 			var split = grade.split(",");
 			
 			maxLength = 2;
-			if(split<=2){
+			if(split.length<=2){
 			  maxLength = split.length;
 			}else{
 			  reduceByTwo = split.length - 2;
@@ -97,30 +102,37 @@
 			<div id="profile-header-details-major" style="width: 100%;float: left;margin-top: 2%;">
 			  <span class="gooru-resource-type <%=resourceFormatImage%>" style="background: url(../images/resource-type-icons.png) no-repeat;width: 28px;height: 20px;float:left;padding-right:4%;"></span>
 			  <span><%=title%></span>
-			</div>
-			
+			</div>			
 		    </div>
+		    
 		    <div id="profile-title" style="width: 100%;float: left;clear: both;font-weight: bold;margin-bottom: 1%;margin-top: 2%;">
 			<div style="font-size: 12px;width: 20%;float: left;"><%=resourceFormat%> </div>
 			<div style="width: 5px;height: 5px;float: left;background-color: #0d0e0d;margin-top: 4px;" class="org-ednovo-gooru-client-uc-PlayerBundle-PlayerStyle-resoruce-info-separator-bulletBlack"></div>
 			<div id="profile-total-resource-views" style="width: 70%;float: left;margin-left: 5%;font-size: 12px;"><%=views%> Views</div>
 			 
 		    </div>
+		    
+		    
 		    <div id="profile-description-content">
 			<p><%=description%></p>
 		    </div>
 		    
-		    <div id="profile-subcontent-header-content">
-			<label>GENERAL INFO</label>
-		    </div>
 		    
-		    <div id="profile-horizondal-line"></div>
 		    
-		    <div id="profile-content-list">
+		    
+		    <div id="subcontent-header-plus-content-general">
+		      
+		      <div id="profile-subcontent-header-content">
+			  <label>General Info</label>
+		      </div>
+		    
+		      <div id="profile-horizondal-line"></div>
+		    
+		      <div id="profile-content-list">
 			      <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 			      <%
 				   if((typeof data.grade != "undefined") && (data.grade != "null") && (data.grade != null) && (data.grade != '')) {
-				   
+					isHeaderGeneral = true;
 				   %>
 				<div id="profile-half-content-label">Grade:</div>
 				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getGradeVal%></div>
@@ -139,7 +151,9 @@
 				<%
 				      var getcourseVal = '';
 				      if((typeof data.resourceTaxonomyData.course != "undefined") && (data.resourceTaxonomyData.course != "null") && (data.resourceTaxonomyData.course != null) && (data.resourceTaxonomyData.course != '')) {
-				      course = data.resourceTaxonomyData.course;
+					  
+					  isHeaderGeneral = true;
+					  course = data.resourceTaxonomyData.course;
 				      var courseSplit = course.length;
 				      var courseMaxLength = 2;
 				      
@@ -167,9 +181,10 @@
 				<%}%>
 			      </div>
 				
-			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			      <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 				<%
 				      if((typeof data.resourceTaxonomyData.curriculum.curriculumCode != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumCode != "null") && (data.resourceTaxonomyData.curriculum.curriculumCode != null) &&  (data.resourceTaxonomyData.curriculum.curriculumCode != '')) {
+					isHeaderGeneral = true;
 				%>
 				
 				<div id="profile-half-content-label" style="width: 100%;height: 14px;">Standards:</div>
@@ -224,6 +239,7 @@
 			      <%
 				    var url = '';
 				    if((typeof data.url != "undefined") && (data.url != "null") && (data.url != null) && (data.url != '')) {
+				      isHeaderGeneral = true;
 				      url=data.url
 			      %>
 			      
@@ -237,6 +253,7 @@
 				<%
 				    var publisher = '';
 				    if((typeof data.publisher != "undefined") && (data.publisher != "null") && (data.publisher != null) && (data.publisher != '')) {
+				    isHeaderGeneral = true;
 				    publisher = data.publisher;
 				    
 				%>
@@ -246,10 +263,10 @@
 			      </div>
 			      
 			      
-			<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			<!--<div id="profile-full-content-paragraph" style="width:100%;clear:both;">
 				<div id="profile-half-content-label">Host:</div>
 				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;">Hippocampus</div>
-			      </div>
+			      </div>-->
 			      
 			      
 			      
@@ -270,6 +287,7 @@
 				    }
 				    
 				    if((typeof data.license.icon != "undefined") && (data.license.icon != "null") && (data.license.icon != null) && (data.license.icon != '')) {
+				    isHeaderGeneral = true;
 			      %>
 			      
 			    
@@ -279,9 +297,247 @@
 			      </div>
 			      
 			      
+		    </div><!-- general list finish-->
+		  </div><!-- general content finish-->
+
+		  
+			<%
+			  if(!isHeaderGeneral){
+			%>
+			<style type="text/css">
+			#subcontent-header-plus-content-general{
+			  display: none;
+			}
+			</style>
+			<%}%>
+		<div id="subcontent-header-plus-content-educational">
+		  <div id="profile-subcontent-header-content">
+		    <label>Educational Info</label>
+		  </div>
+		  <div id="profile-horizondal-line"></div>
+		  <div id="profile-content-list">
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfEndUser != "undefined") && (data.customFieldValues.cfEndUser != "null") && (data.customFieldValues.cfEndUser != null) && (data.customFieldValues.cfEndUser != '')) {
+					isHeaderEducational = true;
+				   %>
+				<div id="profile-half-content-label">Role:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfEndUser%></div>
+				<%} %>
+			  </div>
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfLearningMode != "undefined") && (data.customFieldValues.cfLearningMode != "null") && (data.customFieldValues.cfLearningMode != null) && (data.customFieldValues.cfLearningMode != '')) {
+					isHeaderEducational = true;
+				   %>
+				<div id="profile-half-content-label">Interactivity Type:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfLearningMode%></div>
+				<%} %>
+			  </div>
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfReadingLevel != "undefined") && (data.customFieldValues.cfReadingLevel != "null") && (data.customFieldValues.cfReadingLevel != null) && (data.customFieldValues.cfReadingLevel != '')) {
+				      isHeaderEducational = true;
+				   %>
+				<div id="profile-half-content-label">Reading Level:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfReadingLevel%></div>
+				<%} %>
+			  </div>
+		  </div><!-- educational list finish-->
+		
+		</div><!-- educational content finish-->
+		
+		
+			<%
+			  if(!isHeaderEducational){
+			%>
+			<style type="text/css">
+			#subcontent-header-plus-content-educational{
+			  display: none;
+			}
+			</style>
+			<%}%>
+		
+		<div id="subcontent-header-plus-content-resource">
+		    <div id="profile-subcontent-header-content">
+		      <label>Resource Info</label>
 		    </div>
+		    <div id="profile-horizondal-line"></div>
 		    
-	      </div>
+		    <div id="profile-content-list" style="width:100%;">
+		
+		    <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfCountryCode != "undefined") && (data.customFieldValues.cfCountryCode != "null") && (data.customFieldValues.cfCountryCode != null) && (data.customFieldValues.cfCountryCode != '')) {
+				      isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Country Code:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfCountryCode%></div>
+				<%} %>			  
+			  </div>
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfLanguageCode != "undefined") && (data.customFieldValues.cfLanguageCode != "null") && (data.customFieldValues.cfLanguageCode != null) && (data.customFieldValues.cfLanguageCode != '')) {
+				      isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Language:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfLanguageCode%></div>
+				<%} %>			  
+			  </div>
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfDataType != "undefined") && (data.customFieldValues.cfDataType != "null") && (data.customFieldValues.cfDataType != null) && (data.customFieldValues.cfDataType != '')) {
+				      isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Data Type:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfDataType%></div>
+				<%} %>			  
+			  </div>
+			  
+			  <%
+				      var getKeywordsVal = '';
+				      if((data.customFieldValues.cfKeywords != "undefined") && (data.customFieldValues.cfKeywords != "null") && (data.customFieldValues.cfKeywords != null) && (data.customFieldValues.cfKeywords != '')) {
+				      keyWords = data.customFieldValues.cfKeywords;
+				      var keyWordsSplit = keyWords.split(',');
+				      var keyWordsMaxLength = 2;
+				      var keyWordsReducedByTwo= '';
+				      var moreTwo=false;
+				      if(keyWordsSplit.length<=2){
+					keyWordsMaxLength = keyWordsSplit.length;
+				      }else{
+					moreTwo=true;
+					keyWordsReducedByTwo = keyWordsSplit.length - 2;
+				      }
+				      for(var j=0; j<keyWordsMaxLength; j++){
+					getkeyWordsVal += keyWordsSplit[j];
+					if(j!=keyWordsMaxLength-1){
+					  getkeyWordsVal += ',';
+					}
+				      }
+				    }
+				%>
+
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfKeywords != "undefined") && (data.customFieldValues.cfKeywords != "null") && (data.customFieldValues.cfKeywords != null) && (data.customFieldValues.cfKeywords != '')) {
+					isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Access Mode:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getkeyWordsVal%></div>
+				<%
+				    if(moreTwo!=false){
+				      
+				%>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=role%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=keyWordsReducedByTwo%></div>
+				<% }
+			    } %>			  
+			  </div>
+			  
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfAuthor != "undefined") && (data.customFieldValues.cfAuthor != "null") && (data.customFieldValues.cfAuthor != null) && (data.customFieldValues.cfAuthor != '')) {
+				      isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Author:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfAuthor%></div>
+				<%} %>			  
+			  </div>
+			  
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			    <%
+				   if((typeof data.customFieldValues.cfCopyrightHolder != "undefined") && (data.customFieldValues.cfCopyrightHolder != "null") && (data.customFieldValues.cfCopyrightHolder != null) && (data.customFieldValues.cfCopyrightHolder != '')) {
+				      isHeaderResource=true;
+				   %>
+				<div id="profile-half-content-label">Copyright Holder:</div>
+				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfCopyrightHolder%></div>
+				<%} %>			  
+			  </div>
+		    
+		    </div><!-- resource list finish-->
+		</div><!-- resource content finish-->
+		    	
+		    	<%
+			  if(!isHeaderResource){
+			%>
+			<style type="text/css">
+			#subcontent-header-plus-content-resource{
+			  display: none;
+			}
+			</style>
+			<%}%>
+		    	
+		    	<div id="subcontent-header-plus-content-access" style="margin-top:8%">
+				  <div id="profile-subcontent-header-content">
+				    <label>Accessibility</label>
+				  </div>
+				  <div id="profile-horizondal-line"></div>
+				  <div id="profile-content-list" >
+				  
+				  <%
+			    var getAccessModeVal = '';
+			    if((typeof data.customFieldValues.cfAccessMode != "undefined") && (data.customFieldValues.cfAccessMode != "null") && (data.customFieldValues.cfAccessMode != null) && (data.customFieldValues.cfAccessMode != '')) {
+			      accessMode = data.customFieldValues.cfAccessMode;
+			      var accessModeSplit = accessMode.split(',');
+			      var accessModeMaxLength = 2;
+			      var accessModeReducedByTwo= '';
+			      var moreTwo=false;
+			      if(accessModeSplit.length<=2){
+				accessModeMaxLength = accessModeSplit.length;
+			      }else{
+				moreTwo=true;
+				accessModeReducedByTwo = accessModeSplit.length - 2;
+			      }
+			      for(var j=0; j<accessModeMaxLength; j++){
+				getAccessModeVal += accessModeSplit[j];
+				if(j!=accessModeMaxLength-1){
+				  getAccessModeVal += ',';
+				}
+			      }
+			    }
+			    
+			%>
+
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			  <%
+			    if((typeof data.customFieldValues.cfAccessMode != "undefined") && (data.customFieldValues.cfAccessMode != "null") && (data.customFieldValues.cfAccessMode != null) && (data.customFieldValues.cfAccessMode != '')) {
+			      isHeaderAccess = true;
+			      
+			  %>
+			      <div id="profile-half-content-label">Access Mode:</div>
+			      <div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getAccessModeVal%></div>
+			      <%
+				if(moreTwo!=false){
+			      %>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=role%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=accessModeReducedByTwo%></div>
+			      <% }} %>			  
+			  </div>
+			  
+			  <div id="profile-full-content-paragraph" style="width:100%;clear:both;">
+			  <%
+			    if((typeof data.customFieldValues.cfControlFlexibility != "undefined") && (data.customFieldValues.cfControlFlexibility != "null") && (data.customFieldValues.cfControlFlexibility != null) && (data.customFieldValues.cfControlFlexibility != '')) {
+			      
+			      isHeaderAccess = true;
+			      
+			  %>
+			      <div id="profile-half-content-label">Control Flexibility:</div>
+			      <div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=data.customFieldValues.cfControlFlexibility%></div>
+			  <%} %>			  
+			  </div>
+		    
+		    </div><!-- access list finish-->
+		  </div><!-- access content finish-->
+		      
+		      <%
+			  if(!isHeaderAccess){
+			%>
+			<style type="text/css">
+			#subcontent-header-plus-content-access{
+			  display: none;
+			}
+			</style>
+			<%}%>
+
+	      </div><!-- part1 finish-->
 	      
 	      <!--<div id="profile-vertical-line"> </div>-->
 	      
@@ -315,7 +571,9 @@
 				  var collectionDataValue = collection[index];
 				  
 				  if((typeof collectionDataValue.title != "undefined") && (collectionDataValue.title != "null") && (collectionDataValue.title != null) && (collectionDataValue.title != '')) {
+				      
 				      resourceTitle = collectionDataValue.title;
+				      resourceTitle = wordWarpMethod(resourceTitle,30);
 				  }
 				  
 				  if((typeof collectionDataValue.usernameDisplay != "undefined") && (collectionDataValue.usernameDisplay != "null") && (collectionDataValue.usernameDisplay != null) && (collectionDataValue.usernameDisplay != '')) {

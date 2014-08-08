@@ -43,15 +43,11 @@ var resourcePreview = {
 	
 	 var resourceId = param.id;
 	 var sessionToken = USER.sessionToken;
-	 var test = checkLocalHost();
+	
 	 var url = '';
-	 if(checkLocalHost()){
-	   
-	   url = HOME_URL+"/json/resource.json";
-	 } else {
+	 
 	   
 	   url = GOORU_REST_ENDPOINT+"/resource/"+resourceId+"/play.json?sessionToken="+sessionToken;
-	 }
 	
 	 $.ajax({
 		     type: "GET",
@@ -67,12 +63,8 @@ var resourcePreview = {
    renderCollectionDetails: function(rData,resourceId,sessionToken){
 	 var collectionURL = '';
 	
-	if(checkLocalHost()){
-	    collectionURL = HOME_URL+"/json/collection.json";
-	  
-	 } else {
-	    collectionURL = GOORU_SEARCH_ENDPOINT+'/search/scollection?sessionToken='+sessionToken+'&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
-	 }
+  collectionURL=GOORU_SEARCH_ENDPOINT+'/search/scollection?sessionToken='+sessionToken+'&flt.resourceGooruOIds='+resourceId+'&boostField.hasNoThumbnail=0';
+	
 	 $.ajax({
 	      type: "GET",
 	      url: collectionURL,
@@ -552,12 +544,22 @@ $(document).ready(function () {
 });
 
 
- function checkLocalHost() {
-	if (window.location.href.indexOf("anand.goorulearning.org") > -1) {
-		return true;
-	} else {
-		return false;
-	}
+    function wordWarpMethod(title, noOfLetters) {
+	  if (noOfLetters == '') {
+	  noOfLetters = 80;
+	  }
+	  if (title == null || title == "") {
+	  var emptyValue = '';
+	  return emptyValue;
+	  }
+	  if (( typeof title == "undefined") || ( typeof title == null)) {
+	  var title = '';
+	  return title;
+	  }
+	  if (title.length > noOfLetters) {
+	  title = title.substr(0, noOfLetters) + '...';
+	  }
+	  return title;
     }
     
     function tipsyFn (){

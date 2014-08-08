@@ -25,6 +25,7 @@ var DOC_HOME = ('https:' == document.location.protocol ? 'https://' : 'http://')
 var DOC_CACHE = '${gooru.player.doc.cache}';
 var HOME_URL = '${gooru.player.home}'
 
+
 var USER = {
   sessionToken: '2397d31f-20a6-4e3b-a993-ab7ee1d7b0c1',
   gooruUid : ""
