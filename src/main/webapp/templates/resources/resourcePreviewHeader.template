@@ -7,13 +7,13 @@
 	</div>
     </div>
     <div id="gooru-resource-player-header-meta-right">
-	<div id="gooru-resource-player-learn-more" class="gooru-resource-player-menu">
+	<!--<div id="gooru-resource-player-learn-more" class="gooru-resource-player-menu">
 	  <div id="gooru-resource-player-learn-more-header">Learn More</div>
 	  <span class="resourcePreviewHeaderNavigationArrow resourcePreviewHeaderNavigationArrowLearnMore"></span>
 	</div>
 	<div id="gooru-resource-player-learn-more-grey" >
 	  <div id="gooru-resource-player-learn-more-header-grey">Learn More</div>
-	</div>
+	</div>-->
 	<div id="gooru-resource-player-about" class="gooru-resource-player-menu">
 	    <div id="gooru-resource-player-about-header" class="gooru-resource-player-menu-about-selected">Info</div>
 	    <span class="resourcePreviewHeaderNavigationArrow resourcePreviewHeaderNavigationArrowAbout"></span>
