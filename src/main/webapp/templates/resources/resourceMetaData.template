@@ -3,7 +3,7 @@
 
 
 
-<div id="gooru-resource-player-about-container" class="gooru-resource-player-menu-container">
+<div id="gooru-resource-player-about-container" class="gooru-resource-player-menu-container" style="display:none">
 
 
 	      <%	
