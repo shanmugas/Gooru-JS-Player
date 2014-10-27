@@ -48,8 +48,8 @@
 		      var isMixedContent = false;
 		      var domainProtocol = window.location.protocol.substring(0, window.location.protocol.length - 1).trim();
 			if (resourceUrl.indexOf('youtube.com') != -1) {
-				resourceUrl = gooruHelper.formYouTubeVideoUrl(resourceUrl);  
-			} else {
+				%><div id="resourcePlayYoutubeplayer-<%= gooruOid %>"  class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%" class="resourceYoutubeplayerContainer currentlyPlayingYoutubeVideoResource" data-playerid=<%= gooruOid  %>  data-videostop="<%= stopTime %>"></div>
+			<%} else {
 			  var resourceProtocol = resourceUrl.substring(0,6).trim()
 			  if(resourceProtocol.split(":")[0] != domainProtocol) {
 			    isMixedContent = true;
