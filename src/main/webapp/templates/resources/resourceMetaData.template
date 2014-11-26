@@ -26,7 +26,7 @@
 		     var resourceFormatImage = '';
 		     
 		     var curriculum = '';
-		     
+		     var curricumDetail = '';
 		     if((typeof data.resourceFormat.value != "undefined") && (data.resourceFormat.value != "null") && (data.resourceFormat.value != null) && (data.resourceFormat.value != '')) {
 			resourceFormat = data.resourceFormat.value;
 			if(resourceFormat=="webpage"){
