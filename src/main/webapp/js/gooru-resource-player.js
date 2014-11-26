@@ -119,7 +119,7 @@ var resourcePreview = {
 	$('#meta-data-description').attr('content', publicMetaData);
         var signedBaseUrl = GOORU_REST_ENDPOINT + '/signed/resource/url/' + gooruOid;
         $('div#gooru-resource-player-container').html(previewTemplate);
-        switch (type) {
+        switch (type) {	    
 	  case 'video/youtube':
 	    var videoId = helper.getYoutubeVideoId(resourceUrl);
 	    resourcePlayers.youtubeVideo(videoId, startTime, 'resourcePlayYoutubeplayer-' + gooruOid);

@@ -553,14 +553,14 @@ var helper = {
 
 var activityLog =  {
   init : function (settings) { 
-    $.ajax ({
+    /*$.ajax ({
       type : 'POST',
       url : GOORU_REST_ENDPOINT + '/activity/log/' + settings.eventId + '/' + settings.type,
       data: {contentGooruOid : settings.contentGooruOid, eventName : settings.eventName, parentGooruOid : settings.parentGooruOid, context : settings.context},
       success:function(data){
 
       }
-    });
+    });*/
   },
   triggerActivityLog : function(eventId, type, gooruOid, eventName, parentGooruOid, context, section) { 
     if (typeof(eventId) != 'undefined' &&  typeof(gooruOid) != 'undefined') {
