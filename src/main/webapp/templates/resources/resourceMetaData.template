@@ -192,7 +192,7 @@
 				
 				<%	
 					var curriculumData = '';
-					
+					var curriculumDesc = '';
 					if((typeof data.resourceTaxonomyData.curriculum.curriculumDesc != "undefined") && (data.resourceTaxonomyData.curriculum.curriculumDesc != "null") && (data.resourceTaxonomyData.curriculum.curriculumDesc != null) && (data.resourceTaxonomyData.curriculum.curriculumDesc != '')) {
 					
 					    curricumDetail = data.resourceTaxonomyData.curriculum.curriculumDesc;
@@ -213,14 +213,14 @@
 					  
 					  for(var i=0; i<maxCurriculum; i++){
 					    curriculumData = curriculum[i];
-					   
+					    curriculumDesc = curricumDetail[i];
 					 
 				%>	
 				
 				
 				  <div tabindex="0"  class="org-ednovo-gooru-client-uc-PlayerBundle-PlayerStyle-info-style-Standard " style="background: -moz-linear-gradient(center top, #666, #515151) repeat scroll 0 0 transparent;background: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#515151));background: -webkit-linear-gradient(top, #666, #515151);background-image: -ms-linear-gradient(top, #666, #515151);background: -o-linear-gradient(top, #666, #515151);background-color: #515151;border-radius: 3px 3px 3px 3px;-webkit-border-radius: 3px 3px 3px 3px;-moz-border-radius: 3px 3px 3px 3px;-ms-border-radius: 3px 3px 3px 3px;-khtml-border-radius: 3px 3px 3px 3px;-o-border-radius: 3px 3px 3px 3px;color: white;float: left;font-size: 10px;font-weight: normal;margin-right: 5px;margin-bottom: 5px;padding: 3px;cursor: default !important;">
 				      <input type="text" tabindex="-1" role="presentation" style="opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;">
-					<div class="gwt-Label dashboard-description-tipsy" title="Students know the importance of water to society, the origins of California's fresh water, and the relationship between supply and need."><%=curriculumData%></div>
+					<div class="gwt-Label dashboard-description-tipsy" title="<%=curriculumDesc%>"><%=curriculumData%></div>
 				  </div>
 				  
 				<%}}%>
