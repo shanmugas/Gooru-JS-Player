@@ -395,7 +395,7 @@
 			  </div>
 			  
 			  <%
-				      var getKeywordsVal = '';
+				      var getkeyWordsVal = '';
 				      if((data.customFieldValues.cfKeywords != "undefined") && (data.customFieldValues.cfKeywords != "null") && (data.customFieldValues.cfKeywords != null) && (data.customFieldValues.cfKeywords != '')) {
 				      keyWords = data.customFieldValues.cfKeywords;
 				      var keyWordsSplit = keyWords.split(',');
@@ -425,10 +425,9 @@
 				<div id="profile-half-content-label">Access Mode:</div>
 				<div id="grade-content" style="float:left;font-size:12px;margin-left: 1%;"><%=getkeyWordsVal%></div>
 				<%
-				    if(moreTwo!=false){
-				      
+				    if(moreTwo!=false){				      
 				%>
-				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=role%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=keyWordsReducedByTwo%></div>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=keyWords%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=keyWordsReducedByTwo%></div>
 				<% }
 			    } %>			  
 			  </div>
@@ -508,7 +507,7 @@
 			      <%
 				if(moreTwo!=false){
 			      %>
-				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=role%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=accessModeReducedByTwo%></div>
+				<div id="dashboard-resource-course-num" class="dashboard-course-num-tipsy" title="<%=accessMode%>" style="margin-left: 1%;font-size: 12px;color: #0f76bb;cursor: pointer;margin-top: 2px;width: 31px;float: left;">+<%=accessModeReducedByTwo%></div>
 			      <% }} %>			  
 			  </div>
 			  

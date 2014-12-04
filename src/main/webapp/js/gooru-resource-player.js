@@ -52,7 +52,7 @@ var resourcePreview = {
 	 $.ajax({
 		     type: "GET",
 		     url: url,
-		     dataType: "json",
+		     dataType: "jsonp",
 		     success: function(data){
 		       resourcePreview.renderCollectionDetails(data,resourceId,sessionToken);
 		     }
@@ -68,7 +68,7 @@ var resourcePreview = {
 	 $.ajax({
 	      type: "GET",
 	      url: collectionURL,
-	      dataType: "json",
+	      dataType: "jsonp",
 	      success: function(cData){
 		    var collectionData = cData.searchResults;
 		  var resourceMetaData = new EJS({
