@@ -120,10 +120,10 @@ var resourcePreview = {
         var signedBaseUrl = GOORU_REST_ENDPOINT + '/signed/resource/url/' + gooruOid;
         $('div#gooru-resource-player-container').html(previewTemplate);
         switch (type) {	    
-	  case 'video/youtube':
+	  /*case 'video/youtube':
 	    var videoId = helper.getYoutubeVideoId(resourceUrl);
 	    resourcePlayers.youtubeVideo(videoId, startTime, 'resourcePlayYoutubeplayer-' + gooruOid);
-	  break;
+	  break;*/
 	  case 'animation/kmz':
 	    mtours.init((signedBaseUrl + '?file=' + resourceUrl), 'resourcePreviewGoogleEarthContainer');
 	  break;

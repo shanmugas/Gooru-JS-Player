@@ -42,7 +42,7 @@
 	    %>
 	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	    	</div>
-    <% } else if(type == "resource/url") { %>
+    <% } else if(type == "resource/url" || type == "video/youtube") { %>
 	<div id="resourcePreviewWebResourceContainer">
 		    <% if(resourcestatus.statusIsFrameBreaker == 0 || resourcestatus.statusIsFrameBreaker == null) {
 		      var isMixedContent = false;
@@ -63,7 +63,7 @@
 		    <%
 		    
 		    if(!isMixedContent) {
-		      if(videoId != null){
+		      if(videoId != null){			    
 			%>
 			<iframe  width=100% height="100%" style="height:<%= resourcePreviewContainerHeight %>px;" class="gooru-resource-player-preview-container" src="http://www.youtube.com/embed/<%=videoId%>?autoplay=1"> </iframe>
 		      <%}else{
