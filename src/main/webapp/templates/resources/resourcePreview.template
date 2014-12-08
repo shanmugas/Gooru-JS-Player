@@ -65,7 +65,7 @@
 		    if(!isMixedContent) {
 		      if(videoId != null){			    
 			%>
-			<iframe  width=100% height="100%" style="height:<%= resourcePreviewContainerHeight %>px;" class="gooru-resource-player-preview-container" src="http://www.youtube.com/embed/<%=videoId%>?autoplay=1"> </iframe>
+			<iframe  width=100% height="100%" style="height:<%= resourcePreviewContainerHeight %>px;" class="gooru-resource-player-preview-container" src="//www.youtube.com/embed/<%=videoId%>?autoplay=1"> </iframe>
 		      <%}else{
 			%>
 			<iframe src="<%=resourceUrl%>"  width=100% height="100%" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;"  hspace=0 vspace=0 frameborder=0 ></iframe>
