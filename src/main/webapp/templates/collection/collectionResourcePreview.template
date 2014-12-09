@@ -105,7 +105,28 @@ var collectionResourcePreviewContainerHeight = $(window).height() - 155;
   <% } else if(type == "animation/kmz"){%>
       <div id="collectionResourcePreviewGoogleEarthContainer" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%"></div>
   <%} else if(type == "video/youtube") { %>
-	    <div id="resourcePlayYoutubeplayer-<%= gooruOid %>"  class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" class="resourceYoutubeplayerContainer currentlyPlayingYoutubeVideoResource" data-playerid=<%= gooruOid  %>  data-videostop="<%= stopTime %>"></div>
+	    <div id="resourcePlayYoutubeplayer-<%= gooruOid %>"  class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" class="resourceYoutubeplayerContainer currentlyPlayingYoutubeVideoResource" data-playerid=<%= gooruOid  %>  data-videostop="<%= stopTime %>">
+	    
+	    <%
+			var isMixedContent = false;
+			var videoId = null;
+			if (resourceUrl.indexOf('youtube.com') != -1) {
+		  
+			  videoId=resourceUrl.substring(resourceUrl.indexOf('=')+1,resourceUrl.indexOf('=')+12).trim();
+
+			} if(videoId != null){	
+		
+	    %>
+	  
+	    
+	    <iframe  width=100% height="100%" style="height:<%= collectionResourcePreviewContainerHeight %>px;" class="gooru-resource-player-preview-container" src="//www.youtube.com/embed/<%=videoId%>?autoplay=1"> </iframe>
+	    
+	    
+	    
+	    <% } %>
+	    
+	    </div>
+	   
   <%} else if(type == "textbook/scribd") { %>
 	    <div id="collectionResourcePreviewTextbookScribd" class="gooru-collection-player-preview-container" style="height:<%= collectionResourcePreviewContainerHeight %>px;width:100%" ></div>
   <%} else if(type == "assessment-question") { %>
