@@ -322,7 +322,7 @@ var resourcePreview = {
 	eventLoggingData.resourceType = (type == 'assessment-question') ? "question" : "resource";
 	activityLog.generateEventLogData(eventLoggingData);
       }
-      setInterval(function(){resourcePreview.triggerStopEventLoggingForResource(eventLoggingData)}, 5000);
+      //setInterval(function(){resourcePreview.triggerStopEventLoggingForResource(eventLoggingData)}, 5000);
       resourcePreview.submitQuestionEventData(eventLoggingData);
   },
   
