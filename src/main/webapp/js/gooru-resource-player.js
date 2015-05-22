@@ -192,10 +192,10 @@ var resourcePreview = {
 	    isWebResource : null,
 	    resourceExtenstion : null,
 	    stopTime : null,
-	    resourceUserRating : data.social.contentUserRating,
-	    resourceRating : data.social.contentRating,
+	    /*resourceUserRating : data.social.contentUserRating,*/
+	    /*resourceRating : data.social.contentRating,*/
 	    resourceViews : null,
-	    isResourceAlreadyAdded : data.social.isContentAlreadySubscribed,
+	    /*isResourceAlreadyAdded : data.social.isContentAlreadySubscribed,*/
 	    documentKey : null,
 	    documentId : null,
 	    resourcestatus : {},
