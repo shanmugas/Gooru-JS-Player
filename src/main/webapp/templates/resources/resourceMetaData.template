@@ -617,7 +617,7 @@
 					<div id="profile-right-content-image-structure" style="height: 80px;border-left: 7px solid #1076bb;float: left;"> 
 					    <img src="<%=url%>"  onerror="this.onerror=null;this.src='../images/default-collection-image.png';" width="120" height="80" data-gooruOid="<%=gooruOid%>" style="cursor:pointer" class="gooru-collection-img" title="<%=resourceTitle%>" />
 					</div>
-					
+					<div id="profile-right-resoruce-details" style="width:65%;float:left;min-height:90px;">
 					<div id="profile-image-right-title">
 					    <%=resourceTitle%>
 					</div>
@@ -626,6 +626,7 @@
 					    Created by <span style="color:#1076BB"><%=creatorFirstname%></span>
 					    <p><%=courseDet%></p>
 					    <span >• <%=viewCount%> Views </span> <span style="color:#4E9746"> • <%=resourceCount%> Resources</span>
+					</div>
 					</div>
 				      </div>
 				</div>
