@@ -155,10 +155,16 @@ var resourcePreview = {
     var gooruOid = param.id;
 
     var resourceInstanceId = param.resourceInstanceId;
-    var url = GOORU_REST_ENDPOINT + '/resource/resourceSource/' + gooruOid + '.json?';
+    //var url = GOORU_REST_ENDPOINT + '/resource/resourceSource/' + gooruOid + '.json?';
+      /*if (typeof(resourceInstanceId) != 'undefined' && resourceInstanceId != null && resourceInstanceId != '') {
+	url = GOORU_REST_ENDPOINT + '/collection/dummy/resourceInstance/'+ resourceInstanceId + '.json';
+      }*/
+      
+      var url = GOORU_REST_ENDPOINT + '/resource/' + gooruOid + '/play.json';
       if (typeof(resourceInstanceId) != 'undefined' && resourceInstanceId != null && resourceInstanceId != '') {
 	url = GOORU_REST_ENDPOINT + '/collection/dummy/resourceInstance/'+ resourceInstanceId + '.json';
       }
+      
       $.ajax({
 	type : 'GET', 
 	url : url,
@@ -215,6 +221,8 @@ var resourcePreview = {
 	    questionHints:null,
 	    questionImageURL:null,
 	    assetURI: null,
+	    thumbnailAssetURI: null,
+	    thumbnailFolder: null,
 	    resourceFormatType:data.resourceFormat.value
 	  };
 	  previewValues.gooruOid = param.id;
@@ -243,6 +251,7 @@ var resourcePreview = {
 	      previewValues.documentKey = (data.resource.documentkey == null) ? '': data.resource.documentkey;							previewValues.resourcestatus.statusIsBroken = data.resource.resourcestatus.statusIsBroken;
 	      previewValues.resourcestatus.statusIsFrameBreaker = data.resource.resourcestatus.statusIsFrameBreaker;
 	      previewValues.thumbnail = data.resource.thumbnail;
+	      
 	      if(typeof data.resource.instructornotes != 'undefined' && data.resource.instructornotes != null) {
 	      previewValues.resourceNarrative = data.resource.instructornotes.instruction;
 	      }								
@@ -251,6 +260,12 @@ var resourcePreview = {
 	      }	
 	    } else {	        
 	      previewValues.resourceUrl = data.url;
+	      
+	      if(typeof data.thumbnails != 'undefined' && data.thumbnails !=null && data.thumbnails !=''){
+		  previewValues.thumbnailAssetURI = data.thumbnails.thumbnailAssetURI;
+		  previewValues.thumbnailFolder = data.thumbnails.thumbnailFolder;
+	      }
+	      
 	      previewValues.type = data.resourceType.name;
 	      previewValues.startPPT = (data.start == null || data.start == '') ? 1 : data.start;
 	      previewValues.stopPPT = (data.stop == null) ? '' : data.stop;

@@ -9,6 +9,18 @@
   }
   var signedBaseUrl = GOORU_REST_ENDPOINT + '/resource/signed-url/'+gooruOid;
   resourcePreviewContainerHeight = $(window).height() - 162;
+  
+  var docUrl = '';
+  var pattern = /^((http|https|ftp):\/\/)/;
+  if(!pattern.test(resourceUrl)) {
+	docUrl = thumbnailAssetURI;
+	docUrl += thumbnailFolder;
+	docUrl += resourceUrl;
+	
+  }else{
+	docUrl = resourceUrl;
+  }
+  
 %>
 <div class="resourcePreviewBoxPopUpContainer">
   <div id="resourcePreviewBoxHeaderContainer" ></div>
@@ -32,12 +44,8 @@
     <% } else if (!useScribd && (resourceExtenstion == "pdf" || resourceExtenstion == "pptx" || resourceExtenstion == "ppt"))  { %>    	
 	<div class="resourcePreviewHandlePresentationContainer">
 	    <% 
-		docUrl = resourceUrl;
-		if (isWebResource) {
-		      signedFlag=0; 
-		} else { 
-		      signedFlag=1;
-		} 
+		
+		var signedFlag=0; 
 		var startPage = startPPT -1;
 	    %>
 	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
