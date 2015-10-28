@@ -49,7 +49,7 @@ var scollectionPlay = {
             $('div#gooru-collection-player-base-container').html(collectionInfo).css('height', $(window).height());
             return;
         }
-        var url = GOORU_REST_ENDPOINT + '/v2/collection/' + param.id + '?includeCollectionItem=true&includeMetaInfo=true';
+        var url = GOORU_REST_ENDPOINT + '/v2/collection/' + param.id + '?sessionToken='+ USER.sessionToken +'&includeCollectionItem=true&includeMetaInfo=true';
         $.ajax({
             type: 'GET',
             url: url,
