@@ -11,6 +11,7 @@
   resourcePreviewContainerHeight = $(window).height() - 162;
   
   var docUrl = '';
+  var pdfFilePath = filePath + resourceUrl;
   var pattern = /^((http|https|ftp):\/\/)/;
   if(!pattern.test(resourceUrl)) {
 	docUrl = thumbnailAssetURI;
@@ -18,7 +19,7 @@
 	docUrl += resourceUrl;
 	
   }else{
-	docUrl = resourceUrl;
+	docUrl = resourceUrl;			
   }
   
 %>
@@ -48,7 +49,7 @@
 		var signedFlag=0; 
 		var startPage = startPPT -1;
 	    %>
-	    <iframe id="gooruPdfPreview"   src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= docUrl %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
+	    <iframe id="gooruPdfPreview" src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= pdfFilePath %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	    	</div>
     <% } else if(type == "resource/url" || type == "video/youtube") { %>
 	<div id="resourcePreviewWebResourceContainer">
