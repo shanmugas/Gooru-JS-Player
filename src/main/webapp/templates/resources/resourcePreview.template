@@ -48,10 +48,18 @@
 		
 		var signedFlag=0; 
 		var startPage = startPPT -1;
+		
+	    if(resourceUrl.indexOf('http')) {
+		console.log(resourceUrl);
 	    %>
 	    <iframe id="gooruPdfPreview" src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= pdfFilePath %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
 	    	</div>
-    <% } else if(type == "resource/url" || type == "video/youtube") { %>
+	    	
+       <% } else { %>
+       	<iframe id="gooruPdfPreview" src="<%= DOC_HOME %>?startPage=<%= startPPT %>&endPage=<%= stopPPT %>&signedFlag=<%= signedFlag %>&oid=<%= gooruOid %>&appKey=<%= DOC_CACHE %>&url=<%= resourceUrl %>&sessionToken=<%= TOKEN %>" class="gooru-resource-player-preview-container" style="height:<%= resourcePreviewContainerHeight %>px;width:100%;"  frameborder="0"></iframe> 
+	    	</div>    
+	    	
+    <% }} else if(type == "resource/url" || type == "video/youtube") { %>
 	<div id="resourcePreviewWebResourceContainer">
 		    <% if(resourcestatus.statusIsFrameBreaker == 0 || resourcestatus.statusIsFrameBreaker == null) {
 		      var isMixedContent = false;
