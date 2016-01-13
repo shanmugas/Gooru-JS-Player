@@ -297,12 +297,18 @@ var resourcePreview = {
 	      }						
 	      previewValues.resourceViews = Number(data.resourceViews) + 1;					
 	      previewValues.isWebResource = helper.isWebResource(previewValues.resourceUrl, previewValues.type);
-	      previewValues.resourceExtenstion = helper.getResourceFileExtenstion(previewValues.resourceUrl);
+	      if(previewValues.resourceUrl != null && previewValues.resourceUrl != "") {
+	    	  previewValues.resourceExtenstion = helper.getResourceFileExtenstion(previewValues.resourceUrl);
+	      }
 	      if (previewValues.type == "assessment-question") {
 			previewValues.questionType = data.typeName;
 			previewValues.answers = data.quizQuestion.answers;
-			previewValues.questionExplanation = data.explanation;
-			previewValues.questionHints = data.quizQuestion.hints;
+			if(data.explanation != null) {
+				previewValues.questionExplanation = data.explanation;
+			}
+			if(data.quizQuestion.hints != null) {
+				previewValues.questionHints = data.quizQuestion.hints;
+			}
 			previewValues.questionImageURL = resourcePreview.checkImageURLStatus(data.thumbnails.url);
 	      }
 
